@@ -1,0 +1,16 @@
+services:
+  bot:
+    build: .
+    container_name: ai-kripto-bot
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      HOST: 0.0.0.0
+      DATA_DIR: /data
+    ports:
+      - "127.0.0.1:8000:8000"   # only reachable from this computer
+    volumes:
+      - bot-data:/data
+
+volumes:
+  bot-data:

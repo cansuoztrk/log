@@ -1,0 +1,24 @@
+# secrets
+.env
+backend/.env
+
+# python
+__pycache__/
+*.pyc
+backend/.venv/
+.venv/
+.pytest_cache/
+
+# runtime data (database, cached candles, trained models)
+backend/data/
+
+# node
+frontend/node_modules/
+frontend/*.tsbuildinfo
+frontend/tsconfig.tsbuildinfo
+
+# os / editors
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
