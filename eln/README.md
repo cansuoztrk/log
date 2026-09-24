@@ -108,8 +108,8 @@ Repo ayarlarında **Settings → Pages → Source: GitHub Actions** seç. Bu de�
 Site arama motorlarına kapalıdır (`noindex`) ve ilk açılışta “her şeyin başladığı günü” sorar.
 
 **Link önizlemesi:** Linki WhatsApp/Instagram’dan gönderdiğinde küreli bir kapak görseli (`public/og.jpg`) görünür.
-GitHub Pages bunu otomatik ayarlar; Netlify vb. kullanırsan `eln/.env` içindeki `VITE_SITE_ADRESI`’ne
-sitenin tam adresini yaz (ör. `https://eln-icin.netlify.app`) ve yeniden derle.
+GitHub Pages bunu otomatik ayarlar; Netlify vb. kullanırsan sitenin tam adresiyle derle:
+`VITE_SITE_ADRESI=https://eln-icin.netlify.app npm run build`
 
 **Telefonda uygulama gibi:** Eln siteyi açıp Safari’de *Paylaş → Ana Ekrana Ekle* derse
 ana ekranında kendi ikonuyla (doğan güneş ve kalp) bir uygulama gibi durur.
