@@ -36,12 +36,17 @@ import { gununNotu, ruzgarHTML, ruzgarKur } from './bolumler/ruzgar'
 import { ucusHTML, ucusKur } from './bolumler/ucus'
 import { mektupHTML, mektupKur } from './bolumler/mektup'
 import { finalHTML, finalKur } from './bolumler/final'
+import { narHTML, narKur } from './bolumler/nar'
+import { sarkiHTML, sarkiKur } from './bolumler/sarki'
+import { karelerHTML, karelerKur } from './bolumler/kareler'
 import { $, $$, azHareket, gsap, ScrollTrigger } from './bolumler/yardimci'
 import { kapiAc } from './ui/kapi'
 import { ustKur } from './ui/ust'
 import { imlecKur } from './ui/imlec'
 import { mevsimKur } from './ui/mevsim'
 import { karsila, zamanSirlari } from './ui/ozel'
+import { dogumGunuMu, pastaGoster } from './ui/dogumgunu'
+import { nabizKur } from './ui/nabiz'
 
 if ('scrollRestoration' in history) history.scrollRestoration = 'manual'
 window.scrollTo(0, 0)
@@ -51,22 +56,35 @@ const z = anlik()
 document.documentElement.dataset.vakit = z.vakit
 const ziyaret = ziyaretKaydet(z.bugun)
 const not = gununNotu(z)
+const dogum = dogumGunuMu(z)
 
 // ─── Sayfa ───
 $('#icerik').innerHTML = [
-  acilisHTML(z),
+  acilisHTML(z, dogum === 'sen'),
   cizgiHTML(z, ziyaret.gunler.length),
   nehirHTML(),
   gunlerHTML(z),
+  karelerHTML(),
   kulelerHTML(z),
   cayHTML(),
   dillerHTML(),
+  narHTML(z),
   simdiHTML(),
   ruzgarHTML(z, not),
   ucusHTML(z),
+  sarkiHTML(),
   mektupHTML(z),
   finalHTML(ziyaret),
 ].join('')
+
+// Bölüm numaraları sırayla, otomatik (bir bölüm eklenip çıkınca kendiliğinden kayar)
+const ROMA: [number, string][] = [[10, 'X'], [9, 'IX'], [5, 'V'], [4, 'IV'], [1, 'I']]
+const roma = (n: number) => ROMA.reduce((s, [d, h]) => { while (n >= d) { s += h; n -= d } return s }, '')
+$$('[data-bolum]').forEach((b, i) => {
+  b.dataset.bolum = roma(i + 1)
+  const no = b.querySelector('.etiket .no')
+  if (no) no.textContent = roma(i + 1)
+})
 
 // ─── WebGL: tek tuval, dört sahne ───
 let sahne: Sahne | null = null
@@ -111,10 +129,13 @@ nehirKur()
 gunlerKur(z)
 kulelerKur(al<Kuleler>('kule'))
 cayKur(al<Cay>('cay'))
+karelerKur()
 dillerKur()
+narKur(z)
 simdiKur()
 ruzgarKur(not, ust.notlarAc)
 ucusKur()
+sarkiKur()
 mektupKur()
 finalKur(al<Yildizlar>('final'))
 
@@ -146,9 +167,11 @@ const basla = () => {
   lenis?.start()
   ScrollTrigger.refresh()
   sahne?.goster('kure')
+  if (dogum === 'sen') pastaGoster(z, (n) => mevsim.kutla(n))
   window.setTimeout(() => {
-    karsila(z, not, ziyaret, () => mevsim.kutla(), () => ust.git('#ruzgar'))
+    karsila(z, not, ziyaret, () => mevsim.kutla(), () => ust.git('#ruzgar'), dogum)
     zamanSirlari(ziyaret)
+    nabizKur(() => mevsim.kutla(26))
   }, 1400)
 }
 if (parametre.get('kapi') === '0') {
@@ -156,5 +179,5 @@ if (parametre.get('kapi') === '0') {
   basla()
 } else {
   // küre, ışık patladığı anda belirir; kapı açıkken arkada boşuna çizilmesin
-  void kapiAc(z, ziyaret.toplam === 1, () => sahne?.goster('kure')).then(basla)
+  void kapiAc(z, ziyaret.toplam === 1, () => sahne?.goster('kure'), dogum === 'sen').then(basla)
 }

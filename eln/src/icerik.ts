@@ -7,6 +7,7 @@
 
 export interface Kisi {
   ad: string
+  tamAd?: string
   sehir: string // Türkçe yazılışı
   yerelSehir: string // kendi dilindeki yazılışı
   enlem: number
@@ -31,12 +32,16 @@ export const ICERIK = {
 
   sen: {
     ad: 'Eln',
+    tamAd: 'Elnare',
     sehir: 'Bakü',
     yerelSehir: 'Bakı',
     enlem: 40.4093,
     boylam: 49.8671,
     saatDilimi: 'Asia/Baku',
   } satisfies Kisi,
+
+  /** Ona seslendiğim adlar — sitede ara sıra, her seferinde başka biri çıkar */
+  hitaplar: ['aşkım', 'aşkito', 'Elnos'],
 
   /** Bizi tanıştıran arkadaş (adı "nehir" demek — sitede bu da bir metafor) */
   arkadas: 'Nehir',
@@ -55,9 +60,12 @@ export const ICERIK = {
 
   /** Doğum günleri: 'AA-GG' biçiminde, ör. '03-14'. O gün sitede kutlama olur. */
   dogumGunu: {
-    sen: null as string | null,
-    ben: null as string | null,
+    sen: '04-23' as string | null,
+    ben: '11-07' as string | null,
   },
+
+  /** Eln'in doğum yılı (biliniyorsa pastadaki mum sayısı yaşı kadar olur), ör. 2006 */
+  dogumYili: null as number | null,
 
   /** Kapı: siteyi ilk açışta sorulan tarih (gün / ay). */
   kapi: { aktif: true, gun: 6, ay: 12 },
@@ -72,25 +80,34 @@ export const ICERIK = {
    * Bizim şarkımız (isteğe bağlı).
    * dosya: public/ klasörüne koyduğun mp3'ün adı, ör. 'sarkimiz.mp3'
    *        (boşsa site kendi ürettiği sakin müziği çalar)
-   * baglanti: Spotify / YouTube linki (menüde "Şarkımız" olarak görünür)
+   * spotify / youtube: dinleme bağlantıları ("Şarkımız" bölümünde ve menüde görünür)
    */
   sarki: {
-    baslik: '',
-    sanatci: '',
+    baslik: 'Anılar',
+    sanatci: 'Onur Can Özcan',
     dosya: '',
-    baglanti: '',
+    spotify: 'https://open.spotify.com/search/Onur%20Can%20%C3%96zcan%20An%C4%B1lar',
+    youtube: 'https://www.youtube.com/results?search_query=Onur+Can+%C3%96zcan+An%C4%B1lar',
   },
 
   /**
-   * Rüzgâr Postası — Eln sitedeki kutuya bir şey yazıp "rüzgâra bırak"
-   * dediğinde mesaj sana nasıl ulaşsın?
-   *  ntfyKonu: ntfy.sh uygulamasında abone olacağın gizli, uzun bir konu adı
-   *            (ör. 'arda-eln-ruzgar-8f3k2'). Doluysa mesaj anında telefonuna düşer.
-   *  whatsapp: numaran, ülke koduyla ve boşluksuz (ör. '905xxxxxxxxx')
-   *  Hiçbiri doluysa telefonun paylaş menüsü açılır.
+   * Ekran görüntülerimiz (isteğe bağlı): görüntülü aramalardan kareler.
+   * Fotoğrafları public/foto/ klasörüne koy, buraya ekle:
+   * { dosya: 'foto/1.jpg', not: 'İlk görüntülü aramamız' }
+   * Liste boşsa bu bölüm sitede hiç görünmez.
+   */
+  fotograflar: [] as { dosya: string; not?: string }[],
+
+  /**
+   * Rüzgâr Postası ve Kalp Atışı — ntfy.sh üzerinden çalışır (ücretsiz, hesap gerekmez).
+   *  ntfyKonu: gizli, tahmin edilemez bir konu adı. Telefonuna "ntfy" uygulamasını kurup
+   *            BU konuya abone olursan, Eln'in rüzgâra bıraktığı mesajlar bildirim olarak düşer.
+   *            Aynı konu, ikiniz aynı anda sitedeyken "kalp gönder" özelliğini de çalıştırır.
+   *            (Siteyi kendi telefonunda adresin sonuna ?ben=arda ekleyerek bir kez aç.)
+   *  whatsapp: numaran, ülke koduyla ve boşluksuz (ör. '905xxxxxxxxx') — isteğe bağlı yedek
    */
   ruzgarPostasi: {
-    ntfyKonu: '',
+    ntfyKonu: 'osd-pgjpbbe5unvq33p0o1',
     whatsapp: '',
   },
 

@@ -23,21 +23,29 @@ Site, ikinizin hikâyesindeki **gerçek ve şaşırtıcı tesadüfler** üzerine
 | **21 Mayıs = Dünya Çay Günü**; iki ülke de çay ülkesi, bardaklar bile benzer (ince belli / armudu) | 3D çay sahnesi: önce Eln’in armudu bardağı, sonra Arda’nın ince bellisi dolar; buharlar kalp çizer |
 | Türkçe ve Azərbaycan dili aynı kökten | “İki Dil, Tek Kalp”: özledim ↔ darıxmışam, güzelim ↔ gözəlim… |
 | Bakü “rüzgârlar şehri” (Xəzri, Gilavar) | “Rüzgâr Postası”: her gün yeni bir not; Eln’in yazdıkları “rüzgârla” Arda’ya gider |
+| **Elnare** adının içinde **nar** var: Azerbaycan’ın simgesi; eski Türkçede “nâr” = ateş (Odlar Yurdu) | “Adında Bir Nar”: nar kırılır, tanıştığınız gün sayısı kadar tane çıkar ve taneler “Elnare” yazar |
+| Eln’in doğum günü **23 Nisan**: Türkiye’de bayram; “doğmak” hem güneş hem doğum için kullanılır | O gün site “Önce Sana Doğar” yerine **“İyi ki Doğdun”** diye açılır; mumlu pasta, mikrofona üfleyerek dilek |
+| Şarkınız **“Anılar”** (Onur Can Özcan), ama henüz birlikte hiç anınız yok | “Şarkımız”: dönen plak, “ilk gerçek anımız bu şarkı olsun” |
 
 ## Bölümler
 
-1. **Önce Sana Doğar** — 3D dünya küresi, gerçek güneş konumuyla gün doğumu
-2. **Aynı Çizgi** — enlem kurdelesi, mesafe/ışık/saat farkı, “sana yürüyorum” (her ziyaret günü +21 km)
-3. **Bir Nehir** — 6 Aralık, grup bildirimi, Hazar’dan Boğaz’a ışık nehri
-4. **Günlerimiz** — tanıştığınızdan beri her gün bir tohum (ayçiçeği dizilimi), canlı sayaçlar, yaklaşan güzel günler
-5. **İki Kule** — Kız Kulesi & Qız Qalası, Leandros efsanesi, mahya ve Alev Kuleleri
-6. **Çay Günü** — 21 Mayıs, dolan bardaklar, kalp çizen buhar
-7. **İki Dil** — dönen kartlar
-8. **Şu An** — iki şehrin gökyüzü, gerçek güneş ve ay konumuyla (bu gecenin ay evresi dahil)
-9. **Rüzgâr Postası** — günün notu (zarf), toplanan notlar, rüzgâra mesaj
-10. **İlk Buluşma** — havalimanı kalkış panosu (split-flap), birlikte yapılacaklar listesi
-11. **Mektup** — el yazısıyla mektup
-12. **Kalbim** — kalbe basılı tut: yıldızlar önce “Səni sevirəm” yazar, sonra kalp olur
+1. **Önce Sana Doğar**: 3D dünya küresi, gerçek güneş konumuyla gün doğumu
+2. **Aynı Çizgi**: enlem kurdelesi, mesafe/ışık/saat farkı, “sana yürüyorum” (her ziyaret günü +21 km)
+3. **Bir Nehir**: 6 Aralık, grup bildirimi, Hazar’dan Boğaz’a ışık nehri
+4. **Günlerimiz**: tanıştığınızdan beri her gün bir tohum (ayçiçeği dizilimi), canlı sayaçlar, yaklaşan güzel günler
+5. *(isteğe bağlı)* **Ekran Görüntülerimiz**: görüntülü aramalardan kareler, polaroid gibi
+6. **İki Kule**: Kız Kulesi & Qız Qalası, Leandros efsanesi, mahya ve Alev Kuleleri
+7. **Çay Günü**: 21 Mayıs, dolan bardaklar, kalp çizen buhar
+8. **İki Dil**: dönen kartlar
+9. **Adında Bir Nar**: kırılan nar, “Elnare” yazan taneler
+10. **Şu An**: iki şehrin gökyüzü, gerçek güneş, ay ve **hava durumu** (yağmur yağıyorsa pencerede de yağar)
+11. **Rüzgâr Postası**: günün notu (zarf), toplanan notlar, rüzgâra mesaj
+12. **İlk Buluşma**: havalimanı kalkış panosu (split-flap), birlikte yapılacaklar listesi
+13. **Şarkımız**: “Anılar”, plak ve pikap
+14. **Mektup**: el yazısıyla mektup
+15. **Kalbim**: kalbe basılı tut; yıldızlar önce “Səni sevirəm” yazar, sonra kalp olur
+
+Bölüm numaraları otomatik verilir; fotoğraf eklenince numaralar kendiliğinden kayar.
 
 ## Her gelişte farklı olan şeyler
 
@@ -46,7 +54,9 @@ Site, ikinizin hikâyesindeki **gerçek ve şaşırtıcı tesadüfler** üzerine
 - Topladığı notlar birikir, “sana yürüyorum” çubuğu ilerler, bahçeye her gün bir tohum eklenir
 - Ses de her seferinde farklı: müzik tarayıcıda anlık üretilir, aynı melodi iki kez çalmaz
 - Mevsime göre süzülen parçacıklar (kar, çiçek, ateş böceği, yaprak) ve arada bir kayan yıldız
-- **16 sır** (sağ üstteki ✦). Bazıları dokunarak, bazıları sadece belli bir anda bulunur:
+- Ona seslendiğin adlar (aşkım, aşkito, Elnos) her gün başka biri olarak selamlarda ve notlarda çıkar
+- **Aynı anda**: ikiniz aynı anda sitedeyseniz köşede “Arda şu an burada” belirir; kalbe dokununca karşı tarafın ekranında kalp atar, telefonu titrer (aşağıya bak)
+- **19 sır** (sağ üstteki ✦). Bazıları dokunarak, bazıları sadece belli bir anda bulunur:
   aya 3 kez dokunmak, saat **21:05**’te bakmak, gece yarısından sonra gelmek, ayın 21’inde/6’sında gelmek,
   dolunayda gelmek, iki bardağı art arda çınlatmak, bardağına iki şeker atmak, rüzgâra boş mektup bırakmak,
   kayan yıldızı yakalamak, 10 farklı gün gelmek… (Eln’e söyleme 🙂)
@@ -70,6 +80,8 @@ Node.js 20.19+ gerekir.
 - `?tarih=2026-10-21` → ayın 21’i (ay dönümü kutlaması, özel not)
 - `?tarih=2026-12-06` → tanışmanın 1. yılı
 - `?tarih=2027-05-21T21:05` → 1. yıl dönümü, saat 21:05’te “bizim dakikamız”
+- `?tarih=2027-04-23` → Eln’in doğum günü (“İyi ki Doğdun”, pasta ve mumlar)
+- `?tarih=2026-11-07` → senin doğum günün (Eln’e “Arda’ya bir not bırak” hatırlatması)
 - `?kapi=0` → geliştirirken giriş kapısını atla
 
 ## Kişiselleştirme (kod bilgisi gerekmez)
@@ -84,16 +96,25 @@ Her şey iki dosyada:
 - `dogumGunu.sen: '03-14'` gibi yazarsan o gün site kalplerle açılır ve özel not gelir.
 - `anilar` listesine `{ tarih: '2026-01-02', baslik: 'İlk sesli arama' }` gibi satırlar eklersen
   “Günlerimiz” bahçesinde o gün işaretlenir.
-- Kendi şarkınızı eklemek için mp3’ü `public/` klasörüne koy, `sarki.dosya`’ya adını yaz.
+- `dogumYili` yazarsan 23 Nisan’daki pastada yaşı kadar mum olur.
+- `fotograflar`: görüntülü aramalardan ekran görüntülerini `public/foto/` klasörüne koyup listeye eklersen
+  “Ekran Görüntülerimiz” bölümü kendiliğinden belirir.
+- Şarkı dosyan varsa (mp3) `public/` klasörüne koy, `sarki.dosya`’ya adını yaz: plak sitede çalar.
+  Yoksa plak Spotify/YouTube’a yönlendirir.
 
-### Rüzgâr Postası: Eln’in mesajı telefonuna düşsün
+### Rüzgâr Postası ve “Aynı Anda”: iki dakikalık kurulum
 
-1. Telefonuna **ntfy** uygulamasını kur (iOS/Android, ücretsiz).
-2. Uygulamada tahmin edilemez, uzun bir konuya abone ol, ör. `arda-eln-ruzgar-7k2p9q`.
-3. `src/icerik.ts` → `ruzgarPostasi.ntfyKonu` alanına aynı adı yaz.
+İkisi de ücretsiz **ntfy.sh** üzerinden çalışır; sunucu ya da hesap gerekmez. `src/icerik.ts` içinde
+`ruzgarPostasi.ntfyKonu` için rastgele, gizli bir konu adı **hazır yazılı**.
 
-Artık Eln “Rüzgâra bırak” dediğinde mesaj anında telefonuna bildirim olarak gelir.
-(Boş bırakırsan telefonunun paylaş menüsü açılır; `whatsapp` alanına numaranı yazarsan WhatsApp’a gider.)
+1. Telefonuna **ntfy** uygulamasını kur (iOS/Android) ve `ruzgarPostasi.ntfyKonu`’daki konuya **abone ol**.
+   Artık Eln “Rüzgâra bırak” dediğinde mesajı anında bildirim olarak gelir.
+2. Siteyi kendi telefonunda **bir kez** adresin sonuna `?ben=arda` ekleyerek aç
+   (ör. `https://.../?ben=arda`). Telefonun artık seni “Arda” olarak tanır.
+3. İkiniz aynı anda sitedeyken ekranın sol altında “Eln şu an burada” / “Arda şu an burada” belirir.
+   Oradaki kalbe dokunmak, karşı tarafın ekranında kalbi attırır.
+
+Repo herkese açıksa konu adını kendine özel yeni bir adla değiştir (sadece ikinizin bilmesi yeterli).
 
 ## Yayınlama (Eln’e link göndermek için)
 
@@ -121,6 +142,8 @@ ana ekranında kendi ikonuyla (doğan güneş ve kalp) bir uygulama gibi durur.
   telefonda hızlı açılır. Tek bir WebGL tuvali tüm sahneler arasında paylaşılır.
 - **GSAP** (ScrollTrigger, SplitText) + **Lenis** — kaydırmaya bağlı sinematik anlatım
 - **SunCalc** — gerçek güneş/ay konumu, doğuş/batış saatleri, ay evresi
+- **Open-Meteo** — iki şehrin anlık hava durumu (anahtar gerekmez; bağlantı yoksa site havasız da çalışır)
+- **ntfy.sh** — rüzgâr postası bildirimleri ve “aynı anda” kalp atışı
 - **Web Audio** — ses dosyası yok; pad akorları, müzik kutusu notaları, dalga ve rüzgâr anlık üretilir
 - Yazı tipleri: Cormorant Garamond, Plus Jakarta Sans, Caveat, Great Vibes, JetBrains Mono
   (hepsi Azərbaycan harfleri **ə, Ə** dahil kontrol edildi)

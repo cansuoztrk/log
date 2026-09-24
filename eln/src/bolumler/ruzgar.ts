@@ -15,7 +15,22 @@ export interface GununNotu {
   ozel: boolean
 }
 
-const doldur = (s: string, n: number) => s.replaceAll('{n}', String(n)).replaceAll('{ad}', sen.ad)
+/** Ona seslendiğim adlardan biri (gün boyunca aynı kalır, her gün başka) */
+export function hitap(tohum = 0) {
+  const h = ICERIK.hitaplar
+  if (!h.length) return sen.ad
+  const g = Math.floor(Date.now() / 86_400_000) + tohum
+  return h[((g % h.length) + h.length) % h.length]
+}
+const buyukHarf = (s: string) => s.replace(/^(\s*)(\S)/, (_, a: string, b: string) => a + b.toLocaleUpperCase('tr-TR'))
+const doldur = (s: string, n: number) =>
+  buyukHarf(
+    s
+      .replaceAll('{n}', String(n))
+      .replaceAll('{ad}', sen.ad)
+      .replaceAll('{tamAd}', sen.tamAd ?? sen.ad)
+      .replaceAll('{hitap}', hitap()),
+  )
 
 /** Bugünün notu: özel günlerde özel not, diğer günlerde sıradaki not. */
 export function gununNotu(z: Anlik): GununNotu {
@@ -29,7 +44,7 @@ export function gununNotu(z: Anlik): GununNotu {
     baslik,
     ozel: true,
   })
-  if (dogumGunu.sen && ag === dogumGunu.sen) return ozel('dogumGunuSen', 'Doğum günün')
+  if (dogumGunu.sen && ag === dogumGunu.sen) return ozel('dogumGunuSen', 'İyi ki doğdun')
   if (dogumGunu.ben && ag === dogumGunu.ben) return ozel('dogumGunuBen', 'Benim doğum günüm')
   if (ag === sevgili.slice(5) && yilFarki(sevgili) > 0) return ozel('yildonumuSevgili', `${yilFarki(sevgili)}. yılımız`, yilFarki(sevgili))
   if (ag === tanisma.slice(5) && yilFarki(tanisma) > 0) return ozel('yildonumuTanisma', 'Tanışma yıl dönümü', yilFarki(tanisma))
@@ -40,7 +55,7 @@ export function gununNotu(z: Anlik): GununNotu {
   if (d === +sevgili.slice(8) && z.bugun > sevgili) return ozel('ayin21i', `${ayFarki(sevgili)}. ayımız`, ayFarki(sevgili))
   if (d === +tanisma.slice(8) && z.bugun > tanisma) return ozel('ayin6si', `Tanışmamızın ${ayFarki(tanisma)}. ayı`, ayFarki(tanisma))
   const i = (Math.max(0, gunFarki(tanisma, z.bugun)) * 37 + 11) % NOTLAR.length
-  return { tarih: z.bugun, metin: NOTLAR[i], baslik: `Not №${i + 1}`, ozel: false }
+  return { tarih: z.bugun, metin: doldur(NOTLAR[i], 0), baslik: `Not №${i + 1}`, ozel: false }
 }
 
 export type NotArsivi = Record<string, { metin: string; baslik: string }>

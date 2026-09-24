@@ -108,6 +108,24 @@ export const SIRLAR: Sir[] = [
     mesaj: `On gündür buradasın. Her gelişinde sana 21 km yaklaştım; şimdiden 210 km yol aldım. ${sen.sehir} yolunda, yorulmadan.`,
   },
   {
+    id: 'nar',
+    ad: 'Narın kalbi',
+    ipucu: 'Adındaki narın tanelerine dokun.',
+    mesaj: 'Taneler kalbe döndü. Her biri bir gün; hepsi birlikte tek bir şey söylüyor. Bunu sana söylememe gerek var mı?',
+  },
+  {
+    id: 'aynian',
+    ad: 'Aynı anda',
+    ipucu: 'İkimiz aynı anda buradayken gel.',
+    mesaj: 'Şu an ikimiz de buradaydık: aynı sayfa, aynı dakika, iki ayrı şehir. Aradaki 1.758 km bir anlığına hiç olmadı.',
+  },
+  {
+    id: 'dogumgunu',
+    ad: 'Dilek',
+    ipucu: 'Yılda bir gün, pastanın mumlarını üfle.',
+    mesaj: 'Mumları üfledin. Dileğini bilmiyorum ama benimkini söyleyeyim: bir sonraki doğum gününde mumları aynı masada, yan yana üfleyelim.',
+  },
+  {
     id: 'lamba',
     ad: 'Lamba sönmez',
     ipucu: 'Kulede lambayı yak.',

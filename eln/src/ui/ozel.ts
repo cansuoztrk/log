@@ -24,7 +24,14 @@ export function zamanSirlari(ziyaret: Ziyaret) {
 }
 
 /** Siteye girer girmez: özel günse kutlama, değilse küçük bir selam */
-export function karsila(z: Anlik, not: GununNotu, ziyaret: Ziyaret & { yeniGun: boolean }, kutla: () => void, notaGit: () => void) {
+export function karsila(z: Anlik, not: GununNotu, ziyaret: Ziyaret & { yeniGun: boolean }, kutla: () => void, notaGit: () => void, dogum: 'sen' | 'ben' | null = null) {
+  if (dogum === 'ben') {
+    kutla()
+    const alan = document.querySelector<HTMLTextAreaElement>('#ruzgar-metin')
+    if (alan) alan.placeholder = `Bugün ${ICERIK.ben.ad}’nın doğum günü… Rüzgâr ona götürür.`
+    bildir({ ust: '7 Kasım', baslik: `Bugün ${ICERIK.ben.ad}’nın doğum günü`, metin: 'Rüzgâra ona bir not bırakır mısın? En güzel hediyesi o olur.', simge: '🎂', tik: notaGit, sure: 12000 })
+    return
+  }
   if (not.ozel) {
     kutla()
     bildir({ ust: 'Bugün özel bir gün', baslik: not.baslik, metin: 'Rüzgâr sana bugün özel bir not getirdi.', simge: '♥', tik: notaGit, sure: 10000 })

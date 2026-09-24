@@ -110,9 +110,18 @@ export const NOTLAR: string[] = [
   'Bir gün birlikte bir fotoğraf çekeceğiz; ekran görüntüsü değil, gerçek bir fotoğraf. Onu çerçeveleyeceğim.',
   'Evrende milyarlarca yıldız var. Ben bir tanesini buldum: Bakü’de yaşıyor.',
   'Az qaldı, gözəlim. Az qaldı.',
+  'Günaydın {hitap}. Bugün de ilk düşündüğüm sensin; bu artık bir alışkanlık değil, bir kural.',
+  'Adının içinde bir nar saklı, {tamAd}. Her söylediğimde ağzıma tatlı bir şey değiyor gibi.',
+  '“Anılar”ı her dinlediğimde aklıma henüz yaşamadığımız anılar geliyor. Hepsi çok güzel, hepsinde sen varsın.',
+  'Sana “{hitap}” dediğimde sesim kendiliğinden yumuşuyor. Denedim, sert söyleyemiyorum.',
+  'Bir gün Hazar kıyısında sana nar soyacağım. Tanelerini tek tek sayacağım; her biri bir günümüz olacak.',
+  'Bugün de gülümse {hitap}. Bin yedi yüz elli sekiz kilometre öteden görünüyor, emin ol.',
+  'Senin için yazdığım bu satırlar bitecek ama sana söyleyeceklerim bitmeyecek.',
+  'Bazen sadece adını yazıp siliyorum: {tamAd}. Sonra yine yazıyorum. Klavye bile seni seviyor artık.',
+  '{hitap}, bugün bir şey fark ettim: seni özlemek bile seni sevmenin bir biçimi.',
 ]
 
-/* Özel günler. {n} = kaçıncı ay/yıl, {ad} = senin adın. */
+/* Özel günler. {n} = kaçıncı ay/yıl, {ad} = senin adın, {tamAd} = tam adın, {hitap} = rastgele bir hitap. */
 export const OZEL_NOTLAR = {
   ayin21i:
     'Bugün ayın 21’i: bizim {n}. ayımız. {n} ay önce bugün “biz” olduk. Her 21’inde seni biraz daha çok seviyorum; bu ay da istisna değil.',
@@ -129,7 +138,7 @@ export const OZEL_NOTLAR = {
   yeniYil:
     'Yeni yıla yine benden bir saat önce girdin. Bu yılki dileğim: saat farkımızın sıfırlandığı bir gece.',
   dogumGunuSen:
-    'Doğum günün kutlu olsun, {ad}! Ad günün mübarək! Dünyaya geldiğin gün benim için dünyanın en önemli günü. Bu yıl uzaktan kutluyorum; bir dahakine pastayı ben keseceğim.',
+    'İyi ki doğdun {tamAd}! Ad günün mübarək! 23 Nisan’da doğmuşsun: bizde bugün bayram, bütün ülke bayrak asıyor. Bence hepsi senin için. Bu yıl uzaktan kutluyorum; bir dahakine pastayı ben keseceğim, mumlarını yanında üfleyeceksin.',
   dogumGunuBen:
-    'Bugün benim doğum günüm ama hediyeyi çoktan aldım: seni. Başka bir şey istemiyorum. (Belki bir mesaj. Uzun bir tane.)',
+    'Bugün benim doğum günüm ama hediyeyi çoktan aldım: seni. Başka bir şey istemiyorum. (Belki bir mesaj. Uzun bir tane. Rüzgâra bırakırsan bana gelir.)',
 }

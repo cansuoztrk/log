@@ -3,11 +3,12 @@ import { oku, yaz } from '../cekirdek/depo'
 import { ses } from '../cekirdek/ses'
 import { AYLAR, type Anlik, sayi } from '../cekirdek/zaman'
 import { $, $$, azHareket, gsap, titret } from '../bolumler/yardimci'
+import { hitap } from '../bolumler/ruzgar'
 
 const { sen, ben, kapi, arkadas } = ICERIK
 
 /** Kapı: ilk gelişte "her şeyin başladığı gün" sorulur; sonra ışığı tutarak girilir. */
-export function kapiAc(z: Anlik, ilkZiyaret: boolean, flasta?: () => void): Promise<void> {
+export function kapiAc(z: Anlik, ilkZiyaret: boolean, flasta?: () => void, dogumGunu = false): Promise<void> {
   const el = $('#kapi')
   const tarihSor = kapi.aktif && !oku('kapi', false)
   el.innerHTML = /* html */ `
@@ -27,13 +28,15 @@ export function kapiAc(z: Anlik, ilkZiyaret: boolean, flasta?: () => void): Prom
         <p class="kapi-ipucu" aria-live="polite"></p>
       </div>
       <div class="kapi-sahne kapi-isik" ${tarihSor ? 'hidden' : ''}>
-        <p class="etiket">${tarihSor ? 'Hatırladın' : ilkZiyaret ? `${sen.ad}’e` : 'Tekrar hoş geldin'}</p>
+        <p class="etiket">${dogumGunu ? '23 Nisan · İyi ki doğdun' : tarihSor ? 'Hatırladın' : ilkZiyaret ? `${sen.ad}’e` : `Tekrar hoş geldin, ${hitap()}`}</p>
         <p class="kapi-metin">${
-          tarihSor
-            ? 'Tabii ki hatırladın.'
-            : ilkZiyaret
-              ? `${ben.ad}’dan, ${sayi(z.gunNo)}. günümüzde.`
-              : `Bugün tanışmamızın <b>${sayi(z.gunNo)}.</b> günü. Rüzgâr sana yeni bir not getirdi.`
+          dogumGunu
+            ? 'Bugün senin günün. Işığı tut; içeride seni bir şey bekliyor.'
+            : tarihSor
+              ? 'Tabii ki hatırladın.'
+              : ilkZiyaret
+                ? `${ben.ad}’dan, ${sayi(z.gunNo)}. günümüzde.`
+                : `Bugün tanışmamızın <b>${sayi(z.gunNo)}.</b> günü. Rüzgâr sana yeni bir not getirdi.`
         }</p>
         <button class="isik-tut" type="button" aria-label="Işığı basılı tut">
           <svg viewBox="0 0 148 148" aria-hidden="true"><circle class="iz" cx="74" cy="74" r="70"/><circle class="dolu" cx="74" cy="74" r="70"/></svg>

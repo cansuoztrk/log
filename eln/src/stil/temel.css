@@ -310,6 +310,7 @@ main {
   font-weight: 600;
   letter-spacing: 0.02em;
   color: #1a0f08;
+  text-decoration: none;
   background: var(--safak);
   box-shadow:
     0 10px 30px -10px rgba(243, 196, 124, 0.55),

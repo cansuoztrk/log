@@ -125,7 +125,7 @@ export function ustKur(z: Anlik, lenis: Lenis | null) {
     </ol>
     <div class="menu-alt">
       <span>Tanışmamızın <b>${sayi(z.gunNo)}.</b> günü · birlikte <b>${sayi(z.sevgiliGun)}</b> gün</span>
-      ${sarki.baglanti ? `<a class="dugme hayalet" href="${sarki.baglanti}" target="_blank" rel="noopener">${ikon('muzik')}<span>${sarki.baslik || 'Şarkımız'}${sarki.sanatci ? ` · ${sarki.sanatci}` : ''}</span></a>` : ''}
+      ${sarki.spotify || sarki.youtube ? `<a class="dugme hayalet" href="${sarki.spotify || sarki.youtube}" target="_blank" rel="noopener">${ikon('muzik')}<span>${sarki.baslik || 'Şarkımız'}${sarki.sanatci ? ` · ${sarki.sanatci}` : ''}</span></a>` : ''}
     </div>`
   const menuD = $('.menu-dugme', ust)
   const menuAc = (ac: boolean) => {

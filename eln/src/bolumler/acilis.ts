@@ -8,7 +8,7 @@ const { ben, sen } = ICERIK
 
 /* ─── I. Önce Sana Doğar ───────────────────────────────────────────────── */
 
-export function acilisHTML(z: Anlik) {
+export function acilisHTML(z: Anlik, dogumGunu = false) {
   const bakuDogus = saatYazi(z.zBaku.sunrise, sen.saatDilimi)
   const istDogus = saatYazi(z.zIst.sunrise, ben.saatDilimi)
   const istDogusBakuSaati = saatYazi(z.zIst.sunrise, sen.saatDilimi)
@@ -20,8 +20,13 @@ export function acilisHTML(z: Anlik) {
         <p class="etiket">${ben.yerelSehir} · ${sen.yerelSehir} &nbsp;—&nbsp; ${ben.enlem.toFixed(1).replace('.', ',')}°K · ${sen.enlem
           .toFixed(1)
           .replace('.', ',')}°K</p>
-        <h1 class="dev">Önce <em>Sana</em><br/>Doğar</h1>
-        <p class="acilis-alt">${sen.ad} için. <span>${sayi(MESAFE)} km öteden, bir saat geriden.</span></p>
+        ${
+          dogumGunu
+            ? `<h1 class="dev">İyi ki <em>Doğdun</em></h1>
+        <p class="acilis-alt">Güneş her gün önce sana doğar. <span>Bugün sen doğdun ${sen.tamAd ?? sen.ad}; güneş de biraz erken kalktı.</span></p>`
+            : `<h1 class="dev">Önce <em>Sana</em><br/>Doğar</h1>
+        <p class="acilis-alt">${sen.ad} için. <span>${sayi(MESAFE)} km öteden, bir saat geriden.</span></p>`
+        }
         <div class="kaydir-ipucu" aria-hidden="true"><span>kaydır</span><i></i></div>
       </div>
       <div class="acilis-adimlar">

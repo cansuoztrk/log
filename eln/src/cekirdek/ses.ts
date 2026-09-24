@@ -1,4 +1,3 @@
-import { ICERIK } from '../icerik'
 import { oku, yaz } from './depo'
 
 /**
@@ -99,15 +98,8 @@ class SesMotoru {
     this.denizKur()
     this.ruzgarKur()
 
-    if (ICERIK.sarki.dosya) {
-      this.sarki = new Audio(ICERIK.sarki.dosya)
-      this.sarki.loop = true
-      this.sarki.volume = 0.6
-      void this.sarki.play().catch(() => undefined)
-    } else {
-      this.akorCal()
-      this.zilCal()
-    }
+    this.akorCal()
+    this.zilCal()
 
     this.ruh('kure')
     this.ana.gain.setTargetAtTime(this.acik ? 0.85 : 0, ctx.currentTime, 1.2)
@@ -119,7 +111,6 @@ class SesMotoru {
         this.sarki?.pause()
       } else if (this.acik) {
         void this.ctx.resume()
-        void this.sarki?.play().catch(() => undefined)
       }
     })
   }
@@ -137,8 +128,35 @@ class SesMotoru {
       void this.ctx.resume()
       this.ana.gain.setTargetAtTime(this.acik ? 0.85 : 0, this.ctx.currentTime, 0.4)
     }
-    if (this.sarki) this.acik ? void this.sarki.play().catch(() => undefined) : this.sarki.pause()
+    if (!this.acik) this.sarki?.pause()
     this.dinleyiciler.forEach((f) => f(this.acik))
+  }
+
+  /** Bizim şarkımız (public/ içindeki dosya): çalarken üretilen müzik susar */
+  sarkiCal(dosya: string, bitince: () => void) {
+    this.baslat()
+    if (!this.sarki) {
+      this.sarki = new Audio(dosya)
+      this.sarki.addEventListener('ended', () => {
+        this.muzikGeri()
+        bitince()
+      })
+    }
+    this.sarki.volume = 0.85
+    if (this.ctx) this.muzik.gain.setTargetAtTime(0, this.ctx.currentTime, 0.6)
+    return this.sarki.play().then(
+      () => true,
+      () => false,
+    )
+  }
+
+  sarkiDur() {
+    this.sarki?.pause()
+    this.muzikGeri()
+  }
+
+  private muzikGeri() {
+    if (this.ctx) this.muzik.gain.setTargetAtTime(1, this.ctx.currentTime, 1.2)
   }
 
   ruh(r: Ruh) {
