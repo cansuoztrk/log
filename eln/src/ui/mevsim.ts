@@ -30,6 +30,15 @@ interface Kalp {
   renk: string
 }
 
+interface Emoji {
+  x: number
+  y: number
+  vy: number
+  s: number
+  r: number
+  vr: number
+}
+
 export function mevsimKur(tuval: HTMLCanvasElement) {
   const ay = simdi().getMonth() + 1
   const tur: Tur = ay === 12 || ay <= 2 ? 'kar' : ay <= 5 ? 'cicek' : ay <= 8 ? 'bocek' : 'yaprak'
@@ -60,6 +69,12 @@ export function mevsimKur(tuval: HTMLCanvasElement) {
   })
   const parcalar = Array.from({ length: N }, () => yeni(true))
   const kalpler: Kalp[] = []
+  const emojiler: Emoji[] = []
+  const gulucuk = (adet = 60) => {
+    for (let i = 0; i < adet; i++)
+      emojiler.push({ x: Math.random() * w, y: -40 - Math.random() * h * 0.8, vy: 90 + Math.random() * 140, s: 16 + Math.random() * 20, r: (Math.random() - 0.5) * 0.6, vr: (Math.random() - 0.5) * 1.5 })
+  }
+  window.addEventListener('gulucuk', () => gulucuk())
 
   // kayan yıldız
   let yildiz: { x: number; y: number; vx: number; vy: number; t: number } | null = null
@@ -144,6 +159,25 @@ export function mevsimKur(tuval: HTMLCanvasElement) {
         x.restore()
       }
 
+      // ☺️ yağmuru
+      for (let i = emojiler.length - 1; i >= 0; i--) {
+        const e = emojiler[i]
+        e.y += e.vy * dt
+        e.r += e.vr * dt
+        if (e.y > h + 40) {
+          emojiler.splice(i, 1)
+          continue
+        }
+        x.save()
+        x.translate(e.x, e.y)
+        x.rotate(e.r)
+        x.font = `${e.s}px "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif`
+        x.textAlign = 'center'
+        x.textBaseline = 'middle'
+        x.fillText('☺️', 0, 0)
+        x.restore()
+      }
+
       // kayan yıldız
       if (!yildiz && t > sonrakiYildiz && !azHareket) {
         const soldan = Math.random() < 0.5
@@ -176,6 +210,7 @@ export function mevsimKur(tuval: HTMLCanvasElement) {
   return {
     /** 3D sahnelerde parçacıklar biraz daha silik olsun */
     silik: (v: number) => (carpan = v),
+    gulucuk,
     /** Özel günlerde yükselen kalpler */
     kutla: (adet = 70) => {
       for (let i = 0; i < adet; i++)

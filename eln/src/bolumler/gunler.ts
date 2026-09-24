@@ -1,5 +1,5 @@
 import { ICERIK } from '../icerik'
-import { type Anlik, dolunaySayisi, gunEkle, gunFarki, GUNLER, AYLAR, sayi, simdiMs, tarihYazi } from '../cekirdek/zaman'
+import { type Anlik, MESAFE, dolunaySayisi, gunEkle, gunFarki, GUNLER, AYLAR, sayi, simdiMs, tarihYazi } from '../cekirdek/zaman'
 import { $, azHareket, belir, gorunurken, gsap, satirSatir, ScrollTrigger, tuvalOlcu } from './yardimci'
 
 const { tanisma, sevgili } = ICERIK
@@ -71,6 +71,8 @@ export function gunlerHTML(z: Anlik) {
           <div><b data-canli="kalp">—</b><span>kez attı kalbim, o günden beri <small>(dakikada ~72)</small></span></div>
           <div><b>${dolunay}</b><span>dolunayı iki ayrı pencereden izledik</span></div>
           <div><b>${sayi(z.sevgiliGun)}</b><span>kez güneş önce sana doğdu, sonra bana</span></div>
+          <div><b>∞</b><span>☺️ gönderdin bana <small>(saymayı bıraktım)</small></span></div>
+          <div><b>${sayi(MESAFE)}</b><span>km; bir ☺️ bu mesafeyi 6 milisaniyede geçiyor</span></div>
         </div>
       </div>
       <div class="yaklasanlar">

@@ -1,7 +1,7 @@
 import type Lenis from 'lenis'
 import { ICERIK } from '../icerik'
 import { ses } from '../cekirdek/ses'
-import { bulunanlar, SIRLAR, sirDinle } from '../cekirdek/sirlar'
+import { bulunanlar, SIRLAR, sirBul, sirDinle } from '../cekirdek/sirlar'
 import { type Anlik, saatYazi, sayi, simdi } from '../cekirdek/zaman'
 import { notlarCekmeceHTML } from '../bolumler/ruzgar'
 import { $, $$, gsap, ikon, ScrollTrigger } from '../bolumler/yardimci'
@@ -143,9 +143,22 @@ export function ustKur(z: Anlik, lenis: Lenis | null) {
       git(a.getAttribute('href')!)
     })
   }
+  // İki harfe beş kez art arda dokunmak: ☺️ yağmuru (sır)
+  let markaSayac = 0
+  let markaZaman = 0
   $('.marka', ust).addEventListener('click', (e) => {
     e.preventDefault()
-    git('#acilis')
+    markaSayac++
+    window.clearTimeout(markaZaman)
+    markaZaman = window.setTimeout(() => {
+      if (markaSayac < 5) git('#acilis')
+      markaSayac = 0
+    }, 700)
+    if (markaSayac === 5) {
+      window.dispatchEvent(new Event('gulucuk'))
+      ses.cin()
+      sirBul('gulucuk')
+    }
   })
 
   // çekmeceler
@@ -189,7 +202,7 @@ function sirlarHTML() {
   const b = new Set(bulunanlar())
   return /* html */ `
     <div class="cekmece-bas"><h3>Sırlar</h3><button class="ikon-dugme kapat" type="button" aria-label="Kapat">${ikon('kapat')}</button></div>
-    <div class="cekmece-govde">
+    <div class="cekmece-govde" data-lenis-prevent>
       <div class="sir-ilerleme"><span>${b.size} / ${SIRLAR.length}</span><div class="cubuk"><i style="width:${(b.size / SIRLAR.length) * 100}%"></i></div></div>
       <p class="dipnot">Bu sitenin içine küçük sürprizler sakladım. Bazıları bir dokunuşla bulunur, bazıları yalnızca belli bir günde ya da saatte açılır. Acele yok; her gün biraz.</p>
       ${SIRLAR.map((s) =>

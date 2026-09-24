@@ -32,6 +32,17 @@ const PASTA_SVG = /* html */ `
   <g fill="#c9415c">${Array.from({ length: 6 }, (_, i) => `<circle cx="${88 + i * 25}" cy="${96 + (i % 2) * 6}" r="2.6"/>`).join('')}</g>
 </svg>`
 
+/** Mumları üst katın üzerine, perspektifli bir elips boyunca diz (pasta SVG'si 300×210) */
+function mumKonumlari(n: number) {
+  const liste = Array.from({ length: n }, (_, i) => {
+    const a = (i / n) * Math.PI * 2 + Math.PI / 2 + 0.2
+    const x = 150 + Math.cos(a) * (n > 1 ? 58 : 0)
+    const y = 63 + Math.sin(a) * (n > 1 ? 10 : 0)
+    return { x: (x / 300) * 100, y: (y / 210) * 100, z: Math.round(y * 10), o: 0.86 + ((Math.sin(a) + 1) / 2) * 0.14 }
+  })
+  return n <= 7 ? liste.map((m, i) => ({ ...m, x: 30 + (40 * (i + 0.5)) / n, y: 30, o: 1 })) : liste
+}
+
 /** 23 Nisan: pasta, mumlar ve bir dilek */
 export function pastaGoster(z: Anlik, kutla: (adet?: number) => void) {
   const anahtar = `mum-${z.bugun.slice(0, 4)}`
@@ -48,8 +59,13 @@ export function pastaGoster(z: Anlik, kutla: (adet?: number) => void) {
       <h2 class="pasta-baslik">İyi ki doğdun</h2>
       <p class="kapi-metin pasta-metin">Güneş her gün önce sana doğar. Bugün sen doğdun; güneş de biraz erken kalktı.</p>
       <div class="pasta">
-        <div class="mumlar" style="--n:${N}">
-          ${Array.from({ length: N }, (_, i) => `<button class="mum" type="button" aria-label="Mum ${i + 1}" style="--i:${i}"><span class="alev"></span><span class="duman"></span></button>`).join('')}
+        <div class="mumlar">
+          ${mumKonumlari(N)
+            .map(
+              (m, i) =>
+                `<button class="mum" type="button" aria-label="Mum ${i + 1}" style="left:${m.x}%;top:${m.y}%;z-index:${m.z};--o:${m.o};width:${N > 12 ? 6 : 8}px"><span class="alev"></span><span class="duman"></span></button>`,
+            )
+            .join('')}
         </div>
         ${PASTA_SVG}
       </div>

@@ -23,9 +23,10 @@ export function hitap(tohum = 0) {
   return h[((g % h.length) + h.length) % h.length]
 }
 const buyukHarf = (s: string) => s.replace(/^(\s*)(\S)/, (_, a: string, b: string) => a + b.toLocaleUpperCase('tr-TR'))
-const doldur = (s: string, n: number) =>
+const doldur = (s: string, n: number, yas = 0) =>
   buyukHarf(
     s
+      .replaceAll('{yas} yaşın', yas > 0 ? `${yas} yaşın` : 'Yeni yaşın')
       .replaceAll('{n}', String(n))
       .replaceAll('{ad}', sen.ad)
       .replaceAll('{tamAd}', sen.tamAd ?? sen.ad)
@@ -44,7 +45,8 @@ export function gununNotu(z: Anlik): GununNotu {
     baslik,
     ozel: true,
   })
-  if (dogumGunu.sen && ag === dogumGunu.sen) return ozel('dogumGunuSen', 'İyi ki doğdun')
+  if (dogumGunu.sen && ag === dogumGunu.sen)
+    return { ...ozel('dogumGunuSen', 'İyi ki doğdun'), metin: doldur(OZEL_NOTLAR.dogumGunuSen, 0, ICERIK.dogumYili ? y - ICERIK.dogumYili : 0) }
   if (dogumGunu.ben && ag === dogumGunu.ben) return ozel('dogumGunuBen', 'Benim doğum günüm')
   if (ag === sevgili.slice(5) && yilFarki(sevgili) > 0) return ozel('yildonumuSevgili', `${yilFarki(sevgili)}. yılımız`, yilFarki(sevgili))
   if (ag === tanisma.slice(5) && yilFarki(tanisma) > 0) return ozel('yildonumuTanisma', 'Tanışma yıl dönümü', yilFarki(tanisma))
@@ -282,6 +284,7 @@ export function ruzgarKur(not: GununNotu, notlarAc: () => void) {
     dugme.disabled = false
     const sade = metin.toLocaleLowerCase('tr-TR').replace(/ə/g, 'e').replace(/\s+/g, ' ')
     if (/seni sev(iyorum|irem)/.test(sade)) window.setTimeout(() => sirBul('sevirem'), 1400)
+    if (/\bbok/.test(sade)) window.setTimeout(() => sirBul('bok'), 2600)
   })
 }
 
@@ -290,7 +293,7 @@ export function notlarCekmeceHTML() {
   const gunler = Object.keys(arsiv).sort().reverse()
   return /* html */ `
     <div class="cekmece-bas"><h3>Topladığın notlar</h3><button class="ikon-dugme kapat" type="button" aria-label="Kapat">${ikon('kapat')}</button></div>
-    <div class="cekmece-govde notlar-liste">
+    <div class="cekmece-govde notlar-liste" data-lenis-prevent>
       <p class="dipnot">Uğradığın her gün, o günün notu buraya eklenir. Şu ana kadar <b>${gunler.length}</b> not.</p>
       ${gunler
         .map(

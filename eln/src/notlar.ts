@@ -119,9 +119,15 @@ export const NOTLAR: string[] = [
   'Senin için yazdığım bu satırlar bitecek ama sana söyleyeceklerim bitmeyecek.',
   'Bazen sadece adını yazıp siliyorum: {tamAd}. Sonra yine yazıyorum. Klavye bile seni seviyor artık.',
   '{hitap}, bugün bir şey fark ettim: seni özlemek bile seni sevmenin bir biçimi.',
+  'Bu sitenin hiçbir yerinde “bok” kelimesi geçmiyor. Bu cümle hariç. ☺️',
+  'Bugün bok gibi geçtiyse bana yaz. Bir ☺️ gönder, gerisini ben hallederim.',
+  'Senin bir ☺️’ün, benim bütün günümü düzeltmeye yetiyor. Bilimsel olarak kanıtlandı. (Ben kanıtladım.)',
+  'Sana bir sır: ☺️ attığın her seferinde ekrana bakıp aynı yüzü ben de yapıyorum.',
+  'Hiç görüntülü konuşmadık. Ama sesini o kadar iyi biliyorum ki, gülüşünü karanlıkta bile tanırım.',
+  'Sesli aramalarımızın sonunda kapatmak hep zor. Bir gün hiç kapatmak zorunda kalmayacağız.',
 ]
 
-/* Özel günler. {n} = kaçıncı ay/yıl, {ad} = senin adın, {tamAd} = tam adın, {hitap} = rastgele bir hitap. */
+/* Özel günler. {n} = kaçıncı ay/yıl, {ad} = senin adın, {tamAd} = tam adın, {hitap} = rastgele bir hitap, {yas} = yaşın. */
 export const OZEL_NOTLAR = {
   ayin21i:
     'Bugün ayın 21’i: bizim {n}. ayımız. {n} ay önce bugün “biz” olduk. Her 21’inde seni biraz daha çok seviyorum; bu ay da istisna değil.',
@@ -138,7 +144,7 @@ export const OZEL_NOTLAR = {
   yeniYil:
     'Yeni yıla yine benden bir saat önce girdin. Bu yılki dileğim: saat farkımızın sıfırlandığı bir gece.',
   dogumGunuSen:
-    'İyi ki doğdun {tamAd}! Ad günün mübarək! 23 Nisan’da doğmuşsun: bizde bugün bayram, bütün ülke bayrak asıyor. Bence hepsi senin için. Bu yıl uzaktan kutluyorum; bir dahakine pastayı ben keseceğim, mumlarını yanında üfleyeceksin.',
+    'İyi ki doğdun {tamAd}! {yas} yaşın kutlu olsun, ad günün mübarək! 23 Nisan’da doğmuşsun: bizde bugün bayram, bütün ülke bayrak asıyor. Bence hepsi senin için. Bu yıl uzaktan kutluyorum; bir dahakine pastayı ben keseceğim, mumlarını yanında üfleyeceksin.',
   dogumGunuBen:
     'Bugün benim doğum günüm ama hediyeyi çoktan aldım: seni. Başka bir şey istemiyorum. (Belki bir mesaj. Uzun bir tane. Rüzgâra bırakırsan bana gelir.)',
 }

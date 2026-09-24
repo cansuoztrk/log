@@ -132,19 +132,30 @@ class SesMotoru {
     this.dinleyiciler.forEach((f) => f(this.acik))
   }
 
-  /** Bizim şarkımız (public/ içindeki dosya): çalarken üretilen müzik susar */
-  sarkiCal(dosya: string, bitince: () => void) {
-    this.baslat()
-    if (!this.sarki) {
-      this.sarki = new Audio(dosya)
-      this.sarki.addEventListener('ended', () => {
-        this.muzikGeri()
-        bitince()
-      })
+  /** Dışarıdan bir ses dosyası çal (şarkımız, sesli mesaj): çalarken üretilen müzik susar */
+  private dosyalar = new Map<string, HTMLAudioElement>()
+  dosya(yol: string) {
+    let a = this.dosyalar.get(yol)
+    if (!a) {
+      a = new Audio(yol)
+      a.preload = 'metadata'
+      this.dosyalar.set(yol, a)
     }
-    this.sarki.volume = 0.85
+    return a
+  }
+
+  sarkiCal(yol: string, bitince: () => void) {
+    this.baslat()
+    for (const [k, x] of this.dosyalar) if (k !== yol) x.pause()
+    const a = this.dosya(yol)
+    this.sarki = a
+    a.onended = () => {
+      this.muzikGeri()
+      bitince()
+    }
+    a.volume = 0.9
     if (this.ctx) this.muzik.gain.setTargetAtTime(0, this.ctx.currentTime, 0.6)
-    return this.sarki.play().then(
+    return a.play().then(
       () => true,
       () => false,
     )

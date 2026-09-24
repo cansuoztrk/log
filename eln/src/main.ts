@@ -39,6 +39,7 @@ import { finalHTML, finalKur } from './bolumler/final'
 import { narHTML, narKur } from './bolumler/nar'
 import { sarkiHTML, sarkiKur } from './bolumler/sarki'
 import { karelerHTML, karelerKur } from './bolumler/kareler'
+import { zarflarHTML, zarflarKur } from './bolumler/zarflar'
 import { $, $$, azHareket, gsap, ScrollTrigger } from './bolumler/yardimci'
 import { kapiAc } from './ui/kapi'
 import { ustKur } from './ui/ust'
@@ -74,6 +75,7 @@ $('#icerik').innerHTML = [
   ucusHTML(z),
   sarkiHTML(),
   mektupHTML(z),
+  zarflarHTML(z),
   finalHTML(ziyaret),
 ].join('')
 
@@ -137,6 +139,7 @@ ruzgarKur(not, ust.notlarAc)
 ucusKur()
 sarkiKur()
 mektupKur()
+zarflarKur()
 finalKur(al<Yildizlar>('final'))
 
 // Bölüm görünür oldukça: doğru 3D sahne + doğru ses dokusu

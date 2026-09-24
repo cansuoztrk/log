@@ -36,11 +36,17 @@ export function karelerKur() {
   belir($('.bolum-bas .metin', bolum))
   const kartlar = $$('.polaroid', bolum)
   belir(kartlar, { stagger: 0.08 })
+  // Büyütme: kartın bir kopyası en üst katmanda açılır
   for (const k of kartlar) {
     k.addEventListener('click', () => {
-      const acik = k.classList.toggle('buyuk')
-      document.body.classList.toggle('polaroid-acik', acik)
-      if (acik) ses.nota(81, 0.03)
+      const kutu = document.createElement('div')
+      kutu.className = 'polaroid-kutu'
+      const kopya = k.cloneNode(true) as HTMLElement
+      kopya.classList.add('buyuk')
+      kutu.appendChild(kopya)
+      document.body.appendChild(kutu)
+      ses.nota(81, 0.03)
+      kutu.addEventListener('click', () => kutu.remove())
     })
   }
 }

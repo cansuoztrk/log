@@ -64,8 +64,8 @@ export const ICERIK = {
     ben: '11-07' as string | null,
   },
 
-  /** Eln'in doğum yılı (biliniyorsa pastadaki mum sayısı yaşı kadar olur), ör. 2006 */
-  dogumYili: null as number | null,
+  /** Eln'in doğum yılı: pastadaki mum sayısı yaşı kadar olur */
+  dogumYili: 2008 as number | null,
 
   /** Kapı: siteyi ilk açışta sorulan tarih (gün / ay). */
   kapi: { aktif: true, gun: 6, ay: 12 },
@@ -97,6 +97,14 @@ export const ICERIK = {
    * Liste boşsa bu bölüm sitede hiç görünmez.
    */
   fotograflar: [] as { dosya: string; not?: string }[],
+
+  /**
+   * Sesli mesaj (isteğe bağlı): Birbirinizi en çok sesinizden tanıyorsunuz.
+   * Telefonla 30–60 saniyelik bir ses kaydı al (mektubu sesli okuyabilir ya da
+   * sadece bir şey söyleyebilirsin), public/ klasörüne koy ve adını buraya yaz,
+   * ör. 'sesim.m4a' ya da 'sesim.mp3'. Mektubun altında sesli mesaj olarak çıkar.
+   */
+  sesMesaji: '',
 
   /**
    * Rüzgâr Postası ve Kalp Atışı — ntfy.sh üzerinden çalışır (ücretsiz, hesap gerekmez).

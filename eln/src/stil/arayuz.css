@@ -849,7 +849,11 @@
 .pasta {
   position: relative;
   width: min(320px, 82vw);
-  margin: 70px auto 6px;
+  margin: 64px auto 6px;
+}
+.pasta-svg {
+  position: relative;
+  z-index: 1;
 }
 .pasta-svg {
   width: 100%;
@@ -857,21 +861,16 @@
 }
 .mumlar {
   position: absolute;
-  left: 27%;
-  right: 27%;
-  top: 27%;
-  height: 0;
+  inset: 0;
+  z-index: 2;
 }
 .mum {
-  --x: calc(var(--i) / max(1, (var(--n) - 1)));
   position: absolute;
-  bottom: 0;
-  left: calc(var(--x) * 100%);
-  width: 8px;
-  height: 46px;
-  margin-left: -4px;
+  height: 44px;
+  margin: 0;
   border-radius: 2px;
-  transform: translateY(calc(sin(var(--i) * 1.3) * 6px));
+  transform: translate(-50%, -100%) scale(var(--o, 1));
+  transform-origin: 50% 100%;
   background: repeating-linear-gradient(160deg, #fff7ee 0 5px, #f59fb4 5px 9px);
   box-shadow: inset -2px 0 3px rgba(0, 0, 0, 0.15);
   cursor: pointer;
@@ -1034,4 +1033,38 @@
   font-style: italic;
   text-align: center;
   color: var(--krem);
+}
+.nabiz-ay {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 18px;
+  color: #eef1ff;
+  background: rgba(134, 168, 255, 0.18);
+  border: 1px solid rgba(134, 168, 255, 0.4);
+}
+.ay-randevu {
+  position: fixed;
+  inset: 0;
+  z-index: 185;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 10px;
+  padding: 24px;
+  text-align: center;
+  background: radial-gradient(circle at 50% 38%, rgba(60, 70, 140, 0.55), rgba(3, 4, 10, 0.94) 65%);
+}
+.ay-randevu canvas {
+  width: min(240px, 60vw);
+  height: auto;
+  filter: drop-shadow(0 0 60px rgba(200, 215, 255, 0.55));
+}
+.ay-randevu .satir em {
+  color: var(--gul-2);
+}
+.ay-randevu .dugme {
+  margin-top: 10px;
 }

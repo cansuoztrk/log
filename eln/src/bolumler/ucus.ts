@@ -34,6 +34,7 @@ export function ucusHTML(z: Anlik) {
       </div>
       <div class="ucus-metin">
         <p class="satir">O anı o kadar çok kurdum ki, hafızamda bir anı gibi duruyor.</p>
+        <p class="satir italik">Hiç görüntülü konuşmadık bile. Bende sadece sesin var. Yani seni ilk kez <em>hareket ederken</em>, gülerken, bana doğru yürürken göreceğim an, o kapının önünde olacak.</p>
         <p class="metin">Geliş kapısından biri çıkacak. Belki sen, belki ben. Kim kime uçarsa uçsun, sonu aynı: kalabalığın içinde o yüz, ve dünyanın bir anlığına susması.</p>
         <p class="satir buyuk italik">Ne diyeceğimi bin kez prova ettim. Sonunda karar verdim: hiçbir şey demeyeceğim. <em>Sadece sarılacağım.</em></p>
         <p class="metin">O saniyenin yanında, bu sitedeki bütün kelimeler susar.</p>

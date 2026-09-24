@@ -42,8 +42,10 @@ Site, ikinizin hikâyesindeki **gerçek ve şaşırtıcı tesadüfler** üzerine
 11. **Rüzgâr Postası**: günün notu (zarf), toplanan notlar, rüzgâra mesaj
 12. **İlk Buluşma**: havalimanı kalkış panosu (split-flap), birlikte yapılacaklar listesi
 13. **Şarkımız**: “Anılar”, plak ve pikap
-14. **Mektup**: el yazısıyla mektup
-15. **Kalbim**: kalbe basılı tut; yıldızlar önce “Səni sevirəm” yazar, sonra kalp olur
+14. **Mektup**: el yazısıyla mektup (+ isteğe bağlı sesli mesaj)
+15. **… Olduğunda Aç**: “Beni özlediğinde aç”, “Kötü bir gün geçirdiğinde aç”, “Uyuyamadığında aç”…
+    ve kendi gününü bekleyen kilitli mektuplar (tanışmanın 1. yılı, 19. yaş günü, 1. yıl dönümü)
+16. **Kalbim**: kalbe basılı tut; yıldızlar önce “Səni sevirəm” yazar, sonra kalp olur
 
 Bölüm numaraları otomatik verilir; fotoğraf eklenince numaralar kendiliğinden kayar.
 
@@ -56,10 +58,14 @@ Bölüm numaraları otomatik verilir; fotoğraf eklenince numaralar kendiliğind
 - Mevsime göre süzülen parçacıklar (kar, çiçek, ateş böceği, yaprak) ve arada bir kayan yıldız
 - Ona seslendiğin adlar (aşkım, aşkito, Elnos) her gün başka biri olarak selamlarda ve notlarda çıkar
 - **Aynı anda**: ikiniz aynı anda sitedeyseniz köşede “Arda şu an burada” belirir; kalbe dokununca karşı tarafın ekranında kalp atar, telefonu titrer (aşağıya bak)
-- **19 sır** (sağ üstteki ✦). Bazıları dokunarak, bazıları sadece belli bir anda bulunur:
+- **Aya bakalım**: ikiniz aynı anda sitedeyken ve ay iki şehirde de gökyüzündeyken ☾ düğmesi belirir;
+  basınca ikinizin ekranında “Şimdi pencereden aya bak” açılır
+- Kilitli mektuplar kendi günleri geldikçe açılır; o güne kadar kaç gün kaldığını söyler
+- **22 sır** (sağ üstteki ✦). Bazıları dokunarak, bazıları sadece belli bir anda bulunur:
   aya 3 kez dokunmak, saat **21:05**’te bakmak, gece yarısından sonra gelmek, ayın 21’inde/6’sında gelmek,
   dolunayda gelmek, iki bardağı art arda çınlatmak, bardağına iki şeker atmak, rüzgâra boş mektup bırakmak,
-  kayan yıldızı yakalamak, 10 farklı gün gelmek… (Eln’e söyleme 🙂)
+  kayan yıldızı yakalamak, 10 farklı gün gelmek, üstteki iki harfe 5 kez dokunmak (☺️ yağmuru),
+  rüzgâra “bizim kelimemizi” yazmak… (Eln’e söyleme 🙂)
 
 ---
 
@@ -96,7 +102,12 @@ Her şey iki dosyada:
 - `dogumGunu.sen: '03-14'` gibi yazarsan o gün site kalplerle açılır ve özel not gelir.
 - `anilar` listesine `{ tarih: '2026-01-02', baslik: 'İlk sesli arama' }` gibi satırlar eklersen
   “Günlerimiz” bahçesinde o gün işaretlenir.
-- `dogumYili` yazarsan 23 Nisan’daki pastada yaşı kadar mum olur.
+- `dogumYili` (2008) sayesinde 23 Nisan’daki pastada yaşı kadar mum olur.
+- **Sesli mesaj:** telefonla 30–60 saniyelik bir ses kaydı al (mektubu okuyabilir ya da içinden geleni söyleyebilirsin),
+  `public/` klasörüne koy ve `sesMesaji`’na adını yaz (ör. `'sesim.m4a'`). Mektubun altında, gerçek dalga formuyla
+  sesli mesaj olarak çıkar. Hiç görüntülü konuşmadığınız için sesin burada çok anlamlı olur.
+- **`src/mektuplar.ts`**: “… olduğunda aç” mektupları. Yenilerini ekleyebilir, `tarih` vererek kilitleyebilirsin.
+  `ilkBulusma` tarihini yazarsan “İlk buluşmamızdan önceki gece aç” mektubu o geceye kilitlenir.
 - `fotograflar`: görüntülü aramalardan ekran görüntülerini `public/foto/` klasörüne koyup listeye eklersen
   “Ekran Görüntülerimiz” bölümü kendiliğinden belirir.
 - Şarkı dosyan varsa (mp3) `public/` klasörüne koy, `sarki.dosya`’ya adını yaz: plak sitede çalar.

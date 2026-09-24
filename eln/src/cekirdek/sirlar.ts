@@ -126,6 +126,24 @@ export const SIRLAR: Sir[] = [
     mesaj: 'Mumları üfledin. Dileğini bilmiyorum ama benimkini söyleyeyim: bir sonraki doğum gününde mumları aynı masada, yan yana üfleyelim.',
   },
   {
+    id: 'gulucuk',
+    ad: '☺️',
+    ipucu: 'En üstteki iki harfe beş kez dokun.',
+    mesaj: 'Senin en çok kullandığın emoji. Bu yağmur senin için: her biri, bana gönderdiğin bir ☺️’ün cevabı.',
+  },
+  {
+    id: 'bok',
+    ad: 'Bizim kelimemiz',
+    ipucu: 'Rüzgâra en sık kullandığımız kelimeyi yaz.',
+    mesaj: 'Sitenin her yerini süsledim, bir tek bu kelimeyi saklamıştım. Buldun. Tabii ki buldun. ☺️',
+  },
+  {
+    id: 'zarflar',
+    ad: 'Bütün zarflar',
+    ipucu: '“Olduğunda aç” mektuplarının hepsini aç (kilitliler hariç).',
+    mesaj: 'Hepsini açtın. Ya hepsine ihtiyacın oldu, ya da sadece merak ettin. İkisi de olur. Yenilerini yazmaya başladım bile.',
+  },
+  {
     id: 'lamba',
     ad: 'Lamba sönmez',
     ipucu: 'Kulede lambayı yak.',

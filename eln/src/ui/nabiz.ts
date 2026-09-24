@@ -2,7 +2,8 @@ import { ICERIK } from '../icerik'
 import { oku, yaz } from '../cekirdek/depo'
 import { ses } from '../cekirdek/ses'
 import { sirBul } from '../cekirdek/sirlar'
-import { onizleme } from '../cekirdek/zaman'
+import { ayEvresi, gokyuzu, onizleme, simdi } from '../cekirdek/zaman'
+import { ayCiz } from '../cekirdek/ay-ciz'
 import { gsap, titret } from '../bolumler/yardimci'
 import { bildir } from './ust'
 
@@ -12,7 +13,7 @@ import { bildir } from './ust'
  */
 type Kim = 'eln' | 'arda'
 interface Mesaj {
-  tip: 'geldim' | 'buradayim' | 'gittim' | 'kalp'
+  tip: 'geldim' | 'buradayim' | 'gittim' | 'kalp' | 'ay'
   kim: Kim
   oturum: string
 }
@@ -44,9 +45,19 @@ export function nabizKur(onKalp: () => void) {
   el.innerHTML = /* html */ `
     <span class="nabiz-nokta" aria-hidden="true"></span>
     <span class="nabiz-yazi"><b>${karsiAd}</b> şu an burada</span>
+    <button class="nabiz-ay" type="button" aria-label="Aynı anda aya bakalım" hidden>☾</button>
     <button class="nabiz-kalp" type="button" aria-label="${karsiAd}’a kalp atışı gönder"><svg viewBox="0 0 24 24"><use href="#i-kalp"/></svg></button>`
   document.body.appendChild(el)
   const kalpDugme = el.querySelector<HTMLButtonElement>('.nabiz-kalp')!
+  const ayDugme = el.querySelector<HTMLButtonElement>('.nabiz-ay')!
+  // Ay iki şehirde de gökyüzündeyse "aya bakalım" düğmesi görünür
+  const ayVarMi = () => {
+    const an = simdi()
+    return gokyuzu(an, ICERIK.ben).ayYukseklik > 2 && gokyuzu(an, ICERIK.sen).ayYukseklik > 2
+  }
+  const ayDugmesi = () => (ayDugme.hidden = !ayVarMi())
+  ayDugmesi()
+  window.setInterval(ayDugmesi, 60_000)
 
   const gonder = (tip: Mesaj['tip']) => {
     const m: Mesaj = { tip, kim: ben, oturum }
@@ -101,6 +112,7 @@ export function nabizKur(onKalp: () => void) {
       durumYaz()
       if (m.tip === 'geldim' && yeniGeldi) void gonder('buradayim')
       if (m.tip === 'kalp') kalpGeldi()
+      if (m.tip === 'ay') ayRandevusu(true)
     }
   }
 
@@ -120,6 +132,32 @@ export function nabizKur(onKalp: () => void) {
       .to(k.querySelector('svg'), { scale: 1.15, duration: 0.18, yoyo: true, repeat: 5, ease: 'power1.inOut' })
       .to(k, { autoAlpha: 0, duration: 0.8, delay: 0.8 })
   }
+
+  // ─── aynı anda aya bakmak ───
+  const ayRandevusu = (gelen: boolean) => {
+    document.querySelector('.ay-randevu')?.remove()
+    const k = document.createElement('div')
+    k.className = 'ay-randevu'
+    k.innerHTML = /* html */ `
+      <canvas width="360" height="360" aria-hidden="true"></canvas>
+      <p class="etiket">${gelen ? `${karsiAd} seni aya çağırıyor` : 'Aynı anda'}</p>
+      <p class="satir">Şimdi pencereden aya bak.<br/><em>${karsiAd} de şu an bakıyor.</em></p>
+      <p class="dipnot">Ay bu gece %${Math.round(ayEvresi(simdi()).oran * 100)} dolu. Aynı ay, iki pencere, aynı dakika.</p>
+      <button class="dugme hayalet" type="button">Baktım ☾</button>`
+    document.body.appendChild(k)
+    ayCiz(k.querySelector('canvas')!.getContext('2d')!, 180, 180, 120, ayEvresi(simdi()).evre)
+    ses.cin()
+    titret([30, 100, 30])
+    const kapat = () => gsap.to(k, { autoAlpha: 0, duration: 0.8, onComplete: () => k.remove() })
+    k.querySelector('button')!.addEventListener('click', kapat)
+    window.setTimeout(kapat, 60_000)
+    gsap.from(k, { autoAlpha: 0, duration: 1 })
+    gsap.from(k.querySelector('canvas'), { scale: 0.6, duration: 2.4, ease: 'expo.out' })
+  }
+  ayDugme.addEventListener('click', () => {
+    void gonder('ay')
+    ayRandevusu(false)
+  })
 
   kalpDugme.addEventListener('click', () => {
     void gonder('kalp')
