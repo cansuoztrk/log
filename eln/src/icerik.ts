@@ -59,6 +59,9 @@ export const ICERIK = {
   /** Sevgili olduğumuz gün */
   sevgili: '2026-05-21',
 
+  /** Sevgili olduğumuz dakika, İstanbul saatiyle (Bakü’de bir saat ileri: 19:32) */
+  sevgiliSaat: '18:32',
+
   /**
    * İlk buluşmanın tarihi belli olursa buraya yaz: '2026-12-20T14:30'
    * (Bakü saatiyle). Yazarsan uçuş panosunda canlı geri sayım başlar.

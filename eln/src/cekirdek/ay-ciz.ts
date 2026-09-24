@@ -2,11 +2,11 @@
  * Ayı gerçek evresiyle çizer (kuzey yarımkürede göründüğü gibi).
  * evre: 0 yeni ay, 0.25 ilk dördün, 0.5 dolunay, 0.75 son dördün
  */
-export function ayCiz(x: CanvasRenderingContext2D, cx: number, cy: number, r: number, evre: number, parlaklik = 1) {
+export function ayCiz(x: CanvasRenderingContext2D, cx: number, cy: number, r: number, evre: number, parlaklik = 1, golge = 1) {
   x.save()
   x.translate(cx, cy)
-  // karanlık yüz (hafifçe görünür: "dünya ışığı")
-  x.fillStyle = `rgba(70, 78, 120, ${0.28 * parlaklik})`
+  // karanlık yüz (hafifçe görünür: "dünya ışığı"; gündüz gökyüzünde görünmez → golge 0)
+  x.fillStyle = `rgba(70, 78, 120, ${0.28 * parlaklik * golge})`
   x.beginPath()
   x.arc(0, 0, r, 0, Math.PI * 2)
   x.fill()

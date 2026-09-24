@@ -92,6 +92,12 @@ export const SOZLUK: Madde[] = [
     ornek: '— Darıxmışam. — Ben de.',
   },
   {
+    kelime: '18:32',
+    tur: 'saat',
+    anlamlar: ['21 Mayıs 2026’da “biz” olduğumuz dakika.', 'Aynı an, iki ayrı saat: İstanbul’da 18:32, Bakü’de 19:32.'],
+    bkz: 'bir saat',
+  },
+  {
     kelime: '21',
     tur: 'sayı',
     anlamlar: ['Ayın en güzel günü.', '21:05: Günün en güzel dakikası.'],

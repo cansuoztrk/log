@@ -127,6 +127,9 @@ export function mesafeKm(a: Kisi, b: Kisi) {
 }
 export const MESAFE = mesafeKm(ICERIK.ben, ICERIK.sen)
 
+/** "Biz" olduğumuz an (sevgiliSaat İstanbul saatiyle verilir; İstanbul yıl boyu UTC+3) */
+export const sevgiliAni = () => new Date(`${ICERIK.sevgili}T${ICERIK.sevgiliSaat || '00:00'}:00+03:00`)
+
 /* ─── Güneş & Ay ─────────────────────────────────────────────────────────── */
 
 /** Güneşin tam tepede olduğu nokta (enlem/boylam, derece). */

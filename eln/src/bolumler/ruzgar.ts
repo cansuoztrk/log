@@ -3,8 +3,8 @@ import { NOTLAR, OZEL_NOTLAR, SORULAR } from '../notlar'
 import { oku, yaz } from '../cekirdek/depo'
 import { ses } from '../cekirdek/ses'
 import { sirBul } from '../cekirdek/sirlar'
-import { ulastir } from '../cekirdek/posta'
-import { type Anlik, MESAFE, gunFarki, sayi, tarihYazi } from '../cekirdek/zaman'
+import { elneYaz, type Gelen, kimim, ulastir } from '../cekirdek/posta'
+import { type Anlik, MESAFE, gunFarki, isoGun, sayi, tarihYazi, yerel } from '../cekirdek/zaman'
 import { $, belir, gsap, ikon, kacir, satirSatir, titret } from './yardimci'
 
 const { ben, sen, tanisma, sevgili, dogumGunu } = ICERIK
@@ -118,8 +118,8 @@ export function ruzgarHTML(z: Anlik, not: GununNotu) {
         </div>
 
         <div class="ruzgara cam" data-dom>
-          <p class="etiket">Sen de rüzgâra bir şey bırak</p>
-          <div class="soru">
+          <p class="etiket">${kimim() === 'arda' ? `${sen.ad}’e rüzgârla bir not bırak` : 'Sen de rüzgâra bir şey bırak'}</p>
+          <div class="soru"${kimim() === 'arda' ? ' hidden' : ''}>
             <p class="soru-ust"><span>Günün sorusu</span>
               <button class="soru-degis" type="button" aria-label="Başka bir soru">↻</button>
               <button class="soru-kaldir" type="button" aria-label="Soruyu kaldır, serbest yaz">×</button>
@@ -128,12 +128,12 @@ export function ruzgarHTML(z: Anlik, not: GununNotu) {
           </div>
           <label class="gorunmez" for="ruzgar-metin">Mesajın</label>
           <div class="yazi-alani">
-            <textarea id="ruzgar-metin" rows="4" maxlength="600" placeholder="Cevabın… ya da aklından geçen başka bir şey."></textarea>
+            <textarea id="ruzgar-metin" rows="4" maxlength="600" placeholder="${kimim() === 'arda' ? `Siteyi bir sonraki açışında onu bekliyor olacak…` : 'Cevabın… ya da aklından geçen başka bir şey.'}"></textarea>
             <canvas class="ruzgar-tuval" aria-hidden="true"></canvas>
           </div>
           <div class="ruzgar-alt">
             <button class="dugme ruzgar-gonder" type="button">${ikon('ruzgar')}<span>Rüzgâra bırak</span></button>
-            <span class="dipnot">${ben.sehir} yönüne, batıya doğru.</span>
+            <span class="dipnot">${kimim() === 'arda' ? `${sen.sehir} yönüne, doğuya doğru.` : `${ben.sehir} yönüne, batıya doğru.`}</span>
           </div>
           <p class="ruzgar-durum dipnot" aria-live="polite"></p>
         </div>
@@ -143,7 +143,7 @@ export function ruzgarHTML(z: Anlik, not: GununNotu) {
 }
 
 /** Yazıyı parçacıklara çevirip batıya (sola) uçurur */
-function ucur(alan: HTMLTextAreaElement, tuval: HTMLCanvasElement) {
+function ucur(alan: HTMLTextAreaElement, tuval: HTMLCanvasElement, yon = -1) {
   return new Promise<void>((bitti) => {
     const r = alan.getBoundingClientRect()
     const px = Math.min(2, window.devicePixelRatio || 1)
@@ -191,7 +191,7 @@ function ucur(alan: HTMLTextAreaElement, tuval: HTMLCanvasElement) {
           x.fillRect(p.x, p.y, 1.4, 1.4)
           continue
         }
-        p.vx -= 0.35 + Math.random() * 0.25
+        p.vx += yon * (0.35 + Math.random() * 0.25)
         p.vy += (Math.random() - 0.62) * 0.35
         p.x += p.vx
         p.y += p.vy
@@ -257,7 +257,7 @@ export function ruzgarKur(z: Anlik, not: GununNotu, notlarAc: () => void) {
   const soruKutu = $('.soru', bolum)
   const soruMetin = $('.soru-metin', bolum)
   let kaydir = 0
-  let soruVar = true
+  let soruVar = kimim() !== 'arda' // günün sorusu Eln'e; Arda'nın ekranında gizli
   const soruDegis = () => {
     kaydir++
     gsap
@@ -291,6 +291,18 @@ export function ruzgarKur(z: Anlik, not: GununNotu, notlarAc: () => void) {
       return
     }
     const soru = soruVar ? soruMetin.textContent ?? '' : ''
+    // Arda'nın cihazında rüzgâr ters yönde (doğuya) eser: not Eln'in sitesinde onu bekler
+    if (kimim() === 'arda') {
+      await ucur(alan, tuval, 1)
+      const gitti = await elneYaz(metin, soru)
+      if (gitti) window.dispatchEvent(new Event('not-gonderildi'))
+      durum.innerHTML = gitti
+        ? `Rüzgâr ${sen.sehir}’ye doğru yola çıktı. ${sen.ad} 12 saat içinde siteyi açarsa notu bulur; <b>okuyunca telefonuna “okundu ✓” düşer.</b>`
+        : 'Rüzgâr çıkamadı (bağlantı yok gibi). Biraz sonra yine dene.'
+      if (gitti && soru) window.setTimeout(soruDegis, 1800)
+      dugme.disabled = false
+      return
+    }
     await ucur(alan, tuval)
     const sonuc = soru
       ? await ulastir(`${sen.ad} · günün sorusu`, `❝${soru}❞\n\n${metin}`, ['love_letter', 'question'])
@@ -324,9 +336,22 @@ export function notlarCekmeceHTML() {
   const arsiv = oku<NotArsivi>('notlar', {})
   const gunler = Object.keys(arsiv).sort().reverse()
   const cevaplar = oku<Cevap[]>('cevaplar', []).slice().reverse()
+  const gelenler = oku<Gelen[]>('gelenler', []).slice().reverse()
   return /* html */ `
     <div class="cekmece-bas"><h3>Topladığın notlar</h3><button class="ikon-dugme kapat" type="button" aria-label="Kapat">${ikon('kapat')}</button></div>
     <div class="cekmece-govde notlar-liste" data-lenis-prevent>
+      ${
+        gelenler.length
+          ? `<h4 class="arsiv-ara ilk">${ben.ad}’dan gelenler · ${gelenler.length}</h4>
+      ${gelenler
+        .map(
+          (g) =>
+            `<button class="arsiv-not arsiv-gelen${g.okundu ? '' : ' yeni'}" type="button" data-gelen="${g.id}"><small>${tarihYazi(isoGun(yerel(new Date(g.zaman), sen.saatDilimi)), true)}${g.okundu ? '' : ' · yeni'}</small><p>${kacir(g.metin.length > 90 ? g.metin.slice(0, 90) + '…' : g.metin)}</p></button>`,
+        )
+        .join('')}
+      <h4 class="arsiv-ara">Günün notları</h4>`
+          : ''
+      }
       <p class="dipnot">Uğradığın her gün, o günün notu buraya eklenir. Şu ana kadar <b>${gunler.length}</b> not.</p>
       ${gunler
         .map(

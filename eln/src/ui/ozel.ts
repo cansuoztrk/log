@@ -5,6 +5,7 @@ import type { Ziyaret } from '../cekirdek/depo'
 import type { GununNotu } from '../bolumler/ruzgar'
 import { bildir } from './ust'
 import { uykuIsigi } from './uyku'
+import { hikayeAc } from './hikaye'
 
 const { sevgili, tanisma } = ICERIK
 
@@ -14,6 +15,9 @@ export function zamanSirlari(ziyaret: Ziyaret) {
     const z = anlik()
     const { saat, dakika, gun } = z.bakuT
     if (saat === 21 && dakika === 5) sirBul('dakika')
+    // sevgili olduğumuz dakika (İstanbul saatiyle verilir)
+    const [ss, sd] = (ICERIK.sevgiliSaat || '').split(':').map(Number)
+    if (z.istT.saat === ss && z.istT.dakika === sd) sirBul('evet')
     if ((saat === 0 && dakika >= 30) || (saat >= 1 && saat < 5)) sirBul('gece')
     if (gun === +sevgili.slice(8) && z.bugun > sevgili) sirBul('ayin21i')
     if (gun === +tanisma.slice(8) && z.bugun > tanisma) sirBul('ayin6si')
@@ -36,6 +40,7 @@ export function karsila(z: Anlik, not: GununNotu, ziyaret: Ziyaret & { yeniGun: 
   if (not.ozel) {
     kutla()
     bildir({ ust: 'Bugün özel bir gün', baslik: not.baslik, metin: 'Rüzgâr sana bugün özel bir not getirdi.', simge: '♥', tik: notaGit, sure: 10000 })
+    bildir({ ust: 'Bizim hikâyemiz', baslik: 'Bugüne kadar biz', metin: 'Dokun: tanıştığımız günden bugüne, hikâye gibi.', simge: '✦', tik: () => hikayeAc(), sure: 12000 })
     return
   }
   const { saat } = z.bakuT

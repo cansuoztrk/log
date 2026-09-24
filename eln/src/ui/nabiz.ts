@@ -13,7 +13,7 @@ import { banaHitap } from '../bolumler/ruzgar'
  * ntfy.sh üzerinden çalışır (sunucu gerekmez). Kimlik: Arda siteyi bir kez ?ben=arda ile açar.
  */
 interface Mesaj {
-  tip: 'geldim' | 'buradayim' | 'gittim' | 'kalp' | 'ay' | 'opucuk' | 'tut' | 'birak'
+  tip: 'geldim' | 'buradayim' | 'gittim' | 'kalp' | 'ay' | 'opucuk' | 'tut' | 'birak' | 'not'
   kim: Kim
   oturum: string
 }
@@ -108,9 +108,15 @@ export function nabizKur(onKalp: () => void) {
       if (m.tip === 'ay') ayRandevusu(true)
       if (m.tip === 'opucuk') opucukGeldi()
       if (m.tip === 'tut') karsiKalp(true)
+      if (m.tip === 'not') window.dispatchEvent(new Event('gelen-kontrol'))
       if (m.tip === 'birak') karsiKalp(false)
     }
   }
+
+  // Arda rüzgâra not bıraktıysa ve Eln şu an sitedeyse, onun sayfası notu hemen alsın
+  window.addEventListener('not-gonderildi', () => {
+    if (cevrimici) void gonder('not')
+  })
 
   // ─── sondaki kalbe aynı anda dokunmak ───
   // final bölümü 'kalp-tut' yayınlar; karşı tarafın durumu 'karsi-kalp' olarak geri gelir

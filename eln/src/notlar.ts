@@ -139,7 +139,7 @@ export const NOTLAR: string[] = [
 /* Özel günler. {n} = kaçıncı ay/yıl, {ad} = senin adın, {tamAd} = tam adın, {hitap} = rastgele bir hitap, {yas} = yaşın. */
 export const OZEL_NOTLAR = {
   ayin21i:
-    'Bugün ayın 21’i: bizim {n}. ayımız. {n} ay önce bugün “biz” olduk. Her 21’inde seni biraz daha çok seviyorum; bu ay da istisna değil.',
+    'Bugün ayın 21’i: bizim {n}. ayımız. {n} ay önce bugün, benim saatimle 18:32’de, seninkiyle 19:32’de “biz” olduk. Her 21’inde seni biraz daha çok seviyorum; bu ay da istisna değil.',
   ayin6si:
     '{n} ay önce bugün tanıştık. Nehir bir tuşa bastı, benim bütün hayatım değişti. İyi ki o gruptaydın.',
   yildonumuSevgili:

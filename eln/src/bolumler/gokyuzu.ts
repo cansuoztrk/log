@@ -5,7 +5,7 @@ import { gezegenler, yatay, yildizZamani, yonBulunma } from '../cekirdek/gokbili
 import { ayCiz } from '../cekirdek/ay-ciz'
 import { ses } from '../cekirdek/ses'
 import { sirBul } from '../cekirdek/sirlar'
-import { saatYazi, simdi, tarihYazi, isoGun, yerel } from '../cekirdek/zaman'
+import { saatYazi, sevgiliAni, simdi, tarihYazi, isoGun, yerel } from '../cekirdek/zaman'
 import { $, $$, azHareket, belir, gsap, paylasVeyaIndir, satirSatir, titret } from './yardimci'
 
 const { ben, sen } = ICERIK
@@ -17,7 +17,7 @@ type Sehir = 'sen' | 'ben'
 /** Bizim dakikamız: 21:05 (Bakü saatiyle) */
 const aninZamani = (an: An): Date => {
   if (an === 'tanisma') return new Date(`${ICERIK.tanisma}T21:05:00+04:00`)
-  if (an === 'sevgili') return new Date(`${ICERIK.sevgili}T21:05:00+04:00`)
+  if (an === 'sevgili') return sevgiliAni()
   // bu gece: hava kararmışsa şu an, değilse bu akşam 22:00
   const s = simdi()
   if (SunCalc.getPosition(s, sen.enlem, sen.boylam).altitude < -8) return s
@@ -61,7 +61,13 @@ interface Cizim {
   an: Date
   kisi: Kisi
   etiketler: boolean
+  /** gün ışığı çarpanı: 1 gerçek, 0 "güneşi söndür" */
+  isik: number
 }
+
+const sinir = (v: number, a = 0, b = 1) => Math.min(b, Math.max(a, v))
+/** O anda gökyüzü ne kadar aydınlık (0 gece, 1 gündüz) */
+const gunIsigi = (t: Date, k: Kisi) => sinir((SunCalc.getPosition(t, k.enlem, k.boylam).altitude + 10) / 16)
 
 /** Bir gökyüzü haritası çizer: tepe noktası ortada, kuzey yukarıda, doğu solda (gökyüzüne bakar gibi). */
 function haritaCiz(x: CanvasRenderingContext2D, cx: number, cy: number, R: number, c: Cizim): Hedef[] {
@@ -82,6 +88,30 @@ function haritaCiz(x: CanvasRenderingContext2D, cx: number, cy: number, R: numbe
   zemin.addColorStop(1, '#1c1533')
   x.fillStyle = zemin
   x.fillRect(cx - R, cy - R, R * 2, R * 2)
+
+  // gün ışığı: güneş ufkun üstündeyse gökyüzü maviye döner, yıldızlar (oradadırlar ama) görünmez olur
+  const gunes = SunCalc.getPosition(c.an, c.kisi.enlem, c.kisi.boylam)
+  const gun = gunIsigi(c.an, c.kisi) * c.isik
+  if (gun > 0.001) {
+    const mavi = x.createRadialGradient(cx, cy, 0, cx, cy, R)
+    mavi.addColorStop(0, '#4f78b8')
+    mavi.addColorStop(0.7, '#7fa4d6')
+    mavi.addColorStop(1, '#b9cfe9')
+    x.globalAlpha = gun
+    x.fillStyle = mavi
+    x.fillRect(cx - R, cy - R, R * 2, R * 2)
+    // güneş tarafında sıcak bir parıltı; güneş alçaldıkça turuncu-pembe gün batımı
+    const [gx, gy] = izd(Math.max(gunes.altitude, -4), gunes.azimuth)
+    const batim = sinir(1 - gunes.altitude / 14)
+    const parilti = x.createRadialGradient(gx, gy, 0, gx, gy, R * (0.9 + 0.5 * batim))
+    parilti.addColorStop(0, `rgba(255,${Math.round(236 - 60 * batim)},${Math.round(200 - 70 * batim)},${0.85})`)
+    parilti.addColorStop(0.35, `rgba(255,${Math.round(190 - 40 * batim)},${Math.round(160 - 20 * batim)},${0.35 + 0.3 * batim})`)
+    parilti.addColorStop(1, 'rgba(255,170,160,0)')
+    x.fillStyle = parilti
+    x.fillRect(cx - R, cy - R, R * 2, R * 2)
+    x.globalAlpha = 1
+  }
+  const gece = 1 - gun
 
   // Samanyolu: düşük çözünürlüklü bir tuvale nokta nokta çizilip bulanıklaştırılarak büyütülür → yumuşak bir ışık bulutu
   const kucuk = 120
@@ -105,7 +135,7 @@ function haritaCiz(x: CanvasRenderingContext2D, cx: number, cy: number, R: numbe
     m.fill()
   }
   x.globalCompositeOperation = 'lighter'
-  x.globalAlpha = 0.36
+  x.globalAlpha = 0.36 * gece
   x.imageSmoothingEnabled = true
   // tarayıcı destekliyorsa ek bir bulanıklık (desteklemeyende düşük çözünürlük zaten yumuşatır)
   if ('filter' in x) x.filter = `blur(${Math.round(5 * s)}px)`
@@ -115,7 +145,7 @@ function haritaCiz(x: CanvasRenderingContext2D, cx: number, cy: number, R: numbe
   x.globalCompositeOperation = 'source-over'
 
   // takımyıldız çizgileri
-  x.strokeStyle = 'rgba(255,223,174,0.3)'
+  x.strokeStyle = `rgba(255,223,174,${0.3 * (1 - 0.8 * gun)})`
   x.lineWidth = 0.9 * s
   x.lineCap = 'round'
   for (const cz of CIZGILER) {
@@ -137,7 +167,7 @@ function haritaCiz(x: CanvasRenderingContext2D, cx: number, cy: number, R: numbe
   if (c.etiketler) {
     x.font = `600 ${Math.round(7.5 * s)}px "Plus Jakarta Sans Variable", sans-serif`
     x.textAlign = 'center'
-    x.fillStyle = 'rgba(247,237,224,0.3)'
+    x.fillStyle = `rgba(247,237,224,${0.3 * gece})`
     for (const [ad, ra, dec, onem] of Object.values(TAKIMYILDIZLAR)) {
       if (onem > 1) continue
       const h = yatay(ra, dec, c.yz, c.enlem)
@@ -159,6 +189,7 @@ function haritaCiz(x: CanvasRenderingContext2D, cx: number, cy: number, R: numbe
     const r = Math.max(0.45, 0.28 + (5.2 - kadir) * 0.44) * s
     let a = Math.min(1, Math.max(0.35, 1.15 - (kadir - 1.5) / 4.5))
     if (h.alt < 10) a *= 0.35 + (0.65 * h.alt) / 10 // ufka yakın sönükleşir
+    a *= 1 - 0.97 * gun // gündüz: yıldızlar oradadır ama görünmez
     if (kadir < 1.8) {
       const p = x.createRadialGradient(px, py, 0, px, py, r * 5)
       p.addColorStop(0, `rgba(${renk},${0.42 * a})`)
@@ -178,7 +209,7 @@ function haritaCiz(x: CanvasRenderingContext2D, cx: number, cy: number, R: numbe
       if (c.etiketler && kadir < 1.6 && h.alt > 8) {
         x.font = `500 ${Math.round(8 * s)}px "Plus Jakarta Sans Variable", sans-serif`
         x.textAlign = 'left'
-        x.fillStyle = 'rgba(247,237,224,0.6)'
+        x.fillStyle = `rgba(247,237,224,${0.6 * gece})`
         x.fillText(adi[0].replace(/ \(.*\)$/, ''), px + r + 4 * s, py + 3 * s)
       }
     }
@@ -191,20 +222,22 @@ function haritaCiz(x: CanvasRenderingContext2D, cx: number, cy: number, R: numbe
       if (h.alt < 0) continue
       const [px, py] = izd(h.alt, h.az)
       const r = g.boy * s
+      // Venüs gündüz bile seçilebilir; diğerleri gün ışığında kaybolur
+      const ga = 1 - gun * (g.id === 'venus' ? 0.6 : 0.9)
       const p = x.createRadialGradient(px, py, 0, px, py, r * 6)
-      p.addColorStop(0, `rgba(${g.renk},0.55)`)
+      p.addColorStop(0, `rgba(${g.renk},${0.55 * ga})`)
       p.addColorStop(1, `rgba(${g.renk},0)`)
       x.fillStyle = p
       x.beginPath()
       x.arc(px, py, r * 6, 0, Math.PI * 2)
       x.fill()
-      x.fillStyle = `rgb(${g.renk})`
+      x.fillStyle = `rgba(${g.renk},${ga})`
       x.beginPath()
       x.arc(px, py, r, 0, Math.PI * 2)
       x.fill()
       x.font = `italic 500 ${Math.round(11 * s)}px "Cormorant Garamond", serif`
       x.textAlign = 'left'
-      x.fillStyle = 'rgba(255,223,174,0.92)'
+      x.fillStyle = gun > 0.5 ? `rgba(40,30,70,${0.75 * ga + 0.2})` : `rgba(255,223,174,${0.92 * ga})`
       x.fillText(g.ad, px + r + 5 * s, py - 4 * s)
       hedefler.push({
         x: px,
@@ -226,8 +259,34 @@ function haritaCiz(x: CanvasRenderingContext2D, cx: number, cy: number, R: numbe
       x.beginPath()
       x.arc(px, py, 34 * s, 0, Math.PI * 2)
       x.fill()
-      ayCiz(x, px, py, 8.5 * s, isik.phase)
+      ayCiz(x, px, py, 8.5 * s, isik.phase, 1, 1 - gun)
       hedefler.push({ x: px, y: py, ad: 'Ay', id: 'ay', bilgi: `%${Math.round(isik.fraction * 100)} dolu` })
+    }
+    // güneş (söndürülünce yerinde soluk bir halka kalır)
+    if (gunes.altitude > -3) {
+      const [px, py] = izd(gunes.altitude, gunes.azimuth)
+      const p = x.createRadialGradient(px, py, 0, px, py, 70 * s)
+      p.addColorStop(0, `rgba(255,248,230,${0.95 * c.isik})`)
+      p.addColorStop(0.18, `rgba(255,226,170,${0.6 * c.isik})`)
+      p.addColorStop(1, 'rgba(255,200,150,0)')
+      x.fillStyle = p
+      x.beginPath()
+      x.arc(px, py, 70 * s, 0, Math.PI * 2)
+      x.fill()
+      x.fillStyle = `rgba(255,250,236,${c.isik})`
+      x.strokeStyle = `rgba(255,223,174,${0.6 * (1 - c.isik)})`
+      x.lineWidth = 1.2 * s
+      x.beginPath()
+      x.arc(px, py, 10 * s, 0, Math.PI * 2)
+      x.fill()
+      x.stroke()
+      hedefler.push({
+        x: px,
+        y: py,
+        ad: 'Güneş',
+        id: 'gunes',
+        bilgi: gunes.altitude > 0 ? `Ufkun ${Math.round(gunes.altitude)}° üstünde` : 'Az önce battı',
+      })
     }
   }
   x.restore()
@@ -266,24 +325,42 @@ function haritaCiz(x: CanvasRenderingContext2D, cx: number, cy: number, R: numbe
 function anlati(an: An, sehir: Sehir, t: Date, yz: number, kisi: Kisi) {
   const gecmis = an !== 'bugece'
   const cumleler: string[] = []
+  const gunes = SunCalc.getPosition(t, kisi.enlem, kisi.boylam)
+  const gunduz = gunIsigi(t, kisi) > 0.3
+  if (gunes.altitude > 6)
+    cumleler.push(
+      gecmis
+        ? `O an güneş henüz batmamıştı: ${yonBulunma(gunes.azimuth)}, ufkun ${Math.round(gunes.altitude)}° üstündeydi.`
+        : `Güneş ${yonBulunma(gunes.azimuth)}, ufkun ${Math.round(gunes.altitude)}° üstünde.`,
+    )
+  else if (gunes.altitude > 0)
+    cumleler.push(
+      gecmis ? `Güneş batmak üzereydi: ${yonBulunma(gunes.azimuth)}, ufkun ancak ${Math.round(gunes.altitude)}° üstünde.` : 'Güneş batmak üzere.',
+    )
+  else if (gunes.altitude > -6) cumleler.push(gecmis ? 'Güneş az önce batmıştı; gökyüzü alacakaranlıktaydı.' : 'Güneş az önce battı; alacakaranlık.')
+
   const ay = SunCalc.getMoonPosition(t, kisi.enlem, kisi.boylam)
   const yuzde = Math.round(SunCalc.getMoonIllumination(t).fraction * 100)
+  const gundeAy = gunduz ? 'gündüz gökyüzünde, ' : ''
   if (ay.altitude > 0)
     cumleler.push(
       gecmis
-        ? `Ay %${yuzde} doluydu; ${yonBulunma(ay.azimuth)}, ufkun ${Math.round(ay.altitude)}° üstündeydi.`
-        : `Ay %${yuzde} dolu; ${yonBulunma(ay.azimuth)}, ufkun ${Math.round(ay.altitude)}° üstünde.`,
+        ? `Ay %${yuzde} doluydu; ${gundeAy}${yonBulunma(ay.azimuth)}, ufkun ${Math.round(ay.altitude)}° üstündeydi.`
+        : `Ay %${yuzde} dolu; ${gundeAy}${yonBulunma(ay.azimuth)}, ufkun ${Math.round(ay.altitude)}° üstünde.`,
     )
-  else cumleler.push(gecmis ? 'Ay o saatte ufkun altındaydı; gökyüzü yıldızlara kalmıştı.' : 'Ay şu an ufkun altında; gökyüzü yıldızlara kalmış.')
+  else if (!gunduz)
+    cumleler.push(gecmis ? 'Ay o saatte ufkun altındaydı; gökyüzü yıldızlara kalmıştı.' : 'Ay şu an ufkun altında; gökyüzü yıldızlara kalmış.')
 
   const gorunen = gezegenler(t)
     .map((g) => ({ g, h: yatay(g.ra, g.dec, yz, kisi.enlem) }))
-    .filter((x) => x.h.alt > 3)
+    .filter((x) => x.h.alt > 3 && (!gunduz || x.g.id === 'venus'))
   const venus = gorunen.find((x) => x.g.id === 'venus')
   const digerleri = gorunen.filter((x) => x.g.id !== 'venus')
   if (venus)
     cumleler.push(
-      `Adını aşk tanrıçasından alan Venüs ${yonBulunma(venus.h.az)} ${gecmis ? 'parlıyordu' : 'parlıyor'}${digerleri.length ? `; yanında ${digerleri.map((x) => x.g.ad).join(' ve ')} ${gecmis ? 'vardı' : 'var'}` : ''}.`,
+      gunduz
+        ? `Adını aşk tanrıçasından alan Venüs de ${yonBulunma(venus.h.az)}${gecmis ? (yonBulunma(venus.h.az).endsWith('de') ? 'ydi' : 'ydı') : ''}.`
+        : `Adını aşk tanrıçasından alan Venüs ${yonBulunma(venus.h.az)} ${gecmis ? 'parlıyordu' : 'parlıyor'}${digerleri.length ? `; yanında ${digerleri.map((x) => x.g.ad).join(' ve ')} ${gecmis ? 'vardı' : 'var'}` : ''}.`,
     )
   else if (digerleri.length)
     cumleler.push(`${digerleri.map((x) => `${x.g.ad} ${yonBulunma(x.h.az)}`).join(', ')} ${gecmis ? 'parlıyordu' : 'parlıyor'}.`)
@@ -296,7 +373,13 @@ function anlati(an: An, sehir: Sehir, t: Date, yz: number, kisi: Kisi) {
     const h = yatay(YILDIZLAR[k * 4], YILDIZLAR[k * 4 + 1], yz, kisi.enlem)
     if (h.alt > 64 && (!tepe || h.alt > tepe.alt)) tepe = { ad: ad.replace(/ \(.*\)$/, ''), alt: h.alt }
   }
-  if (tepe) {
+  if (gunduz)
+    cumleler.push(
+      gecmis
+        ? 'Yıldızlar da oradaydı; gün ışığı onları saklıyordu. Güneşi söndür, gör.'
+        : 'Yıldızlar yine de orada; gün ışığı onları saklıyor. Güneşi söndür, gör.',
+    )
+  if (tepe && !gunduz) {
     const kimin = sehir === 'sen' ? 'Senin' : 'Benim'
     cumleler.push(`${kimin} başı${sehir === 'sen' ? 'nın' : 'mın'} hemen üstünde ${tepe.ad} ${gecmis ? 'vardı' : 'var'}.`)
   }
@@ -305,7 +388,7 @@ function anlati(an: An, sehir: Sehir, t: Date, yz: number, kisi: Kisi) {
 
 const SOZ: Record<An, string> = {
   tanisma: 'Seni tanıdığım gece gökyüzü böyleydi.',
-  sevgili: '“Biz” olduğumuz gece gökyüzü böyleydi.',
+  sevgili: '“Biz” olduğumuz an gökyüzü böyleydi.',
   bugece: 'Bu gece, aynı gökyüzünün altındayız.',
 }
 
@@ -316,17 +399,18 @@ export function gokyuzuHTML() {
       <div class="bolum-bas">
         <p class="etiket"><span class="no"></span>O gecenin gökyüzü</p>
         <h2 class="baslik">Yıldızlar <em>o gece de</em> oradaydı.</h2>
-        <p class="metin">Tanıştığımız gece ve “biz” olduğumuz gece gökyüzü tam olarak böyleydi: aynı yıldızlar, aynı ay, gezegenler gerçek yerlerinde. Geceyi ve şehri değiştir; gökyüzü o ana döner.</p>
+        <p class="metin">Tanıştığımız gece ve “biz” olduğumuz an gökyüzü tam olarak böyleydi: aynı yıldızlar, aynı ay, güneş ve gezegenler gerçek yerlerinde. Anı ve şehri değiştir; gökyüzü o ana döner.</p>
       </div>
       <div class="gok-harita" data-dom>
         <div class="gok-secim" role="group" aria-label="Hangi gece">
           <button type="button" data-an="tanisma" aria-pressed="false">${tarihYazi(ICERIK.tanisma)}<small>tanıştık</small></button>
-          <button type="button" data-an="sevgili" aria-pressed="true" class="secili">${tarihYazi(ICERIK.sevgili)}<small>biz olduk</small></button>
+          <button type="button" data-an="sevgili" aria-pressed="true" class="secili">${tarihYazi(ICERIK.sevgili)}<small>biz olduk${ICERIK.sevgiliSaat ? ` · ${ICERIK.sevgiliSaat}` : ''}</small></button>
           <button type="button" data-an="bugece" aria-pressed="false">Bu gece<small>şimdi</small></button>
         </div>
         <div class="gok-cember">
           <canvas class="gok-tuval" role="img" aria-label="Gökyüzü haritası"></canvas>
           <p class="gok-ipucu" hidden></p>
+          <button class="gok-gunes" type="button" hidden>☼ Güneşi söndür</button>
         </div>
         <div class="gok-sehir" role="group" aria-label="Hangi şehrin gökyüzü">
           <button type="button" data-sehir="sen" aria-pressed="true" class="secili">${sen.yerelSehir}</button>
@@ -350,11 +434,13 @@ export function gokyuzuKur() {
 
   const tuval = $<HTMLCanvasElement>('.gok-tuval', bolum)
   const ipucu = $('.gok-ipucu', bolum)
+  const gunesD = $<HTMLButtonElement>('.gok-gunes', bolum)
   let an: An = 'sevgili'
   let sehir: Sehir = 'sen'
   let hedefler: Hedef[] = []
   let gorunur = { yz: 0, enlem: 0 }
   let kur = false
+  let isik = 1 // "güneşi söndür" ile 0'a iner
 
   const durum = () => {
     const kisi = sehir === 'sen' ? sen : ben
@@ -375,7 +461,7 @@ export function gokyuzuKur() {
     x.clearRect(0, 0, W, W)
     const { kisi, t } = durum()
     const R = W / 2 - 30 * (W / 560)
-    hedefler = haritaCiz(x, W / 2, W / 2, R, { yz, enlem, an: t, kisi, etiketler })
+    hedefler = haritaCiz(x, W / 2, W / 2, R, { yz, enlem, an: t, kisi, etiketler, isik })
     gorunur = { yz, enlem }
   }
 
@@ -385,8 +471,12 @@ export function gokyuzuKur() {
     const tarih = isoGun(yerel(t, kisi.saatDilimi))
     $('.gok-baslik', bolum).innerHTML =
       `${tarihYazi(tarih)} · ${saatYazi(t, kisi.saatDilimi)} · ${kisi.yerelSehir}` +
-      `<small>${derece(kisi.enlem, 'K', 'G')} · ${derece(kisi.boylam, 'D', 'B')}${sehir === 'ben' && an !== 'bugece' ? ' · aynı an, bir saat geriden' : ''}</small>`
+      `<small>${derece(kisi.enlem, 'K', 'G')} · ${derece(kisi.boylam, 'D', 'B')}${sehir === 'ben' && an !== 'bugece' ? ' · aynı an, bir saat geriden' : ''}${an === 'tanisma' ? ' · saat temsilî' : ''}</small>`
     $('.gok-anlati', bolum).textContent = anlati(an, sehir, t, yz, kisi)
+    // gündüzse "güneşi söndür" düğmesi
+    isik = 1
+    gunesD.hidden = gunIsigi(t, kisi) < 0.05
+    gunesD.textContent = '☼ Güneşi söndür'
   }
 
   // Geçiş: başka bir geceye giderken gökyüzü zamanda ileri/geri bir tur döner;
@@ -419,6 +509,29 @@ export function gokyuzuKur() {
       },
     })
   }
+
+  // Güneşi söndür: gün ışığı çekilir, o an orada olan yıldızlar görünür
+  let isikGecis: gsap.core.Tween | null = null
+  gunesD.addEventListener('click', () => {
+    const hedef = isik > 0.5 ? 0 : 1
+    gunesD.textContent = hedef ? '☼ Güneşi söndür' : '☼ Güneşi geri getir'
+    ses.vuus(1.8)
+    titret(10)
+    isikGecis?.kill()
+    const o = { v: isik }
+    isikGecis = gsap.to(o, {
+      v: hedef,
+      duration: azHareket ? 0.01 : 1.8,
+      ease: 'power2.inOut',
+      onUpdate: () => {
+        isik = o.v
+        ciz(gorunur.yz, gorunur.enlem, true)
+      },
+      onComplete: () => {
+        if (!hedef) sirBul('gunduz')
+      },
+    })
+  })
 
   const sira: An[] = ['tanisma', 'sevgili', 'bugece']
   for (const d of $$<HTMLButtonElement>('[data-an]', bolum)) {
@@ -485,7 +598,7 @@ export function gokyuzuKur() {
     posterD.disabled = true
     const yazi = posterD.querySelector('span')!
     yazi.textContent = 'Hazırlanıyor…'
-    await posterYap(an, sehir, durum())
+    await posterYap(an, sehir, durum(), isik)
     yazi.textContent = 'Bu gökyüzünü poster olarak kaydet'
     posterD.disabled = false
   })
@@ -517,7 +630,7 @@ export function gokyuzuKur() {
   })
 }
 
-async function posterYap(an: An, sehir: Sehir, d: { kisi: Kisi; t: Date; yz: number }) {
+async function posterYap(an: An, sehir: Sehir, d: { kisi: Kisi; t: Date; yz: number }, isik: number) {
   await document.fonts.load('italic 300 80px "Cormorant Garamond"')
   await document.fonts.load('80px "Great Vibes"')
   const W = 1200
@@ -532,7 +645,7 @@ async function posterYap(an: An, sehir: Sehir, d: { kisi: Kisi; t: Date; yz: num
   g.addColorStop(1, '#1f1330')
   x.fillStyle = g
   x.fillRect(0, 0, W, H)
-  haritaCiz(x, W / 2, 610, 470, { yz: d.yz, enlem: d.kisi.enlem, an: d.t, kisi: d.kisi, etiketler: true })
+  haritaCiz(x, W / 2, 610, 470, { yz: d.yz, enlem: d.kisi.enlem, an: d.t, kisi: d.kisi, etiketler: true, isik })
 
   const tarih = isoGun(yerel(d.t, d.kisi.saatDilimi))
   x.textAlign = 'center'

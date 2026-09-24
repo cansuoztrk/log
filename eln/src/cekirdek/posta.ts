@@ -68,3 +68,58 @@ export async function ulastir(baslik: string, metin: string, etiketler: string[]
     return 'yok'
   }
 }
+
+/* ─── Ters yön: Arda'dan Eln'e ───────────────────────────────────────────── */
+// Arda'nın sitede yazdığı notlar ayrı bir konuya gider; Eln'in sitesi açılınca oradan alır.
+// ntfy.sh mesajları 12 saat saklar: Eln o süre içinde siteyi açarsa not ona ulaşır.
+export interface Gelen {
+  id: string
+  zaman: number
+  metin: string
+  soru?: string
+  okundu?: boolean
+}
+
+const elnKutusu = () => `${ICERIK.ruzgarPostasi.ntfyKonu}-eln`
+
+export async function elneYaz(metin: string, soru = '') {
+  if (!ICERIK.ruzgarPostasi.ntfyKonu || onizleme || kimim() !== 'arda') return false
+  try {
+    const r = await fetch('https://ntfy.sh/', {
+      method: 'POST',
+      body: JSON.stringify({ topic: elnKutusu(), title: ICERIK.ben.ad, message: JSON.stringify({ m: metin, s: soru }) }),
+    })
+    return r.ok
+  } catch {
+    return false
+  }
+}
+
+/** Son 12 saatte Arda'nın bıraktığı notlar */
+export async function gelenleriAl(): Promise<Gelen[]> {
+  if (!ICERIK.ruzgarPostasi.ntfyKonu || onizleme) return []
+  try {
+    const r = await fetch(`https://ntfy.sh/${encodeURIComponent(elnKutusu())}/json?poll=1&since=12h`)
+    if (!r.ok) return []
+    const liste: Gelen[] = []
+    for (const satir of (await r.text()).split('\n')) {
+      if (!satir.trim()) continue
+      try {
+        const m = JSON.parse(satir) as { id: string; time: number; event: string; message?: string }
+        if (m.event !== 'message' || !m.message) continue
+        let govde: { m?: string; s?: string } = {}
+        try {
+          govde = JSON.parse(m.message)
+        } catch {
+          govde = { m: m.message }
+        }
+        if (govde.m) liste.push({ id: m.id, zaman: m.time * 1000, metin: govde.m, soru: govde.s || undefined })
+      } catch {
+        /* bozuk satır */
+      }
+    }
+    return liste
+  } catch {
+    return []
+  }
+}

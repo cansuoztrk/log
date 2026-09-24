@@ -1,5 +1,5 @@
 import { ICERIK } from '../icerik'
-import { type Anlik, MESAFE, dolunaySayisi, gunEkle, gunFarki, GUNLER, AYLAR, sayi, simdiMs, tarihYazi } from '../cekirdek/zaman'
+import { type Anlik, MESAFE, dolunaySayisi, gunEkle, gunFarki, GUNLER, AYLAR, sayi, sevgiliAni, simdiMs, tarihYazi } from '../cekirdek/zaman'
 import { $, azHareket, belir, gorunurken, gsap, satirSatir, ScrollTrigger, tuvalOlcu } from './yardimci'
 
 const { tanisma, sevgili } = ICERIK
@@ -48,7 +48,7 @@ function yaklasanlar(bugun: string): Kilometre[] {
 }
 
 export function gunlerHTML(z: Anlik) {
-  const dolunay = dolunaySayisi(new Date(sevgili + 'T00:00:00+04:00'), z.an)
+  const dolunay = dolunaySayisi(sevgiliAni(), z.an)
   const yakin = yaklasanlar(z.bugun)
   return /* html */ `
   <section id="gunler" class="bolum" data-bolum="IV" data-ad="Günlerimiz">
@@ -101,7 +101,7 @@ export function gunlerKur(z: Anlik) {
   belir($('.gunler-son', bolum))
 
   // Canlı sayaçlar
-  const sevgiliAn = new Date(sevgili + 'T00:00:00+04:00').getTime()
+  const sevgiliAn = sevgiliAni().getTime()
   const saatEl = $('[data-canli="saat"]', bolum)
   const kalpEl = $('[data-canli="kalp"]', bolum)
   const guncelle = () => {

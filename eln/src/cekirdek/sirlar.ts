@@ -36,6 +36,12 @@ export const SIRLAR: Sir[] = [
     mesaj: '21:05 — 21 Mayıs’ın dakikası. Her gün yalnızca bir kez gelir ve sadece bir dakika sürer. O dakika bizim.',
   },
   {
+    id: 'evet',
+    ad: 'O dakika',
+    ipucu: 'Her gün bir kez gelen o dakikada buraya bak. (İpucu: Bakü’de 19:32.)',
+    mesaj: 'İstanbul’da 18:32, Bakü’de 19:32. 21 Mayıs’ta tam bu dakikada “biz” olduk. O an güneş sende batıyordu, bende hâlâ yüksekteydi; ince bir hilal ikimizin de tepesindeydi.',
+  },
+  {
     id: 'gece',
     ad: 'Uyumayan gözler',
     ipucu: 'Gece yarısından sonra, herkes uyurken gel.',
@@ -176,8 +182,20 @@ export const SIRLAR: Sir[] = [
   {
     id: 'venus',
     ad: 'Aşkın gezegeni',
-    ipucu: '“Biz” olduğumuz gecenin gökyüzünde aşk tanrıçasının gezegenini bul.',
-    mesaj: 'Venüs. O gece batıda, ince bir hilalin yanında parlıyordu. Biz “biz” olurken gökyüzü de süslenmişti.',
+    ipucu: 'Yıldız haritasında aşk tanrıçasının gezegenini bul.',
+    mesaj: 'Venüs. 21 Mayıs’ta da oradaydı: gün ışığının arkasında, batı göğünde, ince bir hilalle aynı gökyüzünde. Biz “biz” olurken gökyüzü de süslenmişti.',
+  },
+  {
+    id: 'gunduz',
+    ad: 'Gündüz yıldızları',
+    ipucu: '“Biz” olduğumuz anın gökyüzünde güneşi söndür.',
+    mesaj: 'Yıldızlar gündüz de oradadır; sadece görünmezler. 21 Mayıs’ta 18:32’de de oradaydılar. Biz de öyleydik: her şey çoktan oradaydı, sadece adını koymamıştık.',
+  },
+  {
+    id: 'hikaye',
+    ad: 'Baştan sona',
+    ipucu: 'Bizim hikâyemizi sonuna kadar izle.',
+    mesaj: 'Sonuna kadar izledin. Ama bu hikâyenin sonu yok; sadece bir sonraki sayfası var. Onu birlikte yazacağız.',
   },
   {
     id: 'uyku',

@@ -2753,3 +2753,35 @@ body.modal-acik {
   margin: 0;
   max-width: 26rem;
 }
+.gok-gunes {
+  position: absolute;
+  left: 50%;
+  bottom: 9%;
+  transform: translateX(-50%);
+  padding: 7px 14px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 650;
+  white-space: nowrap;
+  color: #3a2410;
+  background: linear-gradient(120deg, #fff1cf, var(--altin));
+  box-shadow: 0 8px 22px -8px rgba(0, 0, 0, 0.6);
+}
+/* Arda'dan gelen notlar */
+.arsiv-ara.ilk {
+  margin-top: 4px;
+}
+.arsiv-gelen {
+  display: block;
+  width: 100%;
+  text-align: left;
+}
+.arsiv-gelen.yeni small {
+  color: var(--gul);
+}
+.gelen-soru {
+  font-family: var(--serif) !important;
+  font-style: italic;
+  font-size: 1.15rem !important;
+  color: #8a6a4a;
+}

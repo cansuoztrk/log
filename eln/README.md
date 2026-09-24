@@ -42,12 +42,19 @@ Site, ikinizin hikâyesindeki **gerçek ve şaşırtıcı tesadüfler** üzerine
     sayfası gibi. Eln yeni kelime ekleyebilir; el yazısıyla sayfaya eklenir ve senin telefonuna düşer
 11. **Adında Bir Nar**: kırılan nar, “Elnare” yazan taneler
 12. **Şu An**: iki şehrin gökyüzü, gerçek güneş, ay ve hava durumu
-13. **O Gecenin Gökyüzü**: tanıştığınız gece (6 Aralık 2025) ve “biz” olduğunuz gece (21 Mayıs 2026), saat 21:05’te
-    Bakü’nün ve İstanbul’un üstündeki **gerçek yıldız haritası**: 1.600+ yıldız, takımyıldızlar (Türkçe adlarıyla),
-    Samanyolu, o geceki ay evresi ve gezegenler (21 Mayıs gecesi batıda hilal, Venüs ve Jüpiter yan yanaydı).
-    Geceler arasında geçerken gökyüzü zamanda döner; yıldızlara dokununca adları çıkar; **poster olarak kaydedilir**
+13. **O Gecenin Gökyüzü**: tanıştığınız gece (6 Aralık 2025, saat temsilî 21:05) ve “biz” olduğunuz an
+    (21 Mayıs 2026, İstanbul’da **18:32**, Bakü’de 19:32) Bakü’nün ve İstanbul’un üstündeki **gerçek gökyüzü**:
+    1.600+ yıldız, takımyıldızlar (Türkçe adlarıyla), Samanyolu, ayın o anki evresi, güneş ve gezegenler.
+    O an iki şehirde de gündüzdü: İstanbul’da güneş 18° yüksekteydi, Bakü’de batmak üzereydi (pembe-turuncu
+    gün batımı), ince hilal ikisinin de tepesindeydi. **“Güneşi söndür”** düğmesi gün ışığını çeker ve o an
+    orada olan ama görünmeyen yıldızları gösterir. Anlar arasında geçerken gökyüzü zamanda döner; gök cisimlerine
+    dokununca adları çıkar; **poster olarak kaydedilir**
 14. **Rüzgâr Postası**: günün notu (zarf), toplanan notlar, rüzgâra mesaj. Üstünde **günün sorusu**
-    (55+ soru, her gün başka); Eln cevaplarsa soru ve cevap birlikte telefonuna düşer
+    (55+ soru, her gün başka); Eln cevaplarsa soru ve cevap birlikte telefonuna düşer.
+    **İki yönlü:** siteyi kendi telefonunda (`?ben=arda` ile tanıttıysan) açınca aynı kutu “Eln’e rüzgârla bir not
+    bırak”a dönüşür. Yazdığın not, Eln siteyi bir sonraki açışında mektup gibi karşısına çıkar
+    (“Posi sana bir not bıraktı”); o açınca senin telefonuna **“Eln notunu okudu ✓”** düşer.
+    ntfy.sh mesajları 12 saat saklar: Eln 12 saat içinde siteyi açmazsa not ona ulaşmaz (okundu gelmezse yine yaz)
 15. **İlk Buluşma**: kalkış panosu, birlikte yapılacaklar listesi
 16. **Buluşma Cüzdanı**: her yeni ziyaret gününde parmakla **kazınan bir kupon** (34 kupon).
     “Hemen geçerli” olanlar (sesli arama, bir şarkı isteği, “bok gibi gün” iptali, ilk görüntülü aramamız…)
@@ -60,7 +67,13 @@ Site, ikinizin hikâyesindeki **gerçek ve şaşırtıcı tesadüfler** üzerine
     Altında duygu mektupları ve kendi gününü bekleyen kilitli mektuplar
 20. **Kalbim**: kalbe basılı tut; yıldızlar “Səni sevirəm” yazar, sonra kalp olur. İkiniz aynı anda sitedeyken
     **ikiniz birden** dokunursanız kalp iki kat hızlı dolar (“İki kalp, aynı anda”).
-    En sonda **“Öptüm”** düğmesi (senin telefonuna bildirim olarak düşer) ve **kilit ekranı duvar kâğıdı**
+    En sonda **“Bizim hikâyemiz”** (aşağıya bak), **“Öptüm”** düğmesi (senin telefonuna bildirim olarak düşer)
+    ve **kilit ekranı duvar kâğıdı**
+
+**Bizim Hikâyemiz:** Instagram hikâyesi gibi, tam ekran, kendiliğinden ilerleyen slaytlar: tanışalı kaç gün,
+“biz” olalı kaç saat (18:32’den beri), kaç dolunay, sitede kaç gün, kaç not/cevap, kaç kupon, kaç mektup, kaç sır,
+kaç “öptüm”… Sayılar Eln’in cihazında biriktikçe büyür. Sayfanın sonundaki düğmeden ve özel günlerde
+(ayın 21’i, 6’sı, yıl dönümleri) gelen bildirimden açılır.
 
 Bölüm numaraları otomatik verilir; fotoğraf eklenince numaralar kendiliğinden kayar.
 
@@ -82,13 +95,14 @@ ekranda ayın o geceki gerçek evresi nefes alıp verir (4 saniye al, 6 saniye v
   basınca ikinizin ekranında “Şimdi pencereden aya bak” açılır
 - Kilitli mektuplar kendi günleri geldikçe açılır; o güne kadar kaç gün kaldığını söyler
 - Her yeni gün yeni bir **kupon** kazınır, yeni bir **soru** gelir
-- **29 sır** (sağ üstteki ✦). Bazıları dokunarak, bazıları sadece belli bir anda bulunur:
+- **32 sır** (sağ üstteki ✦). Bazıları dokunarak, bazıları sadece belli bir anda bulunur:
   aya 3 kez dokunmak, saat **21:05**’te bakmak, gece yarısından sonra gelmek, ayın 21’inde/6’sında gelmek,
   dolunayda gelmek, iki bardağı art arda çınlatmak, bardağına iki şeker atmak, rüzgâra boş mektup bırakmak,
   kayan yıldızı yakalamak, 10 farklı gün gelmek, üstteki iki harfe 5 kez dokunmak (☺️ yağmuru),
   rüzgâra “bizim kelimemizi” ya da sana taktığı bir adı yazmak, “öptüm” demek, ilk kuponu kazımak,
   sözlüğe kelime eklemek, sondaki kalbe ikiniz aynı anda dokunmak, “biz” olduğunuz gecenin gökyüzünde
-  Venüs’ü bulmak, uyku ışığında beş nefes almak… (Eln’e söyleme 🙂)
+  Venüs’ü bulmak, uyku ışığında beş nefes almak, “biz” olduğunuz anın gökyüzünde güneşi söndürmek,
+  18:32’de (Bakü’de 19:32) siteye bakmak, hikâyemizi sonuna kadar izlemek… (Eln’e söyleme 🙂)
 - Onun ekranında sen, onun sana taktığı adlarla görünürsün: “Posi şu an burada”, “Mosi: öptüm”…
 
 ---
@@ -118,7 +132,7 @@ Node.js 20.19+ gerekir.
 
 Her şey iki dosyada:
 
-- **`src/icerik.ts`** — isimler, tarihler, şehirler, kapı tarihi, mektup, birlikte listesi, doğum günleri,
+- **`src/icerik.ts`** — isimler, tarihler (sevgili olduğunuz dakika: `sevgiliSaat`, İstanbul saatiyle), şehirler, kapı tarihi, mektup, birlikte listesi, doğum günleri,
   ilk buluşma tarihi (yazılırsa panoda canlı geri sayım başlar), şarkı, anılar
 - **`src/notlar.ts`** — günlük notlar, özel gün notları ve **günün soruları** (istediğin kadar ekleyebilirsin)
 
@@ -170,6 +184,7 @@ Telefonuna düşen bildirimler (hepsi yalnızca Eln’in cihazından gelir, seni
 | **Eln sözlüğe bir kelime ekledi 📖** | Sözlüğümüze kelime eklediğinde |
 | **Eln · öptüm** | Sondaki “Öptüm” düğmesine bastığında |
 | **Eln uyumaya gidiyor 🌙** | Uyku ışığında “iyi geceler de”ye bastığında |
+| **Eln notunu okudu ✓** | Senin siteden bıraktığın notu açtığında |
 
 Repo herkese açıksa konu adını kendine özel yeni bir adla değiştir (sadece ikinizin bilmesi yeterli).
 

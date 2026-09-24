@@ -1166,3 +1166,137 @@
   font-size: 11.5px;
   color: var(--cok-soluk);
 }
+
+/* ─── BİZİM HİKÂYEMİZ (hikâye slaytları) ─────────────────────────────────── */
+.hikaye {
+  position: fixed;
+  inset: 0;
+  z-index: 185;
+  display: grid;
+  place-items: center;
+  padding: calc(56px + env(safe-area-inset-top)) 28px calc(40px + env(safe-area-inset-bottom));
+  color: var(--krem);
+  background: var(--h-zemin);
+  transition: background 0.8s;
+  user-select: none;
+  -webkit-user-select: none;
+  --h-zemin: radial-gradient(120% 80% at 50% 0%, #2a2f78, #0a0c1d 70%);
+}
+.hikaye[data-ton='1'] {
+  --h-zemin: radial-gradient(120% 90% at 50% 100%, #7a2f55, #1a1030 65%);
+}
+.hikaye[data-ton='2'] {
+  --h-zemin: radial-gradient(120% 90% at 20% 10%, #b8573f, #3a1638 60%, #120a1c);
+}
+.hikaye[data-ton='3'] {
+  --h-zemin: radial-gradient(110% 80% at 50% 30%, #3c4f9a, #101433 70%);
+}
+.hikaye[data-ton='4'] {
+  --h-zemin: radial-gradient(120% 90% at 80% 90%, #c9415c, #3a1633 55%, #0e0a1a);
+}
+.hikaye[data-ton='5'] {
+  --h-zemin: radial-gradient(120% 90% at 50% 110%, #f3c47c, #ec8f55 25%, #7a2f55 55%, #120a1c);
+}
+.h-cubuklar {
+  position: absolute;
+  top: calc(14px + env(safe-area-inset-top));
+  left: 14px;
+  right: 62px;
+  display: flex;
+  gap: 4px;
+}
+.h-cubuklar span {
+  flex: 1;
+  height: 3px;
+  border-radius: 2px;
+  background: rgba(247, 237, 224, 0.25);
+  overflow: hidden;
+}
+.h-cubuklar i {
+  display: block;
+  height: 100%;
+  background: var(--krem);
+  transform: scaleX(0);
+  transform-origin: left;
+}
+.h-kapat {
+  position: absolute;
+  z-index: 3;
+  top: calc(4px + env(safe-area-inset-top));
+  right: 8px;
+}
+.h-sayfa {
+  position: relative;
+  z-index: 1;
+  max-width: 30rem;
+  text-align: center;
+  pointer-events: none;
+}
+.h-ust {
+  margin: 0 0 8px;
+  font-size: 11px;
+  font-weight: 650;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: rgba(255, 223, 174, 0.9);
+}
+.h-sayi {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 10px;
+  margin: 0;
+  font-family: var(--serif);
+  font-variant-numeric: lining-nums;
+  line-height: 1;
+}
+.h-sayi b {
+  font-weight: 300;
+  font-size: clamp(5rem, 26vw, 10rem);
+  letter-spacing: -0.03em;
+}
+.h-birim {
+  font-style: italic;
+  font-size: clamp(1.6rem, 7vw, 2.6rem);
+  color: var(--gul-2);
+}
+.h-metin {
+  margin: 22px 0 0;
+  font-variant-numeric: lining-nums;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(1.4rem, 5.6vw, 2rem);
+  line-height: 1.22;
+  text-wrap: balance;
+}
+.hikaye[data-ton='0'] .h-sayfa:has(.h-sayi[hidden]) .h-metin,
+.hikaye[data-ton='5'] .h-metin {
+  font-size: clamp(1.8rem, 7.4vw, 2.8rem);
+}
+.h-imza {
+  margin: 18px 0 0;
+  font-family: var(--kaligrafi);
+  font-size: 2.8rem;
+  color: var(--altin-2);
+}
+.h-imza:empty {
+  display: none;
+}
+.h-geri,
+.h-ileri {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  z-index: 2;
+}
+.h-geri {
+  left: 0;
+  width: 32%;
+}
+.h-ileri {
+  right: 0;
+  width: 68%;
+}
+.hikaye-dugme {
+  margin: 8px 0 28px;
+}

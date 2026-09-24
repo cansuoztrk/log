@@ -53,6 +53,7 @@ import { karsila, zamanSirlari } from './ui/ozel'
 import { dogumGunuMu, pastaGoster } from './ui/dogumgunu'
 import { nabizKur } from './ui/nabiz'
 import { uygulamaKur } from './ui/uygulama'
+import { gelenKutusuKur } from './ui/gelenkutusu'
 
 if ('scrollRestoration' in history) history.scrollRestoration = 'manual'
 window.scrollTo(0, 0)
@@ -189,6 +190,7 @@ const basla = () => {
     zamanSirlari(ziyaret)
     nabizKur(() => mevsim.kutla(26))
     uygulamaKur(ziyaret)
+    gelenKutusuKur()
   }, 1400)
 }
 if (parametre.get('kapi') === '0') {

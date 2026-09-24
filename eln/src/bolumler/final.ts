@@ -6,6 +6,7 @@ import { MESAFE, sayi } from '../cekirdek/zaman'
 import type { Yildizlar } from '../gl/yildizlar'
 import { $, azHareket, belir, gsap, satirSatir, titret } from './yardimci'
 import { duvarKagidi, optumHTML, optumKur } from '../ui/optum'
+import { hikayeAc } from '../ui/hikaye'
 import type { Anlik } from '../cekirdek/zaman'
 import { kimim } from '../cekirdek/posta'
 import { banaHitap } from './ruzgar'
@@ -47,6 +48,7 @@ export function finalHTML(ziyaret: Ziyaret) {
         <div><b class="sir-sayi">${bulunanlar().length}/${SIRLAR.length}</b><span>sır bulundu</span></div>
         <div><b>${sayi(km)}</b><span>km yol aldım sana</span></div>
       </div>
+      <button class="dugme hikaye-dugme" type="button"><span aria-hidden="true">✦</span><span>Bizim hikâyemiz, şimdiye kadar</span></button>
       ${optumHTML()}
       <div class="duvar">
         <button class="dugme hayalet duvar-dugme" type="button"><span>Kilit ekranın için bir duvar kâğıdı</span></button>
@@ -64,6 +66,7 @@ export function finalHTML(ziyaret: Ziyaret) {
 
 export function finalKur(yildiz: () => Yildizlar | null, z: Anlik) {
   optumKur()
+  $('.hikaye-dugme').addEventListener('click', () => hikayeAc())
   const duvarD = $<HTMLButtonElement>('.duvar-dugme')
   duvarD.addEventListener('click', async () => {
     duvarD.disabled = true
