@@ -146,8 +146,10 @@ const basla = () => {
   lenis?.start()
   ScrollTrigger.refresh()
   sahne?.goster('kure')
-  karsila(z, not, ziyaret, () => mevsim.kutla(), () => ust.git('#ruzgar'))
-  zamanSirlari(ziyaret)
+  window.setTimeout(() => {
+    karsila(z, not, ziyaret, () => mevsim.kutla(), () => ust.git('#ruzgar'))
+    zamanSirlari(ziyaret)
+  }, 1400)
 }
 if (parametre.get('kapi') === '0') {
   $('#kapi').remove()

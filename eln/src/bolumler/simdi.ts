@@ -2,7 +2,7 @@ import { ICERIK, type Kisi } from '../icerik'
 import { ayCiz } from '../cekirdek/ay-ciz'
 import { sirBul } from '../cekirdek/sirlar'
 import { ses } from '../cekirdek/ses'
-import { AYLAR, ayEvresi, gokyuzu, gunesZamanlari, iki, sayi, saatYazi, yerel } from '../cekirdek/zaman'
+import { AYLAR, ayEvresi, gokyuzu, gunesZamanlari, iki, sayi, saatYazi, simdi, yerel } from '../cekirdek/zaman'
 import { $, belir, gorunurken, satirSatir, tuvalOlcu } from './yardimci'
 
 const { ben, sen } = ICERIK
@@ -221,7 +221,7 @@ export function simdiKur() {
   })
 
   const ciz = () => {
-    const an = new Date()
+    const an = simdi()
     for (const p of pencereler) {
       gokCiz(p.tuval, p.k, p.kim, an, p.konum)
       const t = yerel(an, p.k.saatDilimi)

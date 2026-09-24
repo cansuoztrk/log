@@ -64,6 +64,14 @@ npm run build    # yayına hazır dosyalar: eln/dist/
 
 Node.js 20.19+ gerekir.
 
+**Özel günleri önceden görmek için:** adresin sonuna `?tarih=` ekle, site o gündeymiş gibi davranır
+(bu önizleme hiçbir kaydı değiştirmez):
+
+- `?tarih=2026-10-21` → ayın 21’i (ay dönümü kutlaması, özel not)
+- `?tarih=2026-12-06` → tanışmanın 1. yılı
+- `?tarih=2027-05-21T21:05` → 1. yıl dönümü, saat 21:05’te “bizim dakikamız”
+- `?kapi=0` → geliştirirken giriş kapısını atla
+
 ## Kişiselleştirme (kod bilgisi gerekmez)
 
 Her şey iki dosyada:
@@ -98,6 +106,10 @@ Repo ayarlarında **Settings → Pages → Source: GitHub Actions** seç. Bu de�
 `npm run build` → https://app.netlify.com/drop adresine `eln/dist` klasörünü sürükle-bırak. Link hazır.
 
 Site arama motorlarına kapalıdır (`noindex`) ve ilk açılışta “her şeyin başladığı günü” sorar.
+
+**Link önizlemesi:** Linki WhatsApp/Instagram’dan gönderdiğinde küreli bir kapak görseli (`public/og.jpg`) görünür.
+GitHub Pages bunu otomatik ayarlar; Netlify vb. kullanırsan `eln/.env` içindeki `VITE_SITE_ADRESI`’ne
+sitenin tam adresini yaz (ör. `https://eln-icin.netlify.app`) ve yeniden derle.
 
 **Telefonda uygulama gibi:** Eln siteyi açıp Safari’de *Paylaş → Ana Ekrana Ekle* derse
 ana ekranında kendi ikonuyla (doğan güneş ve kalp) bir uygulama gibi durur.

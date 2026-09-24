@@ -1,6 +1,6 @@
 import * as THREE from 'three'
 import { gsap } from 'gsap'
-import type { GLSahne } from './ortak'
+import { type GLSahne, hafif } from './ortak'
 
 /**
  * Tek bir WebGL tuvali — bütün 3D sahneler bunu paylaşır (telefonlarda hafif kalmak için).
@@ -24,7 +24,7 @@ export class Sahne {
   constructor(readonly tuval: HTMLCanvasElement) {
     this.renderer = new THREE.WebGLRenderer({ canvas: tuval, antialias: true, alpha: false, powerPreference: 'high-performance' })
     const mobil = matchMedia('(pointer: coarse)').matches
-    this.px = Math.min(window.devicePixelRatio || 1, mobil ? 1.6 : 1.8)
+    this.px = Math.min(window.devicePixelRatio || 1, hafif ? 1.25 : mobil ? 1.6 : 1.8)
     this.renderer.setPixelRatio(this.px)
     this.renderer.setClearColor(0x05060c, 1)
     this.renderer.outputColorSpace = THREE.SRGBColorSpace

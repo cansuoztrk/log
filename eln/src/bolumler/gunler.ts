@@ -1,5 +1,5 @@
 import { ICERIK } from '../icerik'
-import { type Anlik, dolunaySayisi, gunEkle, gunFarki, GUNLER, AYLAR, sayi, tarihYazi } from '../cekirdek/zaman'
+import { type Anlik, dolunaySayisi, gunEkle, gunFarki, GUNLER, AYLAR, sayi, simdiMs, tarihYazi } from '../cekirdek/zaman'
 import { $, azHareket, belir, gorunurken, gsap, satirSatir, ScrollTrigger, tuvalOlcu } from './yardimci'
 
 const { tanisma, sevgili } = ICERIK
@@ -103,7 +103,7 @@ export function gunlerKur(z: Anlik) {
   const saatEl = $('[data-canli="saat"]', bolum)
   const kalpEl = $('[data-canli="kalp"]', bolum)
   const guncelle = () => {
-    const dk = (Date.now() - sevgiliAn) / 60000
+    const dk = (simdiMs() - sevgiliAn) / 60000
     saatEl.textContent = sayi(Math.floor(dk / 60))
     kalpEl.textContent = sayi(Math.floor(dk * 72))
   }

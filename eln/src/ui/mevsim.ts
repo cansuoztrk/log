@@ -1,6 +1,7 @@
 import { sirBul } from '../cekirdek/sirlar'
 import { ses } from '../cekirdek/ses'
 import { azHareket } from '../bolumler/yardimci'
+import { simdi } from '../cekirdek/zaman'
 
 /**
  * Mevsime göre çok hafif süzülen parçacıklar (kış: kar, ilkbahar: yaprak, yaz: ateş böceği,
@@ -30,7 +31,7 @@ interface Kalp {
 }
 
 export function mevsimKur(tuval: HTMLCanvasElement) {
-  const ay = new Date().getMonth() + 1
+  const ay = simdi().getMonth() + 1
   const tur: Tur = ay === 12 || ay <= 2 ? 'kar' : ay <= 5 ? 'cicek' : ay <= 8 ? 'bocek' : 'yaprak'
   const x = tuval.getContext('2d')!
   let w = 0

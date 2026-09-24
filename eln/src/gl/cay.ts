@@ -1,6 +1,6 @@
 import * as THREE from 'three'
 import { RoundedBoxGeometry } from 'three/examples/jsm/geometries/RoundedBoxGeometry.js'
-import { GLSL_GURULTU, type GLSahne, isikLekesi } from './ortak'
+import { GLSL_GURULTU, type GLSahne, hafif, isikLekesi } from './ortak'
 
 /**
  * Çay Günü — 21 Mayıs, Dünya Çay Günü.
@@ -318,7 +318,7 @@ export class Cay implements GLSahne {
   }
 
   private buharKur() {
-    const N = 700
+    const N = hafif ? 420 : 700
     const rnd = new Float32Array(N)
     const yan = new Float32Array(N)
     const faz = new Float32Array(N)

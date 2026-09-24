@@ -2,7 +2,7 @@ import * as THREE from 'three'
 import { RoundedBoxGeometry } from 'three/examples/jsm/geometries/RoundedBoxGeometry.js'
 import { mergeGeometries } from 'three/examples/jsm/utils/BufferGeometryUtils.js'
 import { ICERIK } from '../icerik'
-import { ayEvresi } from '../cekirdek/zaman'
+import { ayEvresi, simdi } from '../cekirdek/zaman'
 import { ayCiz } from '../cekirdek/ay-ciz'
 import { GLSL_GURULTU, type GLSahne, isikLekesi, yildizAlani } from './ortak'
 
@@ -321,7 +321,7 @@ function gokMalzeme() {
 function ayDokusu() {
   const c = document.createElement('canvas')
   c.width = c.height = 256
-  ayCiz(c.getContext('2d')!, 128, 128, 100, ayEvresi(new Date()).evre)
+  ayCiz(c.getContext('2d')!, 128, 128, 100, ayEvresi(simdi()).evre)
   const t = new THREE.CanvasTexture(c)
   t.colorSpace = THREE.SRGBColorSpace
   return t

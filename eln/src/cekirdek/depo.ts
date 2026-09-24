@@ -1,14 +1,17 @@
+import { onizleme } from './zaman'
+
 /** localStorage'a güvenli erişim. Gizli sekmede ya da kapalıysa sessizce bellekte tutar. */
 const ONEK = 'osd:'
 const bellek = new Map<string, string>()
 
 export function oku<T>(anahtar: string, varsayilan: T): T {
+  const b = bellek.get(anahtar)
+  if (b != null) return JSON.parse(b) as T
   try {
     const v = localStorage.getItem(ONEK + anahtar)
     if (v != null) return JSON.parse(v) as T
   } catch {
-    const v = bellek.get(anahtar)
-    if (v != null) return JSON.parse(v) as T
+    /* depolama kapalı: varsayılan */
   }
   return varsayilan
 }
@@ -16,6 +19,7 @@ export function oku<T>(anahtar: string, varsayilan: T): T {
 export function yaz<T>(anahtar: string, deger: T) {
   const s = JSON.stringify(deger)
   bellek.set(anahtar, s)
+  if (onizleme) return // ?tarih= önizlemesi gerçek kayıtları bozmasın
   try {
     localStorage.setItem(ONEK + anahtar, s)
   } catch {

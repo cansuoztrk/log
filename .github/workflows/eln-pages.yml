@@ -30,8 +30,13 @@ jobs:
           node-version: 22
           cache: npm
           cache-dependency-path: eln/package-lock.json
+      - id: pages
+        uses: actions/configure-pages@v5
       - run: npm ci
       - run: npm run build
+        env:
+          # link önizleme görseli (og:image) için sitenin tam adresi
+          VITE_SITE_ADRESI: ${{ steps.pages.outputs.base_url }}
       - uses: actions/upload-pages-artifact@v3
         with:
           path: eln/dist

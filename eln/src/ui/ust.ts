@@ -2,14 +2,36 @@ import type Lenis from 'lenis'
 import { ICERIK } from '../icerik'
 import { ses } from '../cekirdek/ses'
 import { bulunanlar, SIRLAR, sirDinle } from '../cekirdek/sirlar'
-import { type Anlik, saatYazi, sayi } from '../cekirdek/zaman'
+import { type Anlik, saatYazi, sayi, simdi } from '../cekirdek/zaman'
 import { notlarCekmeceHTML } from '../bolumler/ruzgar'
 import { $, $$, gsap, ikon, ScrollTrigger } from '../bolumler/yardimci'
 
 const { ben, sen, sarki } = ICERIK
 
-/* ─── Bildirim (toast) ─── */
-export function bildir(o: { ust: string; baslik: string; metin?: string; simge?: string; sure?: number; tik?: () => void }) {
+/* ─── Bildirim (toast) — aynı anda tek bir tane, diğerleri sırada bekler ─── */
+interface Bildirim {
+  ust: string
+  baslik: string
+  metin?: string
+  simge?: string
+  sure?: number
+  tik?: () => void
+}
+const sira: Bildirim[] = []
+let gosteriliyor = false
+
+export function bildir(o: Bildirim) {
+  sira.push(o)
+  if (!gosteriliyor) siradaki()
+}
+
+function siradaki() {
+  const o = sira.shift()
+  if (!o) {
+    gosteriliyor = false
+    return
+  }
+  gosteriliyor = true
   const kutu = $('#bildirimler')
   const el = document.createElement('div')
   el.className = 'bildirim'
@@ -17,8 +39,21 @@ export function bildir(o: { ust: string; baslik: string; metin?: string; simge?:
   el.innerHTML = `<span class="ikon">${o.simge ?? '✦'}</span><div><small>${o.ust}</small><b>${o.baslik}</b>${o.metin ? `<p>${o.metin}</p>` : ''}</div>`
   kutu.appendChild(el)
   gsap.from(el, { y: -24, opacity: 0, scale: 0.96, duration: 0.8, ease: 'expo.out' })
-  const kapat = () => gsap.to(el, { y: -16, opacity: 0, duration: 0.45, onComplete: () => el.remove() })
-  const zaman = window.setTimeout(kapat, o.sure ?? 9000)
+  let kapandi = false
+  const kapat = () => {
+    if (kapandi) return
+    kapandi = true
+    gsap.to(el, {
+      y: -16,
+      opacity: 0,
+      duration: 0.45,
+      onComplete: () => {
+        el.remove()
+        window.setTimeout(siradaki, 450)
+      },
+    })
+  }
+  const zaman = window.setTimeout(kapat, o.sure ?? 8000)
   el.addEventListener('click', () => {
     window.clearTimeout(zaman)
     kapat()
@@ -49,7 +84,7 @@ export function ustKur(z: Anlik, lenis: Lenis | null) {
 
   // saatler
   const saatler = () => {
-    const an = new Date()
+    const an = simdi()
     $('.s-ist', ust).textContent = saatYazi(an, ben.saatDilimi)
     $('.s-baku', ust).textContent = saatYazi(an, sen.saatDilimi)
   }

@@ -1,7 +1,7 @@
 import { ICERIK } from '../icerik'
 import { oku, yaz } from '../cekirdek/depo'
 import { ses } from '../cekirdek/ses'
-import { type Anlik, sayi } from '../cekirdek/zaman'
+import { type Anlik, sayi, simdi, simdiMs } from '../cekirdek/zaman'
 import { $, $$, azHareket, belir, gorunurken, satirSatir, titret } from './yardimci'
 
 const { ben, sen, tanisma, ilkBulusma, birlikteListesi } = ICERIK
@@ -120,7 +120,7 @@ function tik() {
 function geriSayim() {
   if (!ilkBulusma) return null
   const hedef = new Date(ilkBulusma + (ilkBulusma.length <= 10 ? 'T12:00' : '') + ':00+04:00').getTime()
-  const fark = hedef - Date.now()
+  const fark = hedef - simdiMs()
   if (fark <= 0) return 'İNDİ'
   const g = Math.floor(fark / 86400000)
   const s = Math.floor((fark % 86400000) / 3600000)
@@ -164,7 +164,7 @@ export function ucusKur() {
     }
   })
   const saatYaz = () => {
-    const t = new Date()
+    const t = simdi()
     saat.textContent = new Intl.DateTimeFormat('tr-TR', { timeZone: sen.saatDilimi, hour: '2-digit', minute: '2-digit' }).format(t) + ' GYD'
   }
   saatYaz()

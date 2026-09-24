@@ -27,25 +27,18 @@ export function zamanSirlari(ziyaret: Ziyaret) {
 export function karsila(z: Anlik, not: GununNotu, ziyaret: Ziyaret & { yeniGun: boolean }, kutla: () => void, notaGit: () => void) {
   if (not.ozel) {
     kutla()
-    window.setTimeout(
-      () => bildir({ ust: 'Bugün özel bir gün', baslik: not.baslik, metin: 'Rüzgâr sana bugün özel bir not getirdi.', simge: '♥', tik: notaGit, sure: 12000 }),
-      1600,
-    )
+    bildir({ ust: 'Bugün özel bir gün', baslik: not.baslik, metin: 'Rüzgâr sana bugün özel bir not getirdi.', simge: '♥', tik: notaGit, sure: 10000 })
     return
   }
   const { saat } = z.bakuT
   const selam =
     saat < 5 ? 'Bu saatte mi buradasın?' : saat < 11 ? 'Sabahın xeyir, günəşim' : saat < 17 ? 'Günün aydın, gözəlim' : saat < 22 ? 'Axşamın xeyir, canım' : 'Gecən xeyrə qalsın'
   if (ziyaret.yeniGun && ziyaret.gunler.length > 1)
-    window.setTimeout(
-      () =>
-        bildir({
-          ust: `${ziyaret.gunler.length}. gün buradasın`,
-          baslik: `${selam}.`,
-          metin: `Bugünün notu seni bekliyor. Ben de sana 21 km daha yaklaştım.`,
-          simge: '✉',
-          tik: notaGit,
-        }),
-      2200,
-    )
+    bildir({
+      ust: `${ziyaret.gunler.length}. gün buradasın`,
+      baslik: `${selam}.`,
+      metin: `Bugünün notu seni bekliyor. Ben de sana 21 km daha yaklaştım.`,
+      simge: '✉',
+      tik: notaGit,
+    })
 }

@@ -1,5 +1,5 @@
 import * as THREE from 'three'
-import type { GLSahne } from './ortak'
+import { type GLSahne, hafif } from './ortak'
 
 /**
  * Final — gökyüzündeki yıldızlar önce "Səni sevirəm" yazısına, sonra bir kalbe dönüşür.
@@ -28,7 +28,7 @@ export class Yildizlar implements GLSahne {
     this.scene.background = new THREE.Color(0x04050b)
     this.camera.position.set(0, 0, 10)
     const mobil = matchMedia('(pointer: coarse)').matches
-    this.N = mobil ? 5200 : 9000
+    this.N = hafif ? 3600 : mobil ? 5200 : 9000
     const bas = new Float32Array(this.N * 3)
     const rnd = new Float32Array(this.N)
     const kalp = new Float32Array(this.N * 3)

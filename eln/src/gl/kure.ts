@@ -1,8 +1,8 @@
 import * as THREE from 'three'
 import { ICERIK } from '../icerik'
-import { gunesAltiNokta, gunesZamanlari, saatYazi } from '../cekirdek/zaman'
+import { gunesAltiNokta, gunesZamanlari, saatYazi, simdi, simdiMs } from '../cekirdek/zaman'
 import { karaMi } from '../veri/kara-coz'
-import { type GLSahne, isikLekesi, kureNokta, yildizAlani } from './ortak'
+import { type GLSahne, hafif, isikLekesi, kureNokta, yildizAlani } from './ortak'
 
 const { ben, sen } = ICERIK
 const ALTIN_ACI = Math.PI * (3 - Math.sqrt(5))
@@ -59,7 +59,7 @@ function noktalar() {
     bolge.push(bol)
   }
   // Dünya geneli
-  const N = 110_000
+  const N = hafif ? 80_000 : 110_000
   for (let i = 0; i < N; i++) {
     const y = 1 - (2 * (i + 0.5)) / N
     const r = Math.sqrt(1 - y * y)
@@ -67,7 +67,7 @@ function noktalar() {
     ekle(Math.cos(a) * r, y, Math.sin(a) * r, 2.3, 0)
   }
   // İstanbul–Bakü bölgesi: çok daha sık noktalar
-  const M = 760_000
+  const M = hafif ? 520_000 : 760_000
   const capCos = Math.cos(THREE.MathUtils.degToRad(17))
   const yMin = Math.sin(THREE.MathUtils.degToRad(MERKEZ.enlem - 17))
   const yMax = Math.sin(THREE.MathUtils.degToRad(MERKEZ.enlem + 17))
@@ -117,7 +117,7 @@ export class Kure implements GLSahne {
 
   constructor(etiketKutusu: HTMLElement) {
     this.etiketKutusu = etiketKutusu
-    const bugun = new Date()
+    const bugun = simdi()
     const zb = gunesZamanlari(bugun, sen).sunrise
     const zi = gunesZamanlari(bugun, ben).sunrise
     this.gunesBaku = zb
@@ -340,7 +340,7 @@ export class Kure implements GLSahne {
       return new Date(bas + (son - bas) * t)
     }
     const t = yumusak(sinirla((y - 1.05) / 0.9))
-    return new Date(son + (Date.now() - son) * t)
+    return new Date(son + (simdiMs() - son) * t)
   }
 
   private kamera(y: number) {

@@ -1,5 +1,11 @@
 import * as THREE from 'three'
 
+/** Zayıf cihazlarda (az çekirdek / az bellek) 3D sahneler daha hafif kurulur */
+export const hafif = (() => {
+  const n = navigator as Navigator & { deviceMemory?: number }
+  return (n.deviceMemory ?? 8) <= 3 || (n.hardwareConcurrency ?? 8) <= 2
+})()
+
 /** Enlem/boylamı birim küre üzerindeki noktaya çevirir (boylam 0 → +z, 90°D → +x). */
 export function kureNokta(enlem: number, boylam: number, r = 1, hedef = new THREE.Vector3()) {
   const f = THREE.MathUtils.degToRad(enlem)

@@ -2,6 +2,26 @@ import * as SunCalc from 'suncalc'
 import { ICERIK, type Kisi } from '../icerik'
 
 export const GUN_MS = 86_400_000
+
+/**
+ * Önizleme: adres çubuğuna ?tarih=2026-12-06 (ya da ?tarih=2026-12-06T21:05) eklenirse
+ * site o gün ve saatteymiş gibi davranır (saat verilmezse Bakü'de 21:05).
+ * Özel günleri önceden görmek için.
+ */
+const ONIZLEME = (() => {
+  try {
+    const t = new URLSearchParams(location.search).get('tarih')
+    if (!t) return 0
+    const hedef = new Date(`${t.length <= 10 ? `${t}T21:05` : t}:00+04:00`).getTime()
+    return Number.isFinite(hedef) ? hedef - Date.now() : 0
+  } catch {
+    return 0
+  }
+})()
+/** Şu an (önizleme varsa kaydırılmış) */
+export const simdi = () => new Date(Date.now() + ONIZLEME)
+export const simdiMs = () => Date.now() + ONIZLEME
+export const onizleme = ONIZLEME !== 0
 const DERECE = Math.PI / 180 // derece → radyan
 
 export interface Tarih {
@@ -189,7 +209,7 @@ export function vakit(an: Date, k: Kisi): Vakit {
 
 /* ─── Bizim sayılarımız ─────────────────────────────────────────────────── */
 
-export function anlik(an = new Date()) {
+export function anlik(an = simdi()) {
   const { ben, sen } = ICERIK
   const bakuT = yerel(an, sen.saatDilimi)
   const istT = yerel(an, ben.saatDilimi)
