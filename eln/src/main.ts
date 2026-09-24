@@ -40,6 +40,7 @@ import { narHTML, narKur } from './bolumler/nar'
 import { sarkiHTML, sarkiKur } from './bolumler/sarki'
 import { karelerHTML, karelerKur } from './bolumler/kareler'
 import { zarflarHTML, zarflarKur } from './bolumler/zarflar'
+import { zambakHTML, zambakKur } from './bolumler/zambak'
 import { $, $$, azHareket, gsap, ScrollTrigger } from './bolumler/yardimci'
 import { kapiAc } from './ui/kapi'
 import { ustKur } from './ui/ust'
@@ -65,6 +66,7 @@ $('#icerik').innerHTML = [
   cizgiHTML(z, ziyaret.gunler.length),
   nehirHTML(),
   gunlerHTML(z),
+  zambakHTML(z),
   karelerHTML(),
   kulelerHTML(z),
   cayHTML(),
@@ -129,6 +131,7 @@ imlecKur()
 acilisKur(kure, ziyaret.gunler.length)
 nehirKur()
 gunlerKur(z)
+zambakKur(z)
 kulelerKur(al<Kuleler>('kule'))
 cayKur(al<Cay>('cay'))
 karelerKur()
@@ -140,7 +143,7 @@ ucusKur()
 sarkiKur()
 mektupKur()
 zarflarKur()
-finalKur(al<Yildizlar>('final'))
+finalKur(al<Yildizlar>('final'), z)
 
 // Bölüm görünür oldukça: doğru 3D sahne + doğru ses dokusu
 for (const b of $$('[data-bolum]')) {

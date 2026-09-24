@@ -93,6 +93,17 @@ export const saatYazi = (an: Date, tz: string) => {
   return `${iki(t.saat)}:${iki(t.dakika)}`
 }
 
+/** Türkçe ek: "İstanbul’a / İstanbul’da", "Bakü’ye / Bakü’de" */
+export function ek(s: string, tur: 'yonelme' | 'bulunma') {
+  const unlu = 'aeıioöuü'
+  const k = s.toLocaleLowerCase('tr-TR')
+  const son = [...k].reverse().find((c) => unlu.includes(c)) ?? 'a'
+  const kalin = 'aıou'.includes(son)
+  const sonHarf = k.slice(-1)
+  if (tur === 'yonelme') return `${s}’${unlu.includes(sonHarf) ? 'y' : ''}${kalin ? 'a' : 'e'}`
+  return `${s}’${'çfhkpsşt'.includes(sonHarf) ? 't' : 'd'}${kalin ? 'a' : 'e'}`
+}
+
 /** 1234567 → "1.234.567" */
 export const sayi = (n: number, basamak = 0) =>
   n.toLocaleString('tr-TR', { minimumFractionDigits: basamak, maximumFractionDigits: basamak })

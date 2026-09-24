@@ -6,6 +6,7 @@ import { ayEvresi, gokyuzu, onizleme, simdi } from '../cekirdek/zaman'
 import { ayCiz } from '../cekirdek/ay-ciz'
 import { gsap, titret } from '../bolumler/yardimci'
 import { bildir } from './ust'
+import { banaHitap } from '../bolumler/ruzgar'
 
 /**
  * Aynı anda — ikiniz de sitedeyken birbirinizi görür, birbirinize kalp atışı gönderirsiniz.
@@ -13,7 +14,7 @@ import { bildir } from './ust'
  */
 type Kim = 'eln' | 'arda'
 interface Mesaj {
-  tip: 'geldim' | 'buradayim' | 'gittim' | 'kalp' | 'ay'
+  tip: 'geldim' | 'buradayim' | 'gittim' | 'kalp' | 'ay' | 'opucuk'
   kim: Kim
   oturum: string
 }
@@ -33,7 +34,8 @@ export function nabizKur(onKalp: () => void) {
   const kanal = `${konu}-nabiz`
   const ben = kimim()
   const karsi: Kim = ben === 'eln' ? 'arda' : 'eln'
-  const karsiAd = karsi === 'arda' ? ICERIK.ben.ad : ICERIK.sen.ad
+  // Onun ekranında ben "Posi", "Mosi"… olarak görünürüm; benim ekranımda o "Eln"
+  const karsiAd = karsi === 'arda' ? banaHitap() : ICERIK.sen.ad
   const oturum = Math.random().toString(36).slice(2, 10)
   let sonGorulme = 0
   let cevrimici = false
@@ -113,6 +115,7 @@ export function nabizKur(onKalp: () => void) {
       if (m.tip === 'geldim' && yeniGeldi) void gonder('buradayim')
       if (m.tip === 'kalp') kalpGeldi()
       if (m.tip === 'ay') ayRandevusu(true)
+      if (m.tip === 'opucuk') opucukGeldi()
     }
   }
 
@@ -131,6 +134,24 @@ export function nabizKur(onKalp: () => void) {
       .fromTo(k.querySelector('svg'), { scale: 0.4 }, { scale: 1, duration: 0.6, ease: 'back.out(3)' }, 0)
       .to(k.querySelector('svg'), { scale: 1.15, duration: 0.18, yoyo: true, repeat: 5, ease: 'power1.inOut' })
       .to(k, { autoAlpha: 0, duration: 0.8, delay: 0.8 })
+  }
+
+  // ─── öpücük (sayfanın sonundaki "Öptüm") ───
+  window.addEventListener('opucuk-gonder', () => {
+    if (cevrimici) void gonder('opucuk')
+  })
+  const opucukGeldi = () => {
+    ses.opucuk()
+    titret([20, 60, 30])
+    const k = document.createElement('div')
+    k.className = 'gelen-kalp'
+    k.innerHTML = `<span class="gelen-opucuk">💋</span><p><b>${karsiAd}</b>: öptüm</p>`
+    document.body.appendChild(k)
+    gsap
+      .timeline({ onComplete: () => k.remove() })
+      .from(k, { autoAlpha: 0, duration: 0.35 })
+      .fromTo(k.querySelector('.gelen-opucuk'), { scale: 0.3, rotate: -20 }, { scale: 1, rotate: 0, duration: 0.7, ease: 'back.out(3)' }, 0)
+      .to(k, { autoAlpha: 0, duration: 0.8, delay: 1.6 })
   }
 
   // ─── aynı anda aya bakmak ───

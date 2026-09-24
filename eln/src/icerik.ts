@@ -43,6 +43,13 @@ export const ICERIK = {
   /** Ona seslendiğim adlar — sitede ara sıra, her seferinde başka biri çıkar */
   hitaplar: ['aşkım', 'aşkito', 'Elnos'],
 
+  /** Onun bana seslendiği adlar — onun ekranında beni böyle anar (ör. "Posi şu an burada") */
+  banaHitaplari: ['posi', 'mosi', 'aşkişim', 'şirinim', 'kuzum'],
+
+  /** Sevdiği şeyler — sitede küçük ayrıntılarda kullanılır */
+  sevdigiCicek: 'zambak',
+  sevdigiRenk: 'pembe',
+
   /** Bizi tanıştıran arkadaş (adı "nehir" demek — sitede bu da bir metafor) */
   arkadas: 'Nehir',
 
@@ -99,7 +106,7 @@ export const ICERIK = {
   fotograflar: [] as { dosya: string; not?: string }[],
 
   /**
-   * Sesli mesaj (isteğe bağlı): Birbirinizi en çok sesinizden tanıyorsunuz.
+   * Sesli mesaj (isteğe bağlı): Sesli aramalarda utanıyorsunuz ya; sesin burada dursun.
    * Telefonla 30–60 saniyelik bir ses kaydı al (mektubu sesli okuyabilir ya da
    * sadece bir şey söyleyebilirsin), public/ klasörüne koy ve adını buraya yaz,
    * ör. 'sesim.m4a' ya da 'sesim.mp3'. Mektubun altında sesli mesaj olarak çıkar.
@@ -123,12 +130,13 @@ export const ICERIK = {
   mektup: [
     'Eln,',
     'Bu siteyi yaparken hep aynı soruyu düşündüm: İnsan, hiç dokunamadığı birine olan sevgisini nasıl gösterir?',
-    'Sonra fark ettim ki sana aslında her gün dokunuyorum. Bakü’den kalkan güneş bana ulaştığında. Aynı aya baktığımızda. Telefonum titreyip ekranda adını gördüğümde. Sesin, 1.758 kilometreyi bir anda geçip kalbime vardığında.',
-    '6 Aralık’ta bir gruba eklendim. 21 Mayıs’ta hayatına eklendim. İkisinin arasında bir yerde sen; en sevdiğim alışkanlığım, en güvendiğim sesim, en uzun bakmak istediğim yüz oldun.',
+    'Sonra fark ettim ki sana aslında her gün dokunuyorum. Bakü’den kalkan güneş bana ulaştığında. Aynı aya baktığımızda. Telefonum titreyip ekranda adını gördüğümde. Bir ☺️, 1.758 kilometreyi bir anda geçip kalbime vardığında.',
+    '6 Aralık’ta bir gruba eklendim. 21 Mayıs’ta hayatına eklendim. İkisinin arasında bir yerde sen; en sevdiğim alışkanlığım, en güvendiğim insan, en uzun bakmak istediğim yüz oldun.',
     'İnsanlar uzak mesafeyi bir eksiklik sanıyor. Bana öyle gelmiyor. Bizim her “günaydın”ımız bir karar, her “iyi geceler”imiz bir söz. Bizi yakın tutan şey şans değil; her gün, yeniden, birbirimizi seçmemiz.',
     'Ellerini henüz hiç tutmadım. Ama biliyorum: ilk tuttuğumda, sanki hep tutuyormuşum gibi gelecek.',
     'Senden bir saat gerideyim; ama hep yanındayım.',
     'Səni sevirəm. Çox. Həmişə.',
+    'Öptüm.',
   ],
 
   /** Birlikte yapacaklarımız listesi (Eln işaretleyebilir, cihazında saklanır). */

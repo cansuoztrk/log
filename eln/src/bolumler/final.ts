@@ -5,6 +5,8 @@ import { bulunanlar, SIRLAR, sirBul, sirDinle } from '../cekirdek/sirlar'
 import { MESAFE, sayi } from '../cekirdek/zaman'
 import type { Yildizlar } from '../gl/yildizlar'
 import { $, azHareket, belir, gsap, satirSatir, titret } from './yardimci'
+import { duvarKagidi, optumHTML, optumKur } from '../ui/optum'
+import type { Anlik } from '../cekirdek/zaman'
 
 const { ben, sen } = ICERIK
 
@@ -42,16 +44,31 @@ export function finalHTML(ziyaret: Ziyaret) {
         <div><b class="sir-sayi">${bulunanlar().length}/${SIRLAR.length}</b><span>sır bulundu</span></div>
         <div><b>${sayi(km)}</b><span>km yol aldım sana</span></div>
       </div>
+      ${optumHTML()}
+      <div class="duvar">
+        <button class="dugme hayalet duvar-dugme" type="button"><span>Kilit ekranın için bir duvar kâğıdı</span></button>
+        <p class="dipnot">Bugünün gün sayısıyla; iki ışık ve aradaki yay. İstersen telefonuna kaydet.</p>
+      </div>
       <div class="son-imza">
         <span class="kaligrafi">${ben.ad}</span>
         <span>${ben.yerelSehir} → ${sen.yerelSehir}</span>
         <small>Işık bu sayfaya da önce senden uğradı.</small>
+        <span class="son-optum kaligrafi">Öptüm.</span>
       </div>
     </div>
   </footer>`
 }
 
-export function finalKur(yildiz: () => Yildizlar | null) {
+export function finalKur(yildiz: () => Yildizlar | null, z: Anlik) {
+  optumKur()
+  const duvarD = $<HTMLButtonElement>('.duvar-dugme')
+  duvarD.addEventListener('click', async () => {
+    duvarD.disabled = true
+    duvarD.querySelector('span')!.textContent = 'Hazırlanıyor…'
+    await duvarKagidi(z)
+    duvarD.querySelector('span')!.textContent = 'Kilit ekranın için bir duvar kâğıdı'
+    duvarD.disabled = false
+  })
   const bolum = $('#final')
   const dugme = $<HTMLButtonElement>('.kalp-tut', bolum)
   const halka = $<SVGCircleElement>('.halka .dolu', bolum)

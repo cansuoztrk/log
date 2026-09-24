@@ -32,20 +32,21 @@ Site, ikinizin hikâyesindeki **gerçek ve şaşırtıcı tesadüfler** üzerine
 1. **Önce Sana Doğar**: 3D dünya küresi, gerçek güneş konumuyla gün doğumu
 2. **Aynı Çizgi**: enlem kurdelesi, mesafe/ışık/saat farkı, “sana yürüyorum” (her ziyaret günü +21 km)
 3. **Bir Nehir**: 6 Aralık, grup bildirimi, Hazar’dan Boğaz’a ışık nehri
-4. **Günlerimiz**: tanıştığınızdan beri her gün bir tohum (ayçiçeği dizilimi), canlı sayaçlar, yaklaşan güzel günler
-5. *(isteğe bağlı)* **Ekran Görüntülerimiz**: görüntülü aramalardan kareler, polaroid gibi
-6. **İki Kule**: Kız Kulesi & Qız Qalası, Leandros efsanesi, mahya ve Alev Kuleleri
-7. **Çay Günü**: 21 Mayıs, dolan bardaklar, kalp çizen buhar
-8. **İki Dil**: dönen kartlar
-9. **Adında Bir Nar**: kırılan nar, “Elnare” yazan taneler
-10. **Şu An**: iki şehrin gökyüzü, gerçek güneş, ay ve **hava durumu** (yağmur yağıyorsa pencerede de yağar)
-11. **Rüzgâr Postası**: günün notu (zarf), toplanan notlar, rüzgâra mesaj
-12. **İlk Buluşma**: havalimanı kalkış panosu (split-flap), birlikte yapılacaklar listesi
-13. **Şarkımız**: “Anılar”, plak ve pikap
-14. **Mektup**: el yazısıyla mektup (+ isteğe bağlı sesli mesaj)
-15. **… Olduğunda Aç**: “Beni özlediğinde aç”, “Kötü bir gün geçirdiğinde aç”, “Uyuyamadığında aç”…
-    ve kendi gününü bekleyen kilitli mektuplar (tanışmanın 1. yılı, 19. yaş günü, 1. yıl dönümü)
-16. **Kalbim**: kalbe basılı tut; yıldızlar önce “Səni sevirəm” yazar, sonra kalp olur
+4. **Günlerimiz**: her gün bir tohum (ayçiçeği dizilimi), canlı sayaçlar (∞ ☺️ dahil), yaklaşan güzel günler
+5. **Her Ay Bir Zambak**: sevgili olunan her ay vazoya bir pembe zambak eklenir; sıradakinin tomurcuğu bekler
+6. *(isteğe bağlı)* **Ekran Görüntülerimiz**: polaroid duvarı (fotoğraf eklenmezse görünmez)
+7. **İki Kule**: Kız Kulesi & Qız Qalası, Leandros efsanesi, mahya ve Alev Kuleleri
+8. **Çay Günü**: 21 Mayıs, dolan bardaklar, kalp çizen buhar
+9. **İki Dil**: dönen kartlar
+10. **Adında Bir Nar**: kırılan nar, “Elnare” yazan taneler
+11. **Şu An**: iki şehrin gökyüzü, gerçek güneş, ay ve hava durumu
+12. **Rüzgâr Postası**: günün notu (zarf), toplanan notlar, rüzgâra mesaj
+13. **İlk Buluşma**: kalkış panosu, birlikte yapılacaklar listesi
+14. **Şarkımız**: “Anılar”, plak ve pikap
+15. **Mektup**: el yazısıyla mektup (+ isteğe bağlı sesli mesaj)
+16. **… Olduğunda Aç**: duygu mektupları ve kendi gününü bekleyen kilitli mektuplar
+17. **Kalbim**: kalbe basılı tut; yıldızlar “Səni sevirəm” yazar, sonra kalp olur.
+    En sonda **“Öptüm”** düğmesi (senin telefonuna bildirim olarak düşer) ve **kilit ekranı duvar kâğıdı**
 
 Bölüm numaraları otomatik verilir; fotoğraf eklenince numaralar kendiliğinden kayar.
 
@@ -61,11 +62,12 @@ Bölüm numaraları otomatik verilir; fotoğraf eklenince numaralar kendiliğind
 - **Aya bakalım**: ikiniz aynı anda sitedeyken ve ay iki şehirde de gökyüzündeyken ☾ düğmesi belirir;
   basınca ikinizin ekranında “Şimdi pencereden aya bak” açılır
 - Kilitli mektuplar kendi günleri geldikçe açılır; o güne kadar kaç gün kaldığını söyler
-- **22 sır** (sağ üstteki ✦). Bazıları dokunarak, bazıları sadece belli bir anda bulunur:
+- **24 sır** (sağ üstteki ✦). Bazıları dokunarak, bazıları sadece belli bir anda bulunur:
   aya 3 kez dokunmak, saat **21:05**’te bakmak, gece yarısından sonra gelmek, ayın 21’inde/6’sında gelmek,
   dolunayda gelmek, iki bardağı art arda çınlatmak, bardağına iki şeker atmak, rüzgâra boş mektup bırakmak,
   kayan yıldızı yakalamak, 10 farklı gün gelmek, üstteki iki harfe 5 kez dokunmak (☺️ yağmuru),
-  rüzgâra “bizim kelimemizi” yazmak… (Eln’e söyleme 🙂)
+  rüzgâra “bizim kelimemizi” ya da sana taktığı bir adı yazmak, “öptüm” demek… (Eln’e söyleme 🙂)
+- Onun ekranında sen, onun sana taktığı adlarla görünürsün: “Posi şu an burada”, “Mosi: öptüm”…
 
 ---
 
@@ -102,6 +104,8 @@ Her şey iki dosyada:
 - `dogumGunu.sen: '03-14'` gibi yazarsan o gün site kalplerle açılır ve özel not gelir.
 - `anilar` listesine `{ tarih: '2026-01-02', baslik: 'İlk sesli arama' }` gibi satırlar eklersen
   “Günlerimiz” bahçesinde o gün işaretlenir.
+- `banaHitaplari`: Eln’in sana taktığı adlar (posi, mosi, aşkişim, şirinim, kuzum). Yazımını düzeltmek
+  istersen buradan değiştir.
 - `dogumYili` (2008) sayesinde 23 Nisan’daki pastada yaşı kadar mum olur.
 - **Sesli mesaj:** telefonla 30–60 saniyelik bir ses kaydı al (mektubu okuyabilir ya da içinden geleni söyleyebilirsin),
   `public/` klasörüne koy ve `sesMesaji`’na adını yaz (ör. `'sesim.m4a'`). Mektubun altında, gerçek dalga formuyla

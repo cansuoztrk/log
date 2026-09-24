@@ -15,6 +15,14 @@ export interface GununNotu {
   ozel: boolean
 }
 
+/** Onun bana taktığı adlardan biri (her açılışta başka), büyük harfle: "Posi" */
+export function banaHitap() {
+  const h = ICERIK.banaHitaplari
+  if (!h.length) return ben.ad
+  const s = h[Math.floor(Math.random() * h.length)]
+  return s.charAt(0).toLocaleUpperCase('tr-TR') + s.slice(1)
+}
+
 /** Ona seslendiğim adlardan biri (gün boyunca aynı kalır, her gün başka) */
 export function hitap(tohum = 0) {
   const h = ICERIK.hitaplar
@@ -100,7 +108,7 @@ export function ruzgarHTML(z: Anlik, not: GununNotu) {
           <p class="etiket">Sen de rüzgâra bir şey bırak</p>
           <label class="gorunmez" for="ruzgar-metin">Mesajın</label>
           <div class="yazi-alani">
-            <textarea id="ruzgar-metin" rows="4" maxlength="600" placeholder="Rüzgâra bir şey söyle… o bana getirir."></textarea>
+            <textarea id="ruzgar-metin" rows="4" maxlength="600" placeholder="Rüzgâra bir şey söyle… ${banaHitap()} bekliyor."></textarea>
             <canvas class="ruzgar-tuval" aria-hidden="true"></canvas>
           </div>
           <div class="ruzgar-alt">
@@ -285,6 +293,8 @@ export function ruzgarKur(not: GununNotu, notlarAc: () => void) {
     const sade = metin.toLocaleLowerCase('tr-TR').replace(/ə/g, 'e').replace(/\s+/g, ' ')
     if (/seni sev(iyorum|irem)/.test(sade)) window.setTimeout(() => sirBul('sevirem'), 1400)
     if (/\bbok/.test(sade)) window.setTimeout(() => sirBul('bok'), 2600)
+    if (/opt[uü]m/.test(sade.replace(/ö/g, 'o'))) window.setTimeout(() => sirBul('optum'), 3800)
+    if (ICERIK.banaHitaplari.some((h) => sade.includes(h.toLocaleLowerCase('tr-TR')))) window.setTimeout(() => sirBul('posi'), 5000)
   })
 }
 

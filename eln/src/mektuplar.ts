@@ -22,8 +22,8 @@ export const MEKTUPLAR: ZarfMektup[] = [
     metin: [
       'Özledin mi? Güzel. Çünkü ben de şu an seni özlüyorum; hem bunu yazdığım an, hem senin okuduğun an.',
       'Özlemek, aramızdaki mesafenin kalpteki izi. Onu silmeye çalışma; o iz bizim.',
-      'Şimdi gözlerini kapat ve sesimi hatırla. Sesli aramalarımızın sonunu, kapatmak istemediğimiz o son saniyeleri. İşte oradayım. Hep oradayım.',
-      'Sonra telefonu al ve bana yaz. Özlediğini söylemek zayıflık değil; bizim dilimizde “darıxmışam” bir sevgi cümlesi.',
+      'Şimdi gözlerini kapat ve son mesajımı hatırla. Ya da o utangaç sesli aramalarımızın sonunu, ikimizin de alçak sesle “öptüm” dediği anı. İşte oradayım. Hep oradayım.',
+      'Sonra telefonu al ve bana yaz. Özlediğini söylemek zayıflık değil; bizim dilimizde “darıxmışam” bir sevgi cümlesi. Öptüm.',
     ],
   },
   {
@@ -45,7 +45,7 @@ export const MEKTUPLAR: ZarfMektup[] = [
       'Saat kaç orada? Geç, değil mi? Ben bir saat geride ya hâlâ uyanığım ya da rüyamda seni arıyorum.',
       'Uyuyamadığında şunu dene: yavaşça nefes al ve say. Bir: İstanbul. İki: Karadeniz. Üç: Kafkaslar. Dört: Hazar. Beş: sen.',
       'Her nefeste biraz daha yaklaşıyorum. Beşe vardığında ben de oradayım.',
-      'Gözlerini kapat. Bu mektubun son kelimesinden sonra seni uyutan ses benim sesim olsun. Gecən xeyrə qalsın, gözəlim.',
+      'Gözlerini kapat. Bu mektubun son kelimesinden sonra aklından geçen son şey ben olayım. Gecən xeyrə qalsın, gözəlim. Öptüm.',
     ],
   },
   {
@@ -77,7 +77,7 @@ export const MEKTUPLAR: ZarfMektup[] = [
     metin: [
       'Kızgınsın. Muhtemelen haklısın da. (Muhtemelen.)',
       'Bu mektubu o an için önceden yazdım, çünkü bilmeni istiyorum: kızsan da, küssen de seni sevmekten bir saniye bile vazgeçmiyorum.',
-      'Uzakta olunca yanlış anlaşılmalar büyüyor; bir mesaj yanlış tonda okunuyor. O yüzden şöyle yapalım: derin bir nefes al, sonra beni ara. Sesimi duyunca yarısı geçer, gerisini birlikte hallederiz.',
+      'Uzakta olunca yanlış anlaşılmalar büyüyor; bir mesaj yanlış tonda okunuyor. O yüzden şöyle yapalım: derin bir nefes al, sonra bana yaz. (Ya da ara; utanmayı bir kereliğine boş ver.) Yarısı orada geçer, gerisini birlikte hallederiz.',
       'Özür dilerim. (Haklı olsam bile. ☺️)',
     ],
   },
@@ -87,7 +87,7 @@ export const MEKTUPLAR: ZarfMektup[] = [
     muhur: '#3d5a2a',
     metin: [
       'Bazen mesafe insana fısıldar: “Bu gerçekten olacak mı?” Ben de o fısıltıyı duyuyorum bazen.',
-      'Sonra şunu hatırlıyorum: biz birbirimizi hiç görmeden seçtik. Bir yüze değil; bir sese, kelimelere, bir kalbe âşık olduk. Çoğu insanın hiç yaşamadığı bir şey bu.',
+      'Sonra şunu hatırlıyorum: biz birbirimizi hiç görmeden seçtik. Bir yüze değil; kelimelere, bir ruha, bir kalbe âşık olduk. Çoğu insanın hiç yaşamadığı bir şey bu.',
       'Mesafe geçici: bir uçuş, üç saat. Bu his geçici değil.',
       'Şüphe ettiğin gün bu mektubu oku, sonra bana “biz” de. Ben de sana “biz” diyeceğim. Her seferinde.',
     ],
@@ -111,7 +111,7 @@ export const MEKTUPLAR: ZarfMektup[] = [
     metin: [
       'Bir yıl. Bir yıl önce bugün Nehir bir tuşa bastı ve benim hayatım değişti.',
       'O gün seni tanımıyordum. Şimdi seni neredeyse kendimden iyi tanıyorum.',
-      'Bu bir yılda hiç aynı odada olmadık, hiç görüntülü bile konuşmadık. Ama sesinle, kelimelerinle ve ☺️’lerinle hayatımın en dolu yılını yaşadım.',
+      'Bu bir yılda hiç aynı odada olmadık, hiç görüntülü bile konuşmadık. Ama kelimelerinle, ☺️’lerinle ve o utangaç “öptüm”lerle hayatımın en dolu yılını yaşadım.',
       'Nehir’e bir teşekkür borçluyuz. Sana da bir ömür.',
     ],
   },

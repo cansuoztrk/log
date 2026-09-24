@@ -23,7 +23,7 @@ export function mektupHTML(z: Anlik) {
         <button class="sesli-oynat" type="button" aria-label="Sesli mesajı dinle"><svg viewBox="0 0 24 24"><path class="oyna" d="M8 5.5v13l11-6.5z" fill="currentColor"/><g class="dur" fill="currentColor"><rect x="7" y="5.5" width="3.6" height="13" rx="1"/><rect x="13.4" y="5.5" width="3.6" height="13" rx="1"/></g></svg></button>
         <canvas class="sesli-dalga" aria-hidden="true"></canvas>
         <span class="sesli-sure">0:00</span>
-        <p class="sesli-not">Bu mektubun bir de sesli hâli var. Birbirimizi en çok sesimizden tanıyoruz.</p>
+        <p class="sesli-not">Sesli aramalarda hep biraz utanıyoruz ya; ben de sesimi buraya bıraktım. İstediğin kadar dinle.</p>
       </div>`
           : ''
       }

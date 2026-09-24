@@ -1926,3 +1926,122 @@ body.modal-acik {
   color: var(--krem-2);
   text-align: center;
 }
+
+/* ═══ HER AY BİR ZAMBAK ═══════════════════════════════════════════════════ */
+.zambak-izgara {
+  display: grid;
+  gap: clamp(20px, 4vw, 60px);
+  align-items: center;
+}
+@media (min-width: 900px) {
+  .zambak-izgara {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+#zambak .satir {
+  margin-top: 1.2rem;
+  max-width: 30rem;
+}
+.vazo-sahne {
+  position: relative;
+  justify-self: center;
+  width: min(440px, 100%);
+}
+.vazo {
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+.zambak-kart {
+  position: absolute;
+  z-index: 2;
+  width: 180px;
+  padding: 10px 12px;
+  border-radius: 14px;
+  background: rgba(40, 16, 30, 0.92);
+  border: 1px solid rgba(245, 159, 180, 0.4);
+  box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.8);
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.25s, transform 0.25s var(--yavas);
+}
+.zambak-kart.acik {
+  opacity: 1;
+  transform: none;
+}
+.zambak-kart small {
+  display: block;
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--gul);
+}
+.zambak-kart b {
+  display: block;
+  font-family: var(--serif);
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+.zambak-kart span {
+  font-size: 12px;
+  color: var(--krem-2);
+}
+
+/* Öptüm ve duvar kâğıdı (sonda) */
+.optum {
+  display: grid;
+  justify-items: start;
+  gap: 12px;
+  margin-top: clamp(44px, 8vh, 80px);
+}
+.optum .etiket {
+  margin: 0;
+}
+.optum-dugme {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 26px 14px 18px;
+  border-radius: 999px;
+  font-family: var(--kaligrafi);
+  font-size: 2.2rem;
+  line-height: 1;
+  color: #3a0d18;
+  background: linear-gradient(120deg, #ffd0dc, #f59fb4 55%, #e86a8f);
+  box-shadow: 0 16px 40px -14px rgba(245, 159, 180, 0.8);
+  transition: transform 0.3s var(--yavas);
+}
+.optum-dugme:active {
+  transform: scale(0.95);
+}
+.dudak {
+  font-size: 1.6rem;
+}
+.optum-durum {
+  margin: 0;
+}
+.ucan-opucuk {
+  position: fixed;
+  z-index: 160;
+  margin: -20px 0 0 -20px;
+  font-size: 40px;
+  pointer-events: none;
+}
+.gelen-opucuk {
+  font-size: 120px;
+  filter: drop-shadow(0 0 30px rgba(245, 159, 180, 0.9));
+}
+.duvar {
+  display: grid;
+  justify-items: start;
+  gap: 8px;
+  margin-top: 36px;
+}
+.duvar .dipnot {
+  margin: 0;
+}
+.son-optum {
+  margin-top: 18px;
+  font-size: 2.2rem;
+  color: var(--gul-2);
+}

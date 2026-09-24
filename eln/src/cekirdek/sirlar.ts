@@ -144,6 +144,18 @@ export const SIRLAR: Sir[] = [
     mesaj: 'Hepsini açtın. Ya hepsine ihtiyacın oldu, ya da sadece merak ettin. İkisi de olur. Yenilerini yazmaya başladım bile.',
   },
   {
+    id: 'optum',
+    ad: 'Ben de öptüm',
+    ipucu: 'Kapatırken hep ne deriz? Onu rüzgâra yaz ya da en sondaki düğmeye bas.',
+    mesaj: 'Kapatırken hep böyle deriz ya. Bu sefer ilk ben söylüyorum: öptüm. Ama kapatma.',
+  },
+  {
+    id: 'posi',
+    ad: 'Posi burada',
+    ipucu: 'Bana taktığın adlardan birini rüzgâra yaz.',
+    mesaj: 'Rüzgâr, o adı duyunca iki kat hızlı esmeye başladı. Posi, mosi, aşkişim, şirinim, kuzum… Hepsi buradayım.',
+  },
+  {
     id: 'lamba',
     ad: 'Lamba sönmez',
     ipucu: 'Kulede lambayı yak.',

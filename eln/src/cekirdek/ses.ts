@@ -444,6 +444,37 @@ class SesMotoru {
     s.stop(t + sure + 0.05)
   }
 
+  /** Küçük bir "muck" */
+  opucuk() {
+    if (!this.hazirMi()) return
+    const c = this.ctx!
+    const t = c.currentTime
+    const s = this.gurultuKaynagi()
+    const f = c.createBiquadFilter()
+    f.type = 'bandpass'
+    f.frequency.setValueAtTime(900, t)
+    f.frequency.exponentialRampToValueAtTime(2600, t + 0.07)
+    f.Q.value = 2.5
+    const g = c.createGain()
+    g.gain.setValueAtTime(0.0001, t)
+    g.gain.exponentialRampToValueAtTime(0.9, t + 0.012)
+    g.gain.exponentialRampToValueAtTime(0.0001, t + 0.1)
+    s.connect(f).connect(g).connect(this.efekt)
+    s.start(t)
+    s.stop(t + 0.12)
+    const o = c.createOscillator()
+    o.frequency.setValueAtTime(520, t + 0.02)
+    o.frequency.exponentialRampToValueAtTime(1100, t + 0.09)
+    const og = c.createGain()
+    og.gain.setValueAtTime(0.0001, t + 0.02)
+    og.gain.exponentialRampToValueAtTime(0.06, t + 0.035)
+    og.gain.exponentialRampToValueAtTime(0.0001, t + 0.12)
+    o.connect(og).connect(this.efekt)
+    o.start(t + 0.02)
+    o.stop(t + 0.14)
+    window.setTimeout(() => this.zil(mf(86), 0.03, this.efekt, 0, 1.4), 160)
+  }
+
   /** "Lub-dub" */
   kalp(guc = 1) {
     if (!this.hazirMi()) return
