@@ -62,14 +62,21 @@ ve yaptığı her şeyi detaylı verilerle gösterir.
 - (İsteğe bağlı) **Node.js 20+** — yalnızca arayüzü kendiniz yeniden derlemek isterseniz. Derlenmiş arayüz depoda hazır gelir.
 
 ### Windows
-1. Depoyu indirin (yeşil **Code → Download ZIP**) ve bir klasöre çıkarın.
-2. **`baslat.bat`** dosyasına çift tıklayın.
-3. Tarayıcıda <http://127.0.0.1:8000> açılır. İlk açılışta AI modeli otomatik eğitilir (birkaç dakika).
+1. [python.org](https://www.python.org/downloads/)'dan Python'u kurun. Kurulumun ilk ekranında
+   **"Add python.exe to PATH"** kutusunu işaretleyin. (Microsoft Store'daki "python" kısayolu çalışmaz.)
+2. Depoyu indirin (yeşil **Code → Download ZIP**) ve kısa, Türkçe karakter içermeyen bir klasöre çıkarın
+   (ör. `C:\kripto-bot`).
+3. **`baslat.bat`** dosyasına çift tıklayın. Mavi "Windows bilgisayarınızı korudu" uyarısı çıkarsa
+   **Ek bilgi → Yine de çalıştır** deyin.
+4. **İlk açılışta** gerekli paketler indirilir (~150 MB, 2-5 dakika). Siyah pencerede ilerleme görünür —
+   **pencereyi kapatmayın**.
+5. Sunucu hazır olunca panel tarayıcıda kendiliğinden açılır: <http://127.0.0.1:8000>. İlk açılışta AI modeli
+   arka planda otomatik eğitilir. Botu durdurmak için siyah pencereyi kapatın.
 
 ### macOS / Linux
 ```bash
 git clone <depo-adresi> && cd log
-./baslat.sh
+./baslat.sh          # veya: python3 baslat.py
 ```
 
 ### Docker
@@ -198,6 +205,18 @@ Gizli anahtarlar ve sistem ayarları `.env` dosyasındadır (bkz. [`.env.example
 ---
 
 ## Sorun giderme / SSS
+
+**`baslat.bat` hata verdi / açılıp kapanıyor / hiçbir şey yazmıyor.**
+Başlatıcı her adımda ne yaptığını yazar ve hata olursa pencereyi açık tutar. Sırasıyla kontrol edin:
+- *"Python bulunamadı"* → Python'u python.org'dan **"Add python.exe to PATH"** işaretli kurun.
+- *Paket kurulumu yarıda kaldı* → `baslat.bat`'ı tekrar çalıştırmanız yeterli; yarım kurulum otomatik onarılır.
+- *"Port kullanılıyor"* → Bot zaten açıksa başlatıcı paneli açar; başka bir program kullanıyorsa `.env`
+  içinde `PORT=8001` yapın.
+- Sorun sürerse siyah pencerenin ekran görüntüsünü ve `backend\data\bot.log` dosyasını paylaşın.
+
+**Tarayıcıda "Bu siteye ulaşılamıyor" yazıyor.**
+Sunucu henüz hazır değil veya kapalı. Siyah pencerede **"Panel hazır"** yazısını bekleyip sayfayı yenileyin.
+Pencereyi kapattıysanız bot da kapanır; `baslat.bat`'ı yeniden çalıştırın.
 
 **Panelde "SİMÜLASYON VERİSİ" yazıyor.**
 Borsaya bağlanılamadı (internet, güvenlik duvarı veya bölgesel erişim engeli). Bu durumda uygulama

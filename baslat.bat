@@ -1,32 +1,40 @@
 @echo off
-rem AI Kripto Bot - Windows baslatici
+setlocal
+rem AI Kripto Bot - Windows baslatici. Asil isi baslat.py yapar.
 chcp 65001 >nul
+title AI Kripto Bot
 cd /d "%~dp0"
 
-if not exist .env (
-  copy .env.example .env >nul
-  echo [i] .env dosyasi olusturuldu ^(varsayilan: paper trading^).
+set "PY="
+call :try py -3
+if not defined PY call :try python
+if not defined PY call :try python3
+if not defined PY goto :nopython
+
+%PY% baslat.py
+if errorlevel 1 (
+  echo.
+  echo  Bir sorun olustu. Yukaridaki mesaji okuyun veya bu pencerenin ekran goruntusunu paylasin.
+  echo.
+  pause
 )
+exit /b
 
-where python >nul 2>nul || (echo [!] Python bulunamadi. https://www.python.org adresinden kurun ^("Add to PATH" secili olsun^). & pause & exit /b 1)
+:try
+%* -c "import sys; sys.exit(0 if sys.version_info[:2] >= (3, 10) else 1)" >nul 2>&1
+if not errorlevel 1 set "PY=%*"
+exit /b
 
-if not exist backend\.venv (
-  echo [i] Python sanal ortami kuruluyor...
-  python -m venv backend\.venv
-)
-call backend\.venv\Scripts\activate.bat
-python -m pip install -q --upgrade pip >nul
-pip install -q -r backend\requirements.txt
-
-if not exist frontend\dist\index.html (
-  where npm >nul 2>nul && (
-    echo [i] Arayuz derleniyor...
-    pushd frontend & call npm install --silent & call npm run build --silent & popd
-  ) || echo [!] Node.js bulunamadi; arayuz derlenemedi. https://nodejs.org
-)
-
-start "" http://127.0.0.1:8000
-echo [OK] Bot baslatiliyor: http://127.0.0.1:8000  ^(durdurmak icin bu pencereyi kapatin^)
-cd backend
-python -m app.main
+:nopython
+echo.
+echo  [HATA] Python 3.10 veya daha yeni bir surum bulunamadi.
+echo.
+echo   1. https://www.python.org/downloads/ adresinden Python'u indirin
+echo   2. Kurulumun ilk ekraninda "Add python.exe to PATH" kutusunu isaretleyin
+echo   3. Kurulum bitince bu dosyayi tekrar calistirin
+echo.
+echo   Not: Microsoft Store'daki "python" kisayolu calismaz; python.org surumunu kurun.
+echo.
+start "" https://www.python.org/downloads/
 pause
+exit /b 1

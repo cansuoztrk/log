@@ -5,6 +5,7 @@ import asyncio
 import hmac
 import json
 import logging
+import logging.handlers
 import threading
 import time
 import uuid
@@ -30,7 +31,11 @@ from .market import closed_only, market
 from .metrics import breakdowns, monthly_returns, trade_stats
 from .strategy import explain, signal_frame
 
-logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s: %(message)s")
+LOG_FORMAT = "%(asctime)s %(levelname)s %(name)s: %(message)s"
+logging.basicConfig(level=logging.INFO, format=LOG_FORMAT)
+_file_log = logging.handlers.RotatingFileHandler(settings.data_dir / "bot.log", maxBytes=2_000_000, backupCount=3, encoding="utf-8")
+_file_log.setFormatter(logging.Formatter(LOG_FORMAT))
+logging.getLogger().addHandler(_file_log)
 log = logging.getLogger("app")
 
 

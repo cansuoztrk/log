@@ -15,7 +15,8 @@ def _load_dotenv() -> None:
     for candidate in (BASE_DIR / ".env", BASE_DIR.parent / ".env"):
         if not candidate.exists():
             continue
-        for raw in candidate.read_text(encoding="utf-8").splitlines():
+        # utf-8-sig: Windows Notepad may save .env with a BOM.
+        for raw in candidate.read_text(encoding="utf-8-sig", errors="replace").splitlines():
             line = raw.strip()
             if not line or line.startswith("#") or "=" not in line:
                 continue
@@ -42,7 +43,7 @@ class Settings:
     dashboard_token: str = os.getenv("DASHBOARD_TOKEN", "")
     data_dir: Path = Path(os.getenv("DATA_DIR", str(BASE_DIR / "data")))
     host: str = os.getenv("HOST", "127.0.0.1")
-    port: int = int(os.getenv("PORT", "8000"))
+    port: int = int(os.getenv("PORT") or "8000")
 
     @property
     def has_anthropic(self) -> bool:
