@@ -2,7 +2,8 @@ import { defineConfig } from 'vite'
 
 // Link önizleme görseli (og:image) için sitenin tam adresi; verilmezse göreli yol kullanılır.
 // GitHub Pages iş akışı bunu otomatik verir. Başka yerde: VITE_SITE_ADRESI=https://... npm run build
-process.env.VITE_SITE_ADRESI ||= '.'
+// Netlify derlemede sitenin adresini URL değişkeniyle verir.
+process.env.VITE_SITE_ADRESI ||= process.env.URL || '.'
 
 // base './' → site herhangi bir alt klasörde (GitHub Pages, Netlify…) sorunsuz çalışır
 export default defineConfig({

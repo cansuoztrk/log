@@ -138,14 +138,26 @@ Repo ayarlarında **Settings → Pages → Source: GitHub Actions** seç. Bu de�
 `.github/workflows/eln-pages.yml` siteyi derleyip yayınlar. Adres: `https://<kullanıcı-adı>.github.io/<repo>/`
 (Özel/private repolarda Pages için ücretli GitHub planı gerekir.)
 
-**Seçenek B — Netlify Drop (en kolay):**
-`npm run build` → https://app.netlify.com/drop adresine `eln/dist` klasörünü sürükle-bırak. Link hazır.
+**Seçenek B — Netlify, GitHub’dan otomatik (önerilen):**
+Repo kökündeki `netlify.toml` her şeyi ayarlar; elle bir şey yazman gerekmez.
+
+1. https://app.netlify.com adresinde GitHub hesabınla giriş yap.
+2. **Add new site → Import an existing project → GitHub** → `log` reposunu seç.
+3. **Branch to deploy:** PR birleştiyse `main`, birleşmediyse `claude/cool-cori-0y81z6`.
+4. Ayarlar kendiliğinden gelir (Base: `eln`, Build: `npm run build`, Publish: `eln/dist`) → **Deploy**.
+5. Birkaç dakikada `https://….netlify.app` adresin hazır. *Site configuration → Change site name* ile
+   adresi güzelleştirebilirsin (ör. `once-sana-dogar.netlify.app`).
+
+Bundan sonra GitHub’a gönderilen her değişiklik siteyi kendiliğinden günceller.
+
+**Seçenek C — Netlify Drop (derleme olmadan):**
+`npm run build` → https://app.netlify.com/drop adresine `eln/dist` klasörünü sürükle-bırak.
 
 Site arama motorlarına kapalıdır (`noindex`) ve ilk açılışta “her şeyin başladığı günü” sorar.
 
 **Link önizlemesi:** Linki WhatsApp/Instagram’dan gönderdiğinde küreli bir kapak görseli (`public/og.jpg`) görünür.
-GitHub Pages bunu otomatik ayarlar; Netlify vb. kullanırsan sitenin tam adresiyle derle:
-`VITE_SITE_ADRESI=https://eln-icin.netlify.app npm run build`
+GitHub Pages ve Netlify (GitHub’dan bağlandığında) bunu otomatik ayarlar. Başka bir yerde yayınlarsan
+sitenin tam adresiyle derle: `VITE_SITE_ADRESI=https://… npm run build`
 
 **Telefonda uygulama gibi:** Eln siteyi açıp Safari’de *Paylaş → Ana Ekrana Ekle* derse
 ana ekranında kendi ikonuyla (doğan güneş ve kalp) bir uygulama gibi durur.

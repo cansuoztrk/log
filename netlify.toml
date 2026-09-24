@@ -1,0 +1,8 @@
+# Netlify: "Önce Sana Doğar" sitesi (eln/ klasörü) — GitHub'dan otomatik derlenip yayınlanır.
+[build]
+  base = "eln"
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"
