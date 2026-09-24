@@ -1,0 +1,367 @@
+/* ─── Tasarım dili ─────────────────────────────────────────────────────────
+   Gece mavisi bir zemin, üstünde şafak renkleri: altın, kehribar, gül.
+   Serif: Cormorant Garamond (duygu) · Sans: Plus Jakarta Sans (bilgi)
+   El yazısı: Caveat (notlar) · Kaligrafi: Great Vibes (imza)
+   ──────────────────────────────────────────────────────────────────────── */
+
+:root {
+  --murekkep: #05060c;
+  --gece: #0a0c1d;
+  --gece-2: #11152f;
+  --gece-3: #1b2150;
+  --krem: #f7ede0;
+  --krem-2: rgba(247, 237, 224, 0.74);
+  --soluk: rgba(247, 237, 224, 0.5);
+  --cok-soluk: rgba(247, 237, 224, 0.28);
+  --cizgi: rgba(247, 237, 224, 0.12);
+  --cam: rgba(18, 21, 44, 0.55);
+  --altin: #f3c47c;
+  --altin-2: #ffdfae;
+  --kehribar: #ec8f55;
+  --gul: #f59fb4;
+  --gul-2: #ffc9d5;
+  --hazar: #6fd6d0;
+  --bogaz: #86a8ff;
+  --cay: #b8451f;
+  --safak: linear-gradient(100deg, var(--altin-2) 0%, var(--altin) 30%, var(--kehribar) 60%, var(--gul) 100%);
+
+  --serif: 'Cormorant Garamond', 'Iowan Old Style', 'Palatino Linotype', Georgia, serif;
+  --sans: 'Plus Jakarta Sans Variable', 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --el: 'Caveat Variable', 'Caveat', 'Segoe Print', cursive;
+  --kaligrafi: 'Great Vibes', 'Snell Roundhand', cursive;
+  --mono: 'JetBrains Mono Variable', 'JetBrains Mono', ui-monospace, monospace;
+
+  --yavas: cubic-bezier(0.22, 1, 0.36, 1);
+  --kenar: clamp(20px, 5vw, 64px);
+  --ust-yukseklik: 64px;
+
+  color-scheme: dark;
+}
+
+/* Vakite göre küçük renk kaymaları (Bakü saatiyle) */
+:root[data-vakit='safak'] {
+  --vurgu: var(--gul);
+  --vurgu-2: var(--altin);
+}
+:root[data-vakit='gunduz'] {
+  --vurgu: var(--altin);
+  --vurgu-2: var(--altin-2);
+}
+:root[data-vakit='aksam'] {
+  --vurgu: var(--kehribar);
+  --vurgu-2: var(--gul);
+}
+:root[data-vakit='gece'] {
+  --vurgu: var(--altin);
+  --vurgu-2: var(--gul);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  background: var(--murekkep);
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+body {
+  margin: 0;
+  min-height: 100svh;
+  background:
+    radial-gradient(120% 60% at 50% 0%, rgba(40, 46, 110, 0.35), transparent 60%),
+    radial-gradient(90% 50% at 100% 100%, rgba(120, 50, 90, 0.18), transparent 60%),
+    var(--murekkep);
+  background-attachment: fixed;
+  color: var(--krem);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.65;
+  font-feature-settings: 'ss01', 'kern';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body.kilitli {
+  overflow: hidden;
+  height: 100svh;
+}
+
+::selection {
+  background: rgba(245, 159, 180, 0.35);
+  color: #fff;
+}
+
+img,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 1.5px solid var(--altin);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+/* Kum dokusu — her şeyin üstünde çok hafif */
+.doku {
+  position: fixed;
+  inset: -50%;
+  z-index: 90;
+  pointer-events: none;
+  opacity: 0.06;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .9 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation: doku 1.2s steps(6) infinite;
+}
+@keyframes doku {
+  0% { transform: translate(0, 0); }
+  20% { transform: translate(-3%, 2%); }
+  40% { transform: translate(2%, -3%); }
+  60% { transform: translate(-2%, -1%); }
+  80% { transform: translate(3%, 3%); }
+  100% { transform: translate(0, 0); }
+}
+
+/* WebGL tuvali ve katmanlar */
+#gl {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100lvh;
+  z-index: 0;
+  display: block;
+}
+#mevsim {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100lvh;
+  z-index: 1;
+  pointer-events: none;
+}
+#kure-etiketler {
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  transition: opacity 0.6s;
+}
+#kure-etiketler.gizli {
+  opacity: 0;
+}
+main {
+  position: relative;
+  z-index: 3;
+}
+
+/* ─── Tipografi ─── */
+.etiket {
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 650;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--vurgu, var(--altin));
+}
+.etiket .no {
+  font-family: var(--mono);
+  letter-spacing: 0.1em;
+  opacity: 0.7;
+  margin-right: 0.9em;
+}
+.dev {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: clamp(3.1rem, 12.5vw, 9.5rem);
+  line-height: 0.9;
+  letter-spacing: -0.025em;
+  margin: 0;
+}
+.baslik {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: clamp(2.5rem, 8.4vw, 5.6rem);
+  line-height: 0.98;
+  letter-spacing: -0.02em;
+  margin: 0.35em 0 0.45em;
+}
+.baslik em,
+.dev em,
+.satir em {
+  font-style: italic;
+  font-weight: 400;
+  background: var(--safak);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  padding-right: 0.06em;
+}
+.satir {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(1.65rem, 5.6vw, 3.25rem);
+  line-height: 1.14;
+  letter-spacing: -0.01em;
+  margin: 0;
+  text-wrap: balance;
+}
+.satir.italik {
+  font-style: italic;
+  font-weight: 300;
+}
+.metin {
+  font-size: clamp(15px, 1.05rem, 17.5px);
+  color: var(--krem-2);
+  max-width: 34rem;
+  text-wrap: pretty;
+}
+.metin strong {
+  color: var(--krem);
+  font-weight: 600;
+}
+.dipnot {
+  font-size: 12.5px;
+  color: var(--soluk);
+  line-height: 1.6;
+}
+.el {
+  font-family: var(--el);
+}
+.az {
+  font-style: italic;
+  color: var(--gul-2);
+  white-space: nowrap;
+}
+
+/* Satır maskesi (SplitText ile) */
+.maske {
+  overflow: hidden;
+  padding-bottom: 0.08em;
+  margin-bottom: -0.08em;
+}
+
+/* ─── Genel bölüm düzeni ─── */
+.bolum {
+  position: relative;
+  padding: clamp(96px, 16vh, 180px) var(--kenar);
+}
+.bolum.uzun {
+  padding: 0;
+}
+.sabit {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  overflow: hidden;
+}
+.icerik-sutun {
+  max-width: 1180px;
+  margin: 0 auto;
+}
+.bolum-bas {
+  max-width: 44rem;
+}
+.bolum-bas .metin {
+  margin-top: 0;
+}
+
+/* Düğmeler */
+.dugme {
+  --b: var(--vurgu, var(--altin));
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7em;
+  padding: 0.95em 1.55em;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: #1a0f08;
+  background: var(--safak);
+  box-shadow:
+    0 10px 30px -10px rgba(243, 196, 124, 0.55),
+    inset 0 1px 0 rgba(255, 255, 255, 0.45);
+  transition: transform 0.4s var(--yavas), box-shadow 0.4s var(--yavas), opacity 0.3s;
+}
+.dugme:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 18px 40px -12px rgba(243, 196, 124, 0.7),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+.dugme:active {
+  transform: translateY(0) scale(0.98);
+}
+.dugme.hayalet {
+  color: var(--krem);
+  background: rgba(247, 237, 224, 0.06);
+  border: 1px solid var(--cizgi);
+  box-shadow: none;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+.dugme.hayalet:hover {
+  border-color: rgba(243, 196, 124, 0.45);
+  background: rgba(243, 196, 124, 0.08);
+}
+.dugme svg {
+  width: 16px;
+  height: 16px;
+}
+
+.cam {
+  background: linear-gradient(160deg, rgba(30, 34, 70, 0.55), rgba(12, 14, 32, 0.6));
+  border: 1px solid var(--cizgi);
+  border-radius: 22px;
+  backdrop-filter: blur(18px) saturate(1.2);
+  -webkit-backdrop-filter: blur(18px) saturate(1.2);
+  box-shadow: 0 30px 80px -30px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.gorunmez {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .doku {
+    animation: none;
+  }
+}
