@@ -4,6 +4,7 @@ import { oku, yaz } from '../cekirdek/depo'
 import { ses } from '../cekirdek/ses'
 import { sirBul } from '../cekirdek/sirlar'
 import { ardayaYaz } from '../cekirdek/posta'
+import { uykuIsigi } from '../ui/uyku'
 import { type Anlik, gunEkle, gunFarki, sayi, tarihYazi } from '../cekirdek/zaman'
 import { $, $$, belir, gsap, ikon, satirSatir, titret } from './yardimci'
 
@@ -150,6 +151,14 @@ export function zarflarKur(bugun: string) {
       gsap.fromTo(d.querySelector('.ruh-emoji'), { scale: 0.6, rotate: -12 }, { scale: 1, rotate: 0, duration: 0.7, ease: 'back.out(3)' })
       gsap.fromTo(cevap, { autoAlpha: 0, y: 6 }, { autoAlpha: 1, y: 0, duration: 0.5 })
       cevap.textContent = r.cevap
+      if (r.id === 'uykusuz') {
+        const u = document.createElement('button')
+        u.type = 'button'
+        u.className = 'dugme hayalet ruh-uyku'
+        u.innerHTML = '<span aria-hidden="true">☾</span><span>Uyku ışığını aç</span>'
+        u.addEventListener('click', () => uykuIsigi())
+        cevap.append(document.createElement('br'), u)
+      }
 
       // Arda'ya aynı gün aynı ruh hâli için tek bildirim
       const eski = oku<RuhKaydi | null>('ruh', null)

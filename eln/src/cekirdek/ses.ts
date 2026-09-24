@@ -7,7 +7,7 @@ import { oku, yaz } from './depo'
  *  - dalga (deniz) ve rüzgâr dokusu
  *  - küçük efektler: bardak "şıng"ı, kalp atışı, pano tıkırtısı…
  */
-export type Ruh = 'kure' | 'nehir' | 'kule' | 'cay' | 'final' | 'sakin'
+export type Ruh = 'kure' | 'nehir' | 'kule' | 'cay' | 'final' | 'sakin' | 'uyku'
 
 const RUHLAR: Record<Ruh, { pad: number; deniz: number; ruzgar: number; zil: number; filtre: number }> = {
   kure: { pad: 1, deniz: 0.35, ruzgar: 0.5, zil: 1, filtre: 1100 },
@@ -16,6 +16,7 @@ const RUHLAR: Record<Ruh, { pad: number; deniz: number; ruzgar: number; zil: num
   cay: { pad: 0.9, deniz: 0.12, ruzgar: 0.15, zil: 0.9, filtre: 1500 },
   final: { pad: 0.75, deniz: 0.3, ruzgar: 0.2, zil: 0.55, filtre: 800 },
   sakin: { pad: 0.9, deniz: 0.4, ruzgar: 0.35, zil: 0.9, filtre: 1100 },
+  uyku: { pad: 0.5, deniz: 1.1, ruzgar: 0.05, zil: 0.3, filtre: 620 },
 }
 
 const mf = (m: number) => 440 * 2 ** ((m - 69) / 12)
@@ -132,6 +133,26 @@ class SesMotoru {
     this.dinleyiciler.forEach((f) => f(this.acik))
   }
 
+  /** Uyku ışığı için: bütün ses verilen sürede yavaşça kısılır */
+  uyut(saniye: number) {
+    if (!this.ctx) return
+    const g = this.ana.gain
+    const t = this.ctx.currentTime
+    g.cancelScheduledValues(t)
+    g.setValueAtTime(g.value, t)
+    g.linearRampToValueAtTime(0.0001, t + saniye)
+  }
+
+  /** Uyku ışığı kapanınca ses eski hâline döner */
+  uyandir() {
+    if (!this.ctx) return
+    const g = this.ana.gain
+    const t = this.ctx.currentTime
+    g.cancelScheduledValues(t)
+    g.setValueAtTime(g.value, t)
+    g.setTargetAtTime(this.acik ? 0.85 : 0, t, 0.8)
+  }
+
   /** Dışarıdan bir ses dosyası çal (şarkımız, sesli mesaj): çalarken üretilen müzik susar */
   private dosyalar = new Map<string, HTMLAudioElement>()
   dosya(yol: string) {
@@ -170,7 +191,10 @@ class SesMotoru {
     if (this.ctx) this.muzik.gain.setTargetAtTime(1, this.ctx.currentTime, 1.2)
   }
 
+  /** en son istenen ses dokusu (uyku ışığı kapanınca geri dönmek için) */
+  sonRuh: Ruh = 'kure'
   ruh(r: Ruh) {
+    if (r !== 'uyku') this.sonRuh = r
     const c = this.ctx
     if (!c) return
     const h = RUHLAR[r]

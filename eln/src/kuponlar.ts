@@ -41,5 +41,11 @@ export const KUPONLAR: Kupon[] = [
   { id: 'film', ne: 'bulusma', simge: '🎬', baslik: 'Bir film, tek battaniye', kosul: 'Filmi sen seçersin; ben filmden çok seni izlerim.' },
   { id: 'dondurma', ne: 'bulusma', simge: '🍦', baslik: 'Bir dondurma, senin seçtiğin tat', kosul: 'Benimkinden de bir kaşık alma hakkı dahil.' },
   { id: 'sevirem', ne: 'bulusma', simge: '🗣️', baslik: '“Səni sevirəm”, benim aksanımla', kosul: 'Gülmeye hakkın var. Sonra düzgün söylemeyi sen öğretirsin.' },
+  { id: 'tabela', ne: 'bulusma', simge: '🪧', baslik: 'Havalimanında bir karşılama tabelası', kosul: 'Üstünde kocaman harflerle ELNOS yazacak. Utanmak yok.' },
+  { id: 'gece-mesaji', ne: 'simdi', simge: '🌌', baslik: 'Gece yarısı uzun bir mesaj', kosul: 'En az yirmi satır. Sabah uyanınca okursun.' },
+  { id: 'bokkus', ne: 'simdi', simge: '🐦', baslik: 'Bir “bokkuş” hakkı', kosul: 'Ne demek olduğunu ikimiz biliyoruz. İstediğin an kullan.' },
+  { id: 'simdi-foto', ne: 'simdi', simge: '🤳', baslik: '“Şu an ne yapıyorsun?” fotoğrafı', kosul: 'Arda o an ne yapıyorsa, filtresiz ve hazırlıksız.' },
+  { id: 'telefonsuz', ne: 'bulusma', simge: '📵', baslik: 'Bir saat telefonsuz, sadece biz', kosul: 'Ekranlar kapalı. Aylarca ekrandan baktığımız yüze, bu sefer doğrudan.' },
+  { id: 'novruz', ne: 'bulusma', simge: '🔥', baslik: 'Novruz tonqalından birlikte atlamak', kosul: 'El ele. Dileği önceden söylemek yasak.' },
   { id: 'bos', ne: 'bulusma', simge: '✨', baslik: 'Boş kupon', kosul: 'Ne istersen yaz. Arda şimdiden “evet” dedi.' },
 ]

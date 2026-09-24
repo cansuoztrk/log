@@ -11,6 +11,8 @@ export interface Madde {
   anlamlar: string[]
   ornek?: string
   bkz?: string
+  /** alfabeye bakmadan en başta dursun */
+  onde?: boolean
 }
 
 export const SOZLUK: Madde[] = [
@@ -24,6 +26,19 @@ export const SOZLUK: Madde[] = [
       'mec. “Seni seviyorum”un utangaç, argo kuzeni.',
     ],
     ornek: 'Bugün bok gibiydi ama sen yazınca geçti.',
+  },
+  {
+    kelime: 'bokkuş',
+    okunus: 'bok·kuş',
+    tur: 'is., sevgi sözü',
+    anlamlar: [
+      'Dünyada yalnızca iki kişinin bildiği kelime. Üçüncü biri duyarsa anlamını söylemek yasaktır.',
+      '“Bok”un kuş kadar hafif, kanatlanmış hâli.',
+      'Sözlüğümüzün en değerli maddesi; bu yüzden en tepede.',
+    ],
+    ornek: 'Bokkuş ☺️',
+    bkz: 'bok, ☺️',
+    onde: true,
   },
   {
     kelime: '☺️',

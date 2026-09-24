@@ -20,7 +20,7 @@ const sirala = (a: string, b: string) => a.localeCompare(b, 'tr', { sensitivity:
 
 function maddeHTML(m: Madde) {
   return /* html */ `
-    <article class="sm">
+    <article class="sm${m.onde ? ' sm-onde' : ''}">
       <h3><b>${m.kelime}</b>${m.okunus ? ` <span class="sm-okunus">/${m.okunus}/</span>` : ''} <i class="sm-tur">${m.tur}</i></h3>
       ${m.anlamlar.length > 1 ? `<ol>${m.anlamlar.map((a) => `<li>${a}</li>`).join('')}</ol>` : `<p>${m.anlamlar[0]}</p>`}
       ${m.ornek ? `<p class="sm-ornek">${m.ornek}</p>` : ''}
@@ -38,7 +38,7 @@ function ekHTML(e: EkMadde) {
 }
 
 export function sozlukHTML() {
-  const maddeler = SOZLUK.slice().sort((a, b) => sirala(a.kelime, b.kelime))
+  const maddeler = SOZLUK.slice().sort((a, b) => Number(!!b.onde) - Number(!!a.onde) || sirala(a.kelime, b.kelime))
   const ekler = oku<EkMadde[]>('sozluk', [])
   return /* html */ `
   <section id="sozluk" class="bolum" data-bolum="" data-ad="Sözlüğümüz">

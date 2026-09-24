@@ -120,6 +120,8 @@ export const NOTLAR: string[] = [
   'Bazen sadece adını yazıp siliyorum: {tamAd}. Sonra yine yazıyorum. Klavye bile seni seviyor artık.',
   '{hitap}, bugün bir şey fark ettim: seni özlemek bile seni sevmenin bir biçimi.',
   'Bu sitenin hiçbir yerinde “bok” kelimesi geçmiyor. Bu cümle hariç. ☺️',
+  'Bugünün kelimesi: bokkuş. Anlamını dünyada ikimizden başka kimse bilmiyor; bilmeyecek de. ☺️',
+  'Biri bir gün “bokkuş ne demek?” diye sorarsa ikimiz de aynı anda gülüp konuyu değiştireceğiz. Şimdiden anlaştık.',
   'Bana “posi” dediğinde adım bile değişiyor; Arda gidiyor, daha mutlu biri geliyor.',
   '“Mosi”, “şirinim”, “kuzum”… Bana taktığın her ad, telefonumda bir bayram.',
   'Pembe senin rengin. Bu sitede ne kadar pembe varsa, hepsini sana bakarak seçtim.',

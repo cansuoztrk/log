@@ -4,6 +4,7 @@ import { anlik, ayEvresi, type Anlik } from '../cekirdek/zaman'
 import type { Ziyaret } from '../cekirdek/depo'
 import type { GununNotu } from '../bolumler/ruzgar'
 import { bildir } from './ust'
+import { uykuIsigi } from './uyku'
 
 const { sevgili, tanisma } = ICERIK
 
@@ -38,6 +39,19 @@ export function karsila(z: Anlik, not: GununNotu, ziyaret: Ziyaret & { yeniGun: 
     return
   }
   const { saat } = z.bakuT
+  if (saat >= 23 || saat < 5)
+    window.setTimeout(
+      () =>
+        bildir({
+          ust: 'Gecə',
+          baslik: 'Uyuyamıyor musun?',
+          metin: 'Buna dokun: ay ekranında nefes alacak, sen de onunla. Sekiz dakika sonra ışık kendiliğinden kararır.',
+          simge: '☾',
+          tik: () => uykuIsigi(),
+          sure: 12000,
+        }),
+      2500,
+    )
   const selam =
     saat < 5 ? 'Bu saatte mi buradasın?' : saat < 11 ? 'Sabahın xeyir, günəşim' : saat < 17 ? 'Günün aydın, gözəlim' : saat < 22 ? 'Axşamın xeyir, canım' : 'Gecən xeyrə qalsın'
   if (ziyaret.yeniGun && ziyaret.gunler.length > 1)

@@ -43,6 +43,7 @@ import { zarflarHTML, zarflarKur } from './bolumler/zarflar'
 import { zambakHTML, zambakKur } from './bolumler/zambak'
 import { cuzdanHTML, cuzdanKur } from './bolumler/cuzdan'
 import { sozlukHTML, sozlukKur } from './bolumler/sozluk'
+import { gokyuzuHTML, gokyuzuKur } from './bolumler/gokyuzu'
 import { $, $$, azHareket, gsap, ScrollTrigger } from './bolumler/yardimci'
 import { kapiAc } from './ui/kapi'
 import { ustKur } from './ui/ust'
@@ -77,6 +78,7 @@ $('#icerik').innerHTML = [
   sozlukHTML(),
   narHTML(z),
   simdiHTML(),
+  gokyuzuHTML(),
   ruzgarHTML(z, not),
   ucusHTML(z),
   cuzdanHTML(z),
@@ -144,6 +146,7 @@ dillerKur()
 sozlukKur()
 narKur(z)
 simdiKur()
+gokyuzuKur()
 ruzgarKur(z, not, ust.notlarAc)
 ucusKur()
 cuzdanKur(z, ust.cekmece)

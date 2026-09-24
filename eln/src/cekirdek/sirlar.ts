@@ -174,6 +174,18 @@ export const SIRLAR: Sir[] = [
     mesaj: 'Aynı anda dokunduk. İki kalp, iki şehir, tek ritim. 1.758 km o birkaç saniye boyunca hiç olmadı.',
   },
   {
+    id: 'venus',
+    ad: 'Aşkın gezegeni',
+    ipucu: '“Biz” olduğumuz gecenin gökyüzünde aşk tanrıçasının gezegenini bul.',
+    mesaj: 'Venüs. O gece batıda, ince bir hilalin yanında parlıyordu. Biz “biz” olurken gökyüzü de süslenmişti.',
+  },
+  {
+    id: 'uyku',
+    ad: 'Beş nefes',
+    ipucu: 'Uyku ışığında beş kez nefes al.',
+    mesaj: 'İstanbul, Karadeniz, Kafkaslar, Hazar, sen. Uyudun mu? Uyumadıysan bir tur daha; ben buradayım.',
+  },
+  {
     id: 'lamba',
     ad: 'Lamba sönmez',
     ipucu: 'Kulede lambayı yak.',

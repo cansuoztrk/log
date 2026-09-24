@@ -3,7 +3,7 @@ import { oku, yaz } from '../cekirdek/depo'
 import { ses } from '../cekirdek/ses'
 import { sirBul } from '../cekirdek/sirlar'
 import { type Anlik, ek, sayi } from '../cekirdek/zaman'
-import { $, gsap, titret } from '../bolumler/yardimci'
+import { $, gsap, paylasVeyaIndir, titret } from '../bolumler/yardimci'
 import { ardayaYaz, kimim } from '../cekirdek/posta'
 
 const { ben, sen } = ICERIK
@@ -167,20 +167,5 @@ export async function duvarKagidi(z: Anlik) {
   x.fillText(`GÜN ${sayi(z.gunNo)}  ·  ${nokta(ICERIK.tanisma)}  ·  ${nokta(ICERIK.sevgili)}`, W / 2, H * 0.6 + 420)
 
   const blob = await new Promise<Blob | null>((r) => c.toBlob(r, 'image/png'))
-  if (!blob) return
-  const dosya = new File([blob], `once-sana-dogar-gun-${z.gunNo}.png`, { type: 'image/png' })
-  const nav = navigator as Navigator & { canShare?: (d: ShareData) => boolean }
-  if (nav.canShare?.({ files: [dosya] })) {
-    try {
-      await navigator.share({ files: [dosya], title: 'Önce Sana Doğar' })
-      return
-    } catch {
-      /* vazgeçildi ya da desteklenmiyor → indir */
-    }
-  }
-  const a = document.createElement('a')
-  a.href = URL.createObjectURL(blob)
-  a.download = dosya.name
-  a.click()
-  window.setTimeout(() => URL.revokeObjectURL(a.href), 5000)
+  if (blob) await paylasVeyaIndir(blob, `once-sana-dogar-gun-${z.gunNo}.png`, 'Önce Sana Doğar')
 }

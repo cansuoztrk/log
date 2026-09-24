@@ -95,4 +95,23 @@ export function titret(desen: number | number[]) {
   }
 }
 
+/** Bir görseli telefonda paylaş menüsüyle kaydettir; olmazsa indir. */
+export async function paylasVeyaIndir(blob: Blob, ad: string, baslik: string) {
+  const dosya = new File([blob], ad, { type: blob.type })
+  const nav = navigator as Navigator & { canShare?: (d: ShareData) => boolean }
+  if (nav.canShare?.({ files: [dosya] })) {
+    try {
+      await navigator.share({ files: [dosya], title: baslik })
+      return
+    } catch {
+      /* vazgeçildi ya da desteklenmiyor → indir */
+    }
+  }
+  const a = document.createElement('a')
+  a.href = URL.createObjectURL(blob)
+  a.download = ad
+  a.click()
+  window.setTimeout(() => URL.revokeObjectURL(a.href), 5000)
+}
+
 export { gsap, ScrollTrigger, SplitText }

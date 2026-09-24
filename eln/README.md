@@ -38,27 +38,36 @@ Site, ikinizin hikâyesindeki **gerçek ve şaşırtıcı tesadüfler** üzerine
 7. **İki Kule**: Kız Kulesi & Qız Qalası, Leandros efsanesi, mahya ve Alev Kuleleri
 8. **Çay Günü**: 21 Mayıs, dolan bardaklar, kalp çizen buhar
 9. **İki Dil**: dönen kartlar
-10. **Sözlüğümüz**: sadece ikinizin anladığı kelimeler (bok, ☺️, öptüm, posi ~ mosi, Elnos…), eski bir sözlük
+10. **Sözlüğümüz**: sadece ikinizin anladığı kelimeler (en tepede **bokkuş**; sonra bok, ☺️, öptüm, posi ~ mosi, Elnos…), eski bir sözlük
     sayfası gibi. Eln yeni kelime ekleyebilir; el yazısıyla sayfaya eklenir ve senin telefonuna düşer
 11. **Adında Bir Nar**: kırılan nar, “Elnare” yazan taneler
 12. **Şu An**: iki şehrin gökyüzü, gerçek güneş, ay ve hava durumu
-13. **Rüzgâr Postası**: günün notu (zarf), toplanan notlar, rüzgâra mesaj. Üstünde **günün sorusu**
+13. **O Gecenin Gökyüzü**: tanıştığınız gece (6 Aralık 2025) ve “biz” olduğunuz gece (21 Mayıs 2026), saat 21:05’te
+    Bakü’nün ve İstanbul’un üstündeki **gerçek yıldız haritası**: 1.600+ yıldız, takımyıldızlar (Türkçe adlarıyla),
+    Samanyolu, o geceki ay evresi ve gezegenler (21 Mayıs gecesi batıda hilal, Venüs ve Jüpiter yan yanaydı).
+    Geceler arasında geçerken gökyüzü zamanda döner; yıldızlara dokununca adları çıkar; **poster olarak kaydedilir**
+14. **Rüzgâr Postası**: günün notu (zarf), toplanan notlar, rüzgâra mesaj. Üstünde **günün sorusu**
     (55+ soru, her gün başka); Eln cevaplarsa soru ve cevap birlikte telefonuna düşer
-14. **İlk Buluşma**: kalkış panosu, birlikte yapılacaklar listesi
-15. **Buluşma Cüzdanı**: her yeni ziyaret gününde parmakla **kazınan bir kupon** (28 kupon).
+15. **İlk Buluşma**: kalkış panosu, birlikte yapılacaklar listesi
+16. **Buluşma Cüzdanı**: her yeni ziyaret gününde parmakla **kazınan bir kupon** (34 kupon).
     “Hemen geçerli” olanlar (sesli arama, bir şarkı isteği, “bok gibi gün” iptali, ilk görüntülü aramamız…)
     “Kullan”a basılınca telefonuna düşer. “İlk buluşmada geçerli” olanlar (havalimanı sarılması, ilk çay,
     pembe zambaklar…) `ilkBulusma` tarihi gelince açılır
-16. **Şarkımız**: “Anılar”, plak ve pikap
-17. **Mektup**: el yazısıyla mektup (+ isteğe bağlı sesli mesaj)
-18. **… Olduğunda Aç**: önce **“Bugün nasılsın?”** (İyiyim, Özledim, Bok gibi, Uyuyamıyorum…). Seçtiği ruh
+17. **Şarkımız**: “Anılar”, plak ve pikap
+18. **Mektup**: el yazısıyla mektup (+ isteğe bağlı sesli mesaj)
+19. **… Olduğunda Aç**: önce **“Bugün nasılsın?”** (İyiyim, Özledim, Bok gibi, Uyuyamıyorum…). Seçtiği ruh
     hâline uygun mektup açılır ve sana “Eln seni özlemiş 🥺, şimdi yaz” gibi bir bildirim gelir.
     Altında duygu mektupları ve kendi gününü bekleyen kilitli mektuplar
-19. **Kalbim**: kalbe basılı tut; yıldızlar “Səni sevirəm” yazar, sonra kalp olur. İkiniz aynı anda sitedeyken
+20. **Kalbim**: kalbe basılı tut; yıldızlar “Səni sevirəm” yazar, sonra kalp olur. İkiniz aynı anda sitedeyken
     **ikiniz birden** dokunursanız kalp iki kat hızlı dolar (“İki kalp, aynı anda”).
     En sonda **“Öptüm”** düğmesi (senin telefonuna bildirim olarak düşer) ve **kilit ekranı duvar kâğıdı**
 
 Bölüm numaraları otomatik verilir; fotoğraf eklenince numaralar kendiliğinden kayar.
+
+**Uyku Işığı** (menüde ☾, “Bugün nasılsın? → Uyuyamıyorum”da ve gece 23:00’ten sonra gelen bir öneride):
+ekranda ayın o geceki gerçek evresi nefes alıp verir (4 saniye al, 6 saniye ver), her nefeste
+“Bir: İstanbul. İki: Karadeniz. Üç: Kafkaslar. Dört: Hazar. Beş: sen.” diye sayılır; arkada deniz sesi.
+8 dakikada ışık ve ses yavaşça söner. “Arda’ya iyi geceler de” düğmesi sana bildirim olarak düşer.
 
 ## Her gelişte farklı olan şeyler
 
@@ -73,12 +82,13 @@ Bölüm numaraları otomatik verilir; fotoğraf eklenince numaralar kendiliğind
   basınca ikinizin ekranında “Şimdi pencereden aya bak” açılır
 - Kilitli mektuplar kendi günleri geldikçe açılır; o güne kadar kaç gün kaldığını söyler
 - Her yeni gün yeni bir **kupon** kazınır, yeni bir **soru** gelir
-- **27 sır** (sağ üstteki ✦). Bazıları dokunarak, bazıları sadece belli bir anda bulunur:
+- **29 sır** (sağ üstteki ✦). Bazıları dokunarak, bazıları sadece belli bir anda bulunur:
   aya 3 kez dokunmak, saat **21:05**’te bakmak, gece yarısından sonra gelmek, ayın 21’inde/6’sında gelmek,
   dolunayda gelmek, iki bardağı art arda çınlatmak, bardağına iki şeker atmak, rüzgâra boş mektup bırakmak,
   kayan yıldızı yakalamak, 10 farklı gün gelmek, üstteki iki harfe 5 kez dokunmak (☺️ yağmuru),
   rüzgâra “bizim kelimemizi” ya da sana taktığı bir adı yazmak, “öptüm” demek, ilk kuponu kazımak,
-  sözlüğe kelime eklemek, sondaki kalbe ikiniz aynı anda dokunmak… (Eln’e söyleme 🙂)
+  sözlüğe kelime eklemek, sondaki kalbe ikiniz aynı anda dokunmak, “biz” olduğunuz gecenin gökyüzünde
+  Venüs’ü bulmak, uyku ışığında beş nefes almak… (Eln’e söyleme 🙂)
 - Onun ekranında sen, onun sana taktığı adlarla görünürsün: “Posi şu an burada”, “Mosi: öptüm”…
 
 ---
@@ -116,6 +126,7 @@ Birkaç küçük içerik dosyası daha:
 
 - **`src/kuponlar.ts`** — Buluşma Cüzdanı’ndaki kuponlar (sırayla çıkarlar; `ne: 'simdi'` ya da `'bulusma'`)
 - **`src/sozluk.ts`** — Sözlüğümüz. Eln sitede bir kelime eklerse telefonuna düşer; beğenirsen buraya kalıcı ekle
+  (`onde: true` yazılan madde alfabeye bakmadan en başta durur)
 - **`src/mektuplar.ts`** — “… olduğunda aç” mektupları ve **“Bugün nasılsın?”** seçenekleri
   (her birinin açtığı mektup ve sana gelen bildirim metni)
 
@@ -158,6 +169,7 @@ Telefonuna düşen bildirimler (hepsi yalnızca Eln’in cihazından gelir, seni
 | **Eln bir kupon kullandı 🎟️** | Cüzdandan bir kuponu kullandığında. Gereğini yap ☺️ |
 | **Eln sözlüğe bir kelime ekledi 📖** | Sözlüğümüze kelime eklediğinde |
 | **Eln · öptüm** | Sondaki “Öptüm” düğmesine bastığında |
+| **Eln uyumaya gidiyor 🌙** | Uyku ışığında “iyi geceler de”ye bastığında |
 
 Repo herkese açıksa konu adını kendine özel yeni bir adla değiştir (sadece ikinizin bilmesi yeterli).
 
@@ -201,6 +213,9 @@ bunu ona kendisi de bir kez önerir. Bir kez açıldıktan sonra **internet yokk
   telefonda hızlı açılır. Tek bir WebGL tuvali tüm sahneler arasında paylaşılır.
 - **GSAP** (ScrollTrigger, SplitText) + **Lenis** — kaydırmaya bağlı sinematik anlatım
 - **SunCalc** — gerçek güneş/ay konumu, doğuş/batış saatleri, ay evresi
+- **Yıldız haritası** — Hipparcos yıldızları, takımyıldız çizgileri ve Samanyolu: d3-celestial verisi
+  (© Olaf Frohn, BSD-3-Clause), `scripts/gokyuzu-verisi.mjs` ile küçültülüp `src/veri/gok.ts`’e gömüldü.
+  Gezegenler JPL’in Kepler öğeleriyle hesaplanır (`src/cekirdek/gokbilim.ts`)
 - **Open-Meteo** — iki şehrin anlık hava durumu (anahtar gerekmez; bağlantı yoksa site havasız da çalışır)
 - **ntfy.sh** — rüzgâr postası, günün sorusu, ruh hâli, kupon ve sözlük bildirimleri; “aynı anda” kalp atışı
 - **Service worker** — çevrimdışı açılış ve ana ekrana eklenebilen uygulama (`public/sw.js`)
@@ -209,4 +224,5 @@ bunu ona kendisi de bir kez önerir. Bir kez açıldıktan sonra **internet yokk
   (hepsi Azərbaycan harfleri **ə, Ə** dahil kontrol edildi)
 - Hareket azaltma tercihi, klavye erişimi ve WebGL olmayan cihazlar için sade görünüm desteklenir.
 
-Kara haritasını yeniden üretmek için: `npm run kara`
+Kara haritasını yeniden üretmek için: `npm run kara`.
+Yıldız verisini yeniden üretmek için: `npm pack d3-celestial && tar xzf d3-celestial-*.tgz && node scripts/gokyuzu-verisi.mjs package/data`

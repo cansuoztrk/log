@@ -486,6 +486,13 @@
   color: var(--krem);
   font-weight: 500;
 }
+.menu-dugmeler {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-family: var(--sans);
+  letter-spacing: 0.02em;
+}
 
 /* ─── ÇEKMECELER (sırlar, notlar) ──────────────────────────────────────── */
 .perde {
@@ -1067,4 +1074,95 @@
 }
 .ay-randevu .dugme {
   margin-top: 10px;
+}
+
+/* ─── UYKU IŞIĞI ─────────────────────────────────────────────────────────── */
+.uyku {
+  --isik: 1;
+  position: fixed;
+  inset: 0;
+  z-index: 180;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  justify-items: center;
+  padding: calc(24px + env(safe-area-inset-top)) 24px calc(28px + env(safe-area-inset-bottom));
+  background: radial-gradient(90% 60% at 50% 40%, rgba(40, 46, 100, calc(0.35 * var(--isik))), transparent 70%), #020308;
+  color: var(--krem);
+  text-align: center;
+}
+.uyku-kapat {
+  position: absolute;
+  top: calc(14px + env(safe-area-inset-top));
+  right: 14px;
+  opacity: 0.6;
+}
+.uyku-orta {
+  display: grid;
+  justify-items: center;
+  align-content: center;
+  gap: 18px;
+  opacity: calc(0.25 + 0.75 * var(--isik));
+}
+.uyku-ay {
+  --parilti: 0.35;
+  width: min(62vw, 260px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  filter: drop-shadow(0 0 calc(10px + 40px * var(--parilti)) rgba(255, 236, 205, calc(0.25 + 0.45 * var(--parilti))));
+}
+.uyku-ay canvas {
+  width: 100%;
+  height: 100%;
+}
+.uyku-nefes {
+  margin: 0;
+  min-height: 1.2em;
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: rgba(243, 196, 124, 0.7);
+}
+.uyku-satir {
+  margin: 0;
+  max-width: 22rem;
+  min-height: 2.6em;
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 300;
+  font-size: clamp(1.6rem, 6.4vw, 2.3rem);
+  line-height: 1.15;
+  color: rgba(247, 237, 224, 0.9);
+}
+.uyku-alt {
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+  opacity: calc(0.2 + 0.8 * var(--isik));
+}
+.uyku-saat {
+  margin: 0;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: var(--soluk);
+}
+.uyku-arda {
+  padding: 10px 18px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--krem-2);
+  border: 1px solid var(--cizgi);
+  background: rgba(247, 237, 224, 0.04);
+}
+.uyku-arda:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+.uyku-bilgi {
+  margin: 0;
+  font-size: 11.5px;
+  color: var(--cok-soluk);
 }
