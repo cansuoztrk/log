@@ -156,6 +156,24 @@ export const SIRLAR: Sir[] = [
     mesaj: 'Rüzgâr, o adı duyunca iki kat hızlı esmeye başladı. Posi, mosi, aşkişim, şirinim, kuzum… Hepsi buradayım.',
   },
   {
+    id: 'kupon',
+    ad: 'İlk kupon',
+    ipucu: 'Buluşma cüzdanındaki ilk kuponu kazı.',
+    mesaj: 'İlk kuponun cüzdanında. Hepsini tek tek ödeyeceğim; faiziyle. Senin tek işin biriktirmek.',
+  },
+  {
+    id: 'sozluk',
+    ad: 'İkinci baskı',
+    ipucu: 'Sözlüğümüze bir kelime ekle.',
+    mesaj: 'Sözlüğümüz büyüdü. Bir gün bu kelimelerle konuşan bir evimiz olacak; misafirler hiçbir şey anlamayacak.',
+  },
+  {
+    id: 'ikikalp',
+    ad: 'İki kalp',
+    ipucu: 'İkimiz aynı anda sitedeyken, sondaki kalbe aynı anda dokunalım.',
+    mesaj: 'Aynı anda dokunduk. İki kalp, iki şehir, tek ritim. 1.758 km o birkaç saniye boyunca hiç olmadı.',
+  },
+  {
     id: 'lamba',
     ad: 'Lamba sönmez',
     ipucu: 'Kulede lambayı yak.',

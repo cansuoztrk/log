@@ -1,10 +1,11 @@
 import { ICERIK } from '../icerik'
-import { NOTLAR, OZEL_NOTLAR } from '../notlar'
+import { NOTLAR, OZEL_NOTLAR, SORULAR } from '../notlar'
 import { oku, yaz } from '../cekirdek/depo'
 import { ses } from '../cekirdek/ses'
 import { sirBul } from '../cekirdek/sirlar'
+import { ulastir } from '../cekirdek/posta'
 import { type Anlik, MESAFE, gunFarki, sayi, tarihYazi } from '../cekirdek/zaman'
-import { $, belir, gsap, ikon, satirSatir, titret } from './yardimci'
+import { $, belir, gsap, ikon, kacir, satirSatir, titret } from './yardimci'
 
 const { ben, sen, tanisma, sevgili, dogumGunu } = ICERIK
 
@@ -68,6 +69,18 @@ export function gununNotu(z: Anlik): GununNotu {
   return { tarih: z.bugun, metin: doldur(NOTLAR[i], 0), baslik: `Not №${i + 1}`, ozel: false }
 }
 
+/** Günün sorusu (her gün başka; "başka soru" ile sıradakine geçilir) */
+export function gununSorusu(z: Anlik, kaydir = 0) {
+  const i = (((Math.max(0, gunFarki(tanisma, z.bugun)) * 23 + 5 + kaydir) % SORULAR.length) + SORULAR.length) % SORULAR.length
+  return SORULAR[i]
+}
+
+interface Cevap {
+  tarih: string
+  soru: string
+  cevap: string
+}
+
 export type NotArsivi = Record<string, { metin: string; baslik: string }>
 
 export function notKaydet(n: GununNotu) {
@@ -106,9 +119,16 @@ export function ruzgarHTML(z: Anlik, not: GununNotu) {
 
         <div class="ruzgara cam" data-dom>
           <p class="etiket">Sen de rüzgâra bir şey bırak</p>
+          <div class="soru">
+            <p class="soru-ust"><span>Günün sorusu</span>
+              <button class="soru-degis" type="button" aria-label="Başka bir soru">↻</button>
+              <button class="soru-kaldir" type="button" aria-label="Soruyu kaldır, serbest yaz">×</button>
+            </p>
+            <p class="soru-metin">${gununSorusu(z)}</p>
+          </div>
           <label class="gorunmez" for="ruzgar-metin">Mesajın</label>
           <div class="yazi-alani">
-            <textarea id="ruzgar-metin" rows="4" maxlength="600" placeholder="Rüzgâra bir şey söyle… ${banaHitap()} bekliyor."></textarea>
+            <textarea id="ruzgar-metin" rows="4" maxlength="600" placeholder="Cevabın… ya da aklından geçen başka bir şey."></textarea>
             <canvas class="ruzgar-tuval" aria-hidden="true"></canvas>
           </div>
           <div class="ruzgar-alt">
@@ -120,40 +140,6 @@ export function ruzgarHTML(z: Anlik, not: GununNotu) {
       </div>
     </div>
   </section>`
-}
-
-/* ─── Mesajı Arda'ya ulaştır ─── */
-async function ulastir(metin: string): Promise<'ntfy' | 'wa' | 'paylas' | 'kopya' | 'yok'> {
-  const { ntfyKonu, whatsapp } = ICERIK.ruzgarPostasi
-  if (ntfyKonu) {
-    try {
-      const r = await fetch('https://ntfy.sh/', {
-        method: 'POST',
-        body: JSON.stringify({ topic: ntfyKonu, title: `${sen.ad} · rüzgâr postası`, message: metin, tags: ['love_letter', 'wind_face'] }),
-      })
-      if (r.ok) return 'ntfy'
-    } catch {
-      /* aşağıdaki yollara düş */
-    }
-  }
-  if (whatsapp) {
-    window.open(`https://wa.me/${whatsapp}?text=${encodeURIComponent(metin)}`, '_blank', 'noopener')
-    return 'wa'
-  }
-  if (navigator.share) {
-    try {
-      await navigator.share({ text: metin })
-      return 'paylas'
-    } catch {
-      /* kullanıcı vazgeçti */
-    }
-  }
-  try {
-    await navigator.clipboard.writeText(metin)
-    return 'kopya'
-  } catch {
-    return 'yok'
-  }
 }
 
 /** Yazıyı parçacıklara çevirip batıya (sola) uçurur */
@@ -225,7 +211,7 @@ function ucur(alan: HTMLTextAreaElement, tuval: HTMLCanvasElement) {
   })
 }
 
-export function ruzgarKur(not: GununNotu, notlarAc: () => void) {
+export function ruzgarKur(z: Anlik, not: GununNotu, notlarAc: () => void) {
   const bolum = $('#ruzgar')
   satirSatir($('.baslik', bolum))
   belir($('.bolum-bas .metin', bolum))
@@ -266,6 +252,32 @@ export function ruzgarKur(not: GununNotu, notlarAc: () => void) {
   const tuval = $<HTMLCanvasElement>('.ruzgar-tuval', bolum)
   const dugme = $<HTMLButtonElement>('.ruzgar-gonder', bolum)
   const durum = $('.ruzgar-durum', bolum)
+
+  // Günün sorusu: ↻ sıradakine geçer, × kaldırır (serbest yazı)
+  const soruKutu = $('.soru', bolum)
+  const soruMetin = $('.soru-metin', bolum)
+  let kaydir = 0
+  let soruVar = true
+  const soruDegis = () => {
+    kaydir++
+    gsap
+      .timeline()
+      .to(soruMetin, { autoAlpha: 0, y: -8, duration: 0.2 })
+      .add(() => (soruMetin.textContent = gununSorusu(z, kaydir)))
+      .fromTo(soruMetin, { autoAlpha: 0, y: 8 }, { autoAlpha: 1, y: 0, duration: 0.35 })
+  }
+  $('.soru-degis', bolum).addEventListener('click', () => {
+    ses.tik()
+    soruDegis()
+  })
+  $('.soru-kaldir', bolum).addEventListener('click', () => {
+    soruVar = false
+    ses.tik()
+    gsap.to(soruKutu, { autoAlpha: 0, height: 0, marginBottom: 0, paddingTop: 0, paddingBottom: 0, duration: 0.4, ease: 'power2.inOut', onComplete: () => (soruKutu.hidden = true) })
+    alan.placeholder = `Rüzgâra bir şey söyle… ${banaHitap()} bekliyor.`
+    alan.focus()
+  })
+
   dugme.addEventListener('click', async () => {
     const metin = alan.value.trim()
     dugme.disabled = true
@@ -278,8 +290,18 @@ export function ruzgarKur(not: GununNotu, notlarAc: () => void) {
       dugme.disabled = false
       return
     }
+    const soru = soruVar ? soruMetin.textContent ?? '' : ''
     await ucur(alan, tuval)
-    const sonuc = await ulastir(metin)
+    const sonuc = soru
+      ? await ulastir(`${sen.ad} · günün sorusu`, `❝${soru}❞\n\n${metin}`, ['love_letter', 'question'])
+      : await ulastir(`${sen.ad} · rüzgâr postası`, metin, ['love_letter', 'wind_face'])
+    if (soru) {
+      const cevaplar = oku<Cevap[]>('cevaplar', [])
+      cevaplar.push({ tarih: z.bugun, soru, cevap: metin })
+      yaz('cevaplar', cevaplar)
+      // cevaplanan soru gider, sıradaki gelir (istersen onu da cevaplarsın)
+      window.setTimeout(soruDegis, 1800)
+    }
     const saat = Math.round(MESAFE / 40)
     durum.innerHTML =
       sonuc === 'ntfy'
@@ -301,6 +323,7 @@ export function ruzgarKur(not: GununNotu, notlarAc: () => void) {
 export function notlarCekmeceHTML() {
   const arsiv = oku<NotArsivi>('notlar', {})
   const gunler = Object.keys(arsiv).sort().reverse()
+  const cevaplar = oku<Cevap[]>('cevaplar', []).slice().reverse()
   return /* html */ `
     <div class="cekmece-bas"><h3>Topladığın notlar</h3><button class="ikon-dugme kapat" type="button" aria-label="Kapat">${ikon('kapat')}</button></div>
     <div class="cekmece-govde notlar-liste" data-lenis-prevent>
@@ -310,5 +333,13 @@ export function notlarCekmeceHTML() {
           (g) => `<article class="arsiv-not"><small>${tarihYazi(g, true)} · ${arsiv[g].baslik}</small><p>${arsiv[g].metin}</p></article>`,
         )
         .join('')}
+      ${
+        cevaplar.length
+          ? `<h4 class="arsiv-ara">Cevapladığın sorular · ${cevaplar.length}</h4>
+      ${cevaplar
+        .map((c) => `<article class="arsiv-not cevap"><small>${tarihYazi(c.tarih, true)}</small><em>${kacir(c.soru)}</em><p>${kacir(c.cevap)}</p></article>`)
+        .join('')}`
+          : ''
+      }
     </div>`
 }

@@ -7,6 +7,8 @@ import type { Yildizlar } from '../gl/yildizlar'
 import { $, azHareket, belir, gsap, satirSatir, titret } from './yardimci'
 import { duvarKagidi, optumHTML, optumKur } from '../ui/optum'
 import type { Anlik } from '../cekirdek/zaman'
+import { kimim } from '../cekirdek/posta'
+import { banaHitap } from './ruzgar'
 
 const { ben, sen } = ICERIK
 
@@ -25,6 +27,7 @@ export function finalHTML(ziyaret: Ziyaret) {
           <svg class="kalp-ikon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-kalp"/></svg>
         </button>
         <p class="kalp-bpm"><b>72</b> atış / dakika</p>
+        <p class="kalp-karsi" aria-live="polite" hidden></p>
       </div>
       <div class="final-alt">
         <p class="satir final-a">Bu benim kalp atışım. Seni düşündükçe hızlanıyor.</p>
@@ -84,6 +87,8 @@ export function finalKur(yildiz: () => Yildizlar | null, z: Anlik) {
   sirDinle(() => ($('.sir-sayi').textContent = `${bulunanlar().length}/${SIRLAR.length}`))
 
   let tutuyor = false
+  let karsiTutuyor = false
+  let ikimizOldu = false
   let ilerleme = 0
   let tamam = false
   let tamamSure = 0
@@ -103,7 +108,8 @@ export function finalKur(yildiz: () => Yildizlar | null, z: Anlik) {
   const dongu = (t: number) => {
     const dt = Math.min(0.25, (t - son_) / 1000)
     son_ = t
-    if (tutuyor) ilerleme = Math.min(1, ilerleme + dt / SURE)
+    const ikimiz = tutuyor && karsiTutuyor
+    if (tutuyor) ilerleme = Math.min(1, ilerleme + (dt / SURE) * (ikimiz ? 2 : 1))
     else if (!tamam) ilerleme = Math.max(0, ilerleme - dt / 3)
     const y = yildiz()
     if (y) {
@@ -111,7 +117,7 @@ export function finalKur(yildiz: () => Yildizlar | null, z: Anlik) {
       y.kalp = ilerleme >= 1 ? 1 : 0
     }
     halka.style.strokeDashoffset = String(cevre * (1 - ilerleme))
-    const hiz = 72 + ilerleme * 38
+    const hiz = 72 + ilerleme * 38 + (ikimiz ? 14 : 0)
     bpm.textContent = String(Math.round(tutuyor || tamam ? hiz : 72))
     // kalp atışı
     if ((tutuyor || tamam) && t - sonAtis > 60000 / hiz) {
@@ -126,6 +132,12 @@ export function finalKur(yildiz: () => Yildizlar | null, z: Anlik) {
       gsap.to(a, { autoAlpha: 1, y: 0, duration: 1 })
     }
     if (ilerleme >= 1 && !tamam) bitir()
+    if (ikimiz && tamam && !ikimizOldu) {
+      ikimizOldu = true
+      karsiYaz()
+      window.dispatchEvent(new CustomEvent('kutla', { detail: 60 }))
+      window.setTimeout(() => sirBul('ikikalp'), 1500)
+    }
     if (tamam && tutuyor) {
       tamamSure += dt
       if (tamamSure > 8) {
@@ -137,9 +149,32 @@ export function finalKur(yildiz: () => Yildizlar | null, z: Anlik) {
   }
   requestAnimationFrame(dongu)
 
+  // Karşı taraf da şu an sitedeyse ve kalbe dokunuyorsa (bkz. ui/nabiz.ts)
+  const karsiAd = kimim() === 'eln' ? banaHitap() : sen.ad
+  const karsiEl = $('.kalp-karsi', bolum)
+  const karsiYaz = () => {
+    karsiEl.hidden = !karsiTutuyor && !ikimizOldu
+    karsiEl.innerHTML = ikimizOldu
+      ? `<b>İki kalp, aynı anda.</b> 1.758 km bir anlığına sıfırlandı.`
+      : tutuyor
+        ? `<b>${karsiAd}</b> da şu an kalbe dokunuyor. İki kat hızlı.`
+        : `<b>${karsiAd}</b> şu an kalbe dokunuyor. Sen de dokun.`
+    dugme.classList.toggle('ikimiz', tutuyor && karsiTutuyor)
+  }
+  window.addEventListener('karsi-kalp', (e) => {
+    karsiTutuyor = (e as CustomEvent<boolean>).detail
+    if (karsiTutuyor) {
+      ses.kalp(0.6)
+      titret([20, 80, 20])
+    }
+    karsiYaz()
+  })
+
   const bas = (e: PointerEvent) => {
     e.preventDefault()
     tutuyor = true
+    window.dispatchEvent(new CustomEvent('kalp-tut', { detail: true }))
+    karsiYaz()
     dugme.classList.add('basili')
     ses.baslat()
     try {
@@ -150,6 +185,8 @@ export function finalKur(yildiz: () => Yildizlar | null, z: Anlik) {
   }
   const birak = () => {
     tutuyor = false
+    window.dispatchEvent(new CustomEvent('kalp-tut', { detail: false }))
+    karsiYaz()
     dugme.classList.remove('basili')
     if (!tamam && ilerleme < 1) tamamSure = 0
   }
@@ -162,7 +199,10 @@ export function finalKur(yildiz: () => Yildizlar | null, z: Anlik) {
   dugme.addEventListener('keydown', (e) => {
     if (e.key === ' ' || e.key === 'Enter') {
       e.preventDefault()
+      if (tutuyor) return
       tutuyor = true
+      window.dispatchEvent(new CustomEvent('kalp-tut', { detail: true }))
+      karsiYaz()
     }
   })
   dugme.addEventListener('keyup', birak)

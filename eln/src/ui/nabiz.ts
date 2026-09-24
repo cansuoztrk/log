@@ -1,5 +1,5 @@
 import { ICERIK } from '../icerik'
-import { oku, yaz } from '../cekirdek/depo'
+import { type Kim, kimim } from '../cekirdek/posta'
 import { ses } from '../cekirdek/ses'
 import { sirBul } from '../cekirdek/sirlar'
 import { ayEvresi, gokyuzu, onizleme, simdi } from '../cekirdek/zaman'
@@ -12,20 +12,10 @@ import { banaHitap } from '../bolumler/ruzgar'
  * Aynı anda — ikiniz de sitedeyken birbirinizi görür, birbirinize kalp atışı gönderirsiniz.
  * ntfy.sh üzerinden çalışır (sunucu gerekmez). Kimlik: Arda siteyi bir kez ?ben=arda ile açar.
  */
-type Kim = 'eln' | 'arda'
 interface Mesaj {
-  tip: 'geldim' | 'buradayim' | 'gittim' | 'kalp' | 'ay' | 'opucuk'
+  tip: 'geldim' | 'buradayim' | 'gittim' | 'kalp' | 'ay' | 'opucuk' | 'tut' | 'birak'
   kim: Kim
   oturum: string
-}
-
-export function kimim(): Kim {
-  const p = new URLSearchParams(location.search).get('ben')
-  if (p === 'arda' || p === 'eln') {
-    yaz('kim', p)
-    return p
-  }
-  return oku<Kim>('kim', 'eln')
 }
 
 export function nabizKur(onKalp: () => void) {
@@ -107,6 +97,7 @@ export function nabizKur(onKalp: () => void) {
       if (m.tip === 'gittim') {
         sonGorulme = 0
         durumYaz()
+        karsiKalp(false)
         return
       }
       const yeniGeldi = Date.now() - sonGorulme > 7 * 60_000
@@ -116,7 +107,26 @@ export function nabizKur(onKalp: () => void) {
       if (m.tip === 'kalp') kalpGeldi()
       if (m.tip === 'ay') ayRandevusu(true)
       if (m.tip === 'opucuk') opucukGeldi()
+      if (m.tip === 'tut') karsiKalp(true)
+      if (m.tip === 'birak') karsiKalp(false)
     }
+  }
+
+  // ─── sondaki kalbe aynı anda dokunmak ───
+  // final bölümü 'kalp-tut' yayınlar; karşı tarafın durumu 'karsi-kalp' olarak geri gelir
+  let tutuyorum = false
+  window.addEventListener('kalp-tut', (e) => {
+    const t = (e as CustomEvent<boolean>).detail
+    if (t === tutuyorum) return
+    tutuyorum = t
+    if (cevrimici) void gonder(t ? 'tut' : 'birak')
+  })
+  let karsiZaman = 0
+  const karsiKalp = (t: boolean) => {
+    window.clearTimeout(karsiZaman)
+    window.dispatchEvent(new CustomEvent('karsi-kalp', { detail: t }))
+    // "bıraktım" mesajı kaybolursa sonsuza dek tutuyor görünmesin
+    if (t) karsiZaman = window.setTimeout(() => karsiKalp(false), 30_000)
   }
 
   const kalpGeldi = () => {

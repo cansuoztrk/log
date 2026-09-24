@@ -10,6 +10,10 @@ export const dokunmatik = matchMedia('(pointer: coarse)').matches
 export const $ = <T extends Element = HTMLElement>(s: string, k: ParentNode = document) => k.querySelector(s) as T
 export const $$ = <T extends Element = HTMLElement>(s: string, k: ParentNode = document) => Array.from(k.querySelectorAll(s)) as T[]
 
+/** Kullanıcının yazdığı metni HTML'e güvenle koymak için */
+export const kacir = (s: string) =>
+  s.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]!)
+
 export const ikon = (ad: string, sinif = '') => `<svg class="${sinif}" aria-hidden="true"><use href="#i-${ad}"/></svg>`
 
 /**

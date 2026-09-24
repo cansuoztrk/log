@@ -38,14 +38,24 @@ Site, ikinizin hikâyesindeki **gerçek ve şaşırtıcı tesadüfler** üzerine
 7. **İki Kule**: Kız Kulesi & Qız Qalası, Leandros efsanesi, mahya ve Alev Kuleleri
 8. **Çay Günü**: 21 Mayıs, dolan bardaklar, kalp çizen buhar
 9. **İki Dil**: dönen kartlar
-10. **Adında Bir Nar**: kırılan nar, “Elnare” yazan taneler
-11. **Şu An**: iki şehrin gökyüzü, gerçek güneş, ay ve hava durumu
-12. **Rüzgâr Postası**: günün notu (zarf), toplanan notlar, rüzgâra mesaj
-13. **İlk Buluşma**: kalkış panosu, birlikte yapılacaklar listesi
-14. **Şarkımız**: “Anılar”, plak ve pikap
-15. **Mektup**: el yazısıyla mektup (+ isteğe bağlı sesli mesaj)
-16. **… Olduğunda Aç**: duygu mektupları ve kendi gününü bekleyen kilitli mektuplar
-17. **Kalbim**: kalbe basılı tut; yıldızlar “Səni sevirəm” yazar, sonra kalp olur.
+10. **Sözlüğümüz**: sadece ikinizin anladığı kelimeler (bok, ☺️, öptüm, posi ~ mosi, Elnos…), eski bir sözlük
+    sayfası gibi. Eln yeni kelime ekleyebilir; el yazısıyla sayfaya eklenir ve senin telefonuna düşer
+11. **Adında Bir Nar**: kırılan nar, “Elnare” yazan taneler
+12. **Şu An**: iki şehrin gökyüzü, gerçek güneş, ay ve hava durumu
+13. **Rüzgâr Postası**: günün notu (zarf), toplanan notlar, rüzgâra mesaj. Üstünde **günün sorusu**
+    (55+ soru, her gün başka); Eln cevaplarsa soru ve cevap birlikte telefonuna düşer
+14. **İlk Buluşma**: kalkış panosu, birlikte yapılacaklar listesi
+15. **Buluşma Cüzdanı**: her yeni ziyaret gününde parmakla **kazınan bir kupon** (28 kupon).
+    “Hemen geçerli” olanlar (sesli arama, bir şarkı isteği, “bok gibi gün” iptali, ilk görüntülü aramamız…)
+    “Kullan”a basılınca telefonuna düşer. “İlk buluşmada geçerli” olanlar (havalimanı sarılması, ilk çay,
+    pembe zambaklar…) `ilkBulusma` tarihi gelince açılır
+16. **Şarkımız**: “Anılar”, plak ve pikap
+17. **Mektup**: el yazısıyla mektup (+ isteğe bağlı sesli mesaj)
+18. **… Olduğunda Aç**: önce **“Bugün nasılsın?”** (İyiyim, Özledim, Bok gibi, Uyuyamıyorum…). Seçtiği ruh
+    hâline uygun mektup açılır ve sana “Eln seni özlemiş 🥺, şimdi yaz” gibi bir bildirim gelir.
+    Altında duygu mektupları ve kendi gününü bekleyen kilitli mektuplar
+19. **Kalbim**: kalbe basılı tut; yıldızlar “Səni sevirəm” yazar, sonra kalp olur. İkiniz aynı anda sitedeyken
+    **ikiniz birden** dokunursanız kalp iki kat hızlı dolar (“İki kalp, aynı anda”).
     En sonda **“Öptüm”** düğmesi (senin telefonuna bildirim olarak düşer) ve **kilit ekranı duvar kâğıdı**
 
 Bölüm numaraları otomatik verilir; fotoğraf eklenince numaralar kendiliğinden kayar.
@@ -62,11 +72,13 @@ Bölüm numaraları otomatik verilir; fotoğraf eklenince numaralar kendiliğind
 - **Aya bakalım**: ikiniz aynı anda sitedeyken ve ay iki şehirde de gökyüzündeyken ☾ düğmesi belirir;
   basınca ikinizin ekranında “Şimdi pencereden aya bak” açılır
 - Kilitli mektuplar kendi günleri geldikçe açılır; o güne kadar kaç gün kaldığını söyler
-- **24 sır** (sağ üstteki ✦). Bazıları dokunarak, bazıları sadece belli bir anda bulunur:
+- Her yeni gün yeni bir **kupon** kazınır, yeni bir **soru** gelir
+- **27 sır** (sağ üstteki ✦). Bazıları dokunarak, bazıları sadece belli bir anda bulunur:
   aya 3 kez dokunmak, saat **21:05**’te bakmak, gece yarısından sonra gelmek, ayın 21’inde/6’sında gelmek,
   dolunayda gelmek, iki bardağı art arda çınlatmak, bardağına iki şeker atmak, rüzgâra boş mektup bırakmak,
   kayan yıldızı yakalamak, 10 farklı gün gelmek, üstteki iki harfe 5 kez dokunmak (☺️ yağmuru),
-  rüzgâra “bizim kelimemizi” ya da sana taktığı bir adı yazmak, “öptüm” demek… (Eln’e söyleme 🙂)
+  rüzgâra “bizim kelimemizi” ya da sana taktığı bir adı yazmak, “öptüm” demek, ilk kuponu kazımak,
+  sözlüğe kelime eklemek, sondaki kalbe ikiniz aynı anda dokunmak… (Eln’e söyleme 🙂)
 - Onun ekranında sen, onun sana taktığı adlarla görünürsün: “Posi şu an burada”, “Mosi: öptüm”…
 
 ---
@@ -98,7 +110,14 @@ Her şey iki dosyada:
 
 - **`src/icerik.ts`** — isimler, tarihler, şehirler, kapı tarihi, mektup, birlikte listesi, doğum günleri,
   ilk buluşma tarihi (yazılırsa panoda canlı geri sayım başlar), şarkı, anılar
-- **`src/notlar.ts`** — günlük notlar ve özel gün notları (istediğin kadar ekleyebilirsin)
+- **`src/notlar.ts`** — günlük notlar, özel gün notları ve **günün soruları** (istediğin kadar ekleyebilirsin)
+
+Birkaç küçük içerik dosyası daha:
+
+- **`src/kuponlar.ts`** — Buluşma Cüzdanı’ndaki kuponlar (sırayla çıkarlar; `ne: 'simdi'` ya da `'bulusma'`)
+- **`src/sozluk.ts`** — Sözlüğümüz. Eln sitede bir kelime eklerse telefonuna düşer; beğenirsen buraya kalıcı ekle
+- **`src/mektuplar.ts`** — “… olduğunda aç” mektupları ve **“Bugün nasılsın?”** seçenekleri
+  (her birinin açtığı mektup ve sana gelen bildirim metni)
 
 İpuçları:
 - `dogumGunu.sen: '03-14'` gibi yazarsan o gün site kalplerle açılır ve özel not gelir.
@@ -128,6 +147,17 @@ Her şey iki dosyada:
    (ör. `https://.../?ben=arda`). Telefonun artık seni “Arda” olarak tanır.
 3. İkiniz aynı anda sitedeyken ekranın sol altında “Eln şu an burada” / “Arda şu an burada” belirir.
    Oradaki kalbe dokunmak, karşı tarafın ekranında kalbi attırır.
+
+Telefonuna düşen bildirimler (hepsi yalnızca Eln’in cihazından gelir, seninkinden gitmez):
+
+| Bildirim | Ne zaman |
+|---|---|
+| **Eln · rüzgâr postası** | Rüzgâra bir mesaj bıraktığında |
+| **Eln · günün sorusu** | Günün sorusunu cevapladığında (soru + cevabı) |
+| **Eln seni özlemiş 🥺** / **Eln’in günü bok gibi geçiyor 🌧️** … | “Bugün nasılsın?”da bir şey seçtiğinde (gün başına her seçenekten bir kez) |
+| **Eln bir kupon kullandı 🎟️** | Cüzdandan bir kuponu kullandığında. Gereğini yap ☺️ |
+| **Eln sözlüğe bir kelime ekledi 📖** | Sözlüğümüze kelime eklediğinde |
+| **Eln · öptüm** | Sondaki “Öptüm” düğmesine bastığında |
 
 Repo herkese açıksa konu adını kendine özel yeni bir adla değiştir (sadece ikinizin bilmesi yeterli).
 
@@ -160,7 +190,9 @@ GitHub Pages ve Netlify (GitHub’dan bağlandığında) bunu otomatik ayarlar. 
 sitenin tam adresiyle derle: `VITE_SITE_ADRESI=https://… npm run build`
 
 **Telefonda uygulama gibi:** Eln siteyi açıp Safari’de *Paylaş → Ana Ekrana Ekle* derse
-ana ekranında kendi ikonuyla (doğan güneş ve kalp) bir uygulama gibi durur.
+ana ekranında kendi ikonuyla (doğan güneş ve kalp) bir uygulama gibi durur. Site, ikinci gelişinde
+bunu ona kendisi de bir kez önerir. Bir kez açıldıktan sonra **internet yokken de açılır**
+(uçakta bile; hava durumu ve bildirimler hariç).
 
 ## Teknik
 
@@ -170,7 +202,8 @@ ana ekranında kendi ikonuyla (doğan güneş ve kalp) bir uygulama gibi durur.
 - **GSAP** (ScrollTrigger, SplitText) + **Lenis** — kaydırmaya bağlı sinematik anlatım
 - **SunCalc** — gerçek güneş/ay konumu, doğuş/batış saatleri, ay evresi
 - **Open-Meteo** — iki şehrin anlık hava durumu (anahtar gerekmez; bağlantı yoksa site havasız da çalışır)
-- **ntfy.sh** — rüzgâr postası bildirimleri ve “aynı anda” kalp atışı
+- **ntfy.sh** — rüzgâr postası, günün sorusu, ruh hâli, kupon ve sözlük bildirimleri; “aynı anda” kalp atışı
+- **Service worker** — çevrimdışı açılış ve ana ekrana eklenebilen uygulama (`public/sw.js`)
 - **Web Audio** — ses dosyası yok; pad akorları, müzik kutusu notaları, dalga ve rüzgâr anlık üretilir
 - Yazı tipleri: Cormorant Garamond, Plus Jakarta Sans, Caveat, Great Vibes, JetBrains Mono
   (hepsi Azərbaycan harfleri **ə, Ə** dahil kontrol edildi)

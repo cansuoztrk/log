@@ -207,22 +207,26 @@ export function mevsimKur(tuval: HTMLCanvasElement) {
   }
   requestAnimationFrame(ciz)
 
+  /** Özel günlerde yükselen kalpler */
+  const kutla = (adet = 70) => {
+    for (let i = 0; i < adet; i++)
+      kalpler.push({
+        x: Math.random() * w,
+        y: h + Math.random() * h * 0.6,
+        vy: -(60 + Math.random() * 90),
+        s: 1 + Math.random() * 1.8,
+        a: 0,
+        f: Math.random() * 6,
+        renk: Math.random() < 0.5 ? 'rgba(245,159,180,A)' : 'rgba(243,196,124,A)',
+      })
+  }
+  // herhangi bir bölüm kalp yağdırmak isterse: window.dispatchEvent(new CustomEvent('kutla', { detail: 30 }))
+  window.addEventListener('kutla', (e) => kutla((e as CustomEvent<number | undefined>).detail))
+
   return {
     /** 3D sahnelerde parçacıklar biraz daha silik olsun */
     silik: (v: number) => (carpan = v),
     gulucuk,
-    /** Özel günlerde yükselen kalpler */
-    kutla: (adet = 70) => {
-      for (let i = 0; i < adet; i++)
-        kalpler.push({
-          x: Math.random() * w,
-          y: h + Math.random() * h * 0.6,
-          vy: -(60 + Math.random() * 90),
-          s: 1 + Math.random() * 1.8,
-          a: 0,
-          f: Math.random() * 6,
-          renk: Math.random() < 0.5 ? 'rgba(245,159,180,A)' : 'rgba(243,196,124,A)',
-        })
-    },
+    kutla,
   }
 }

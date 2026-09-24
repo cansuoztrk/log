@@ -423,6 +423,25 @@ class SesMotoru {
     s.stop(t + 0.03)
   }
 
+  /** Kazı-kazan: kısa, kuru bir hışırtı */
+  kazi() {
+    if (!this.hazirMi()) return
+    const c = this.ctx!
+    const t = c.currentTime
+    const s = this.gurultuKaynagi()
+    const f = c.createBiquadFilter()
+    f.type = 'bandpass'
+    f.frequency.value = 3200 + Math.random() * 1400
+    f.Q.value = 0.8
+    const g = c.createGain()
+    g.gain.setValueAtTime(0.0001, t)
+    g.gain.exponentialRampToValueAtTime(0.16, t + 0.01)
+    g.gain.exponentialRampToValueAtTime(0.0001, t + 0.07)
+    s.connect(f).connect(g).connect(this.efekt)
+    s.start(t)
+    s.stop(t + 0.08)
+  }
+
   vuus(sure = 1.6) {
     if (!this.hazirMi()) return
     const c = this.ctx!

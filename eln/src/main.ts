@@ -41,6 +41,8 @@ import { sarkiHTML, sarkiKur } from './bolumler/sarki'
 import { karelerHTML, karelerKur } from './bolumler/kareler'
 import { zarflarHTML, zarflarKur } from './bolumler/zarflar'
 import { zambakHTML, zambakKur } from './bolumler/zambak'
+import { cuzdanHTML, cuzdanKur } from './bolumler/cuzdan'
+import { sozlukHTML, sozlukKur } from './bolumler/sozluk'
 import { $, $$, azHareket, gsap, ScrollTrigger } from './bolumler/yardimci'
 import { kapiAc } from './ui/kapi'
 import { ustKur } from './ui/ust'
@@ -49,6 +51,7 @@ import { mevsimKur } from './ui/mevsim'
 import { karsila, zamanSirlari } from './ui/ozel'
 import { dogumGunuMu, pastaGoster } from './ui/dogumgunu'
 import { nabizKur } from './ui/nabiz'
+import { uygulamaKur } from './ui/uygulama'
 
 if ('scrollRestoration' in history) history.scrollRestoration = 'manual'
 window.scrollTo(0, 0)
@@ -71,10 +74,12 @@ $('#icerik').innerHTML = [
   kulelerHTML(z),
   cayHTML(),
   dillerHTML(),
+  sozlukHTML(),
   narHTML(z),
   simdiHTML(),
   ruzgarHTML(z, not),
   ucusHTML(z),
+  cuzdanHTML(z),
   sarkiHTML(),
   mektupHTML(z),
   zarflarHTML(z),
@@ -136,13 +141,15 @@ kulelerKur(al<Kuleler>('kule'))
 cayKur(al<Cay>('cay'))
 karelerKur()
 dillerKur()
+sozlukKur()
 narKur(z)
 simdiKur()
-ruzgarKur(not, ust.notlarAc)
+ruzgarKur(z, not, ust.notlarAc)
 ucusKur()
+cuzdanKur(z, ust.cekmece)
 sarkiKur()
 mektupKur()
-zarflarKur()
+zarflarKur(z.bugun)
 finalKur(al<Yildizlar>('final'), z)
 
 // Bölüm görünür oldukça: doğru 3D sahne + doğru ses dokusu
@@ -178,6 +185,7 @@ const basla = () => {
     karsila(z, not, ziyaret, () => mevsim.kutla(), () => ust.git('#ruzgar'), dogum)
     zamanSirlari(ziyaret)
     nabizKur(() => mevsim.kutla(26))
+    uygulamaKur(ziyaret)
   }, 1400)
 }
 if (parametre.get('kapi') === '0') {

@@ -2,11 +2,11 @@ import { ICERIK } from '../icerik'
 import { oku, yaz } from '../cekirdek/depo'
 import { ses } from '../cekirdek/ses'
 import { sirBul } from '../cekirdek/sirlar'
-import { type Anlik, ek, sayi, onizleme } from '../cekirdek/zaman'
+import { type Anlik, ek, sayi } from '../cekirdek/zaman'
 import { $, gsap, titret } from '../bolumler/yardimci'
-import { kimim } from './nabiz'
+import { ardayaYaz, kimim } from '../cekirdek/posta'
 
-const { ben, sen, ruzgarPostasi } = ICERIK
+const { ben, sen } = ICERIK
 
 /** Sitenin en sonu: kapatırken hep dediğimiz söz. Bir dokunuş, bir öpücük. */
 export function optumHTML() {
@@ -58,12 +58,9 @@ export function optumKur() {
     // karşı tarafa: aynı anda sitedeyse ekranında, değilse (Eln'den Arda'ya) telefonunda
     window.dispatchEvent(new Event('opucuk-gonder'))
     const simdi = Date.now()
-    if (kim === 'eln' && ruzgarPostasi.ntfyKonu && !onizleme && simdi - sonGonderim > 5000) {
+    if (simdi - sonGonderim > 5000) {
       sonGonderim = simdi
-      void fetch('https://ntfy.sh/', {
-        method: 'POST',
-        body: JSON.stringify({ topic: ruzgarPostasi.ntfyKonu, title: `${sen.ad} · öptüm`, message: 'Öptüm. ☺️', tags: ['kiss'] }),
-      }).catch(() => undefined)
+      void ardayaYaz(`${sen.ad} · öptüm`, 'Öptüm. ☺️', ['kiss'])
     }
   })
 }

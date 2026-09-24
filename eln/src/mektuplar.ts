@@ -140,3 +140,86 @@ export const MEKTUPLAR: ZarfMektup[] = [
     ],
   },
 ]
+
+/* ───────────────────────────────────────────────────────────────────────────
+   BUGÜN NASILSIN? — Eln bir ruh hâli seçer:
+   · varsa ona uygun mektup açılır,
+   · Arda'nın telefonuna (ntfy) kısa bir haber düşer ki ne yapacağını bilsin.
+   ─────────────────────────────────────────────────────────────────────────── */
+export interface RuhHali {
+  id: string
+  emoji: string
+  ad: string
+  /** açılacak mektubun id'si (yoksa sadece cevap yazılır) */
+  mektup?: string
+  /** Eln'e ekranda verilen cevap */
+  cevap: string
+  /** Arda'nın telefonuna düşen bildirim: [başlık, mesaj] */
+  ardaya: [string, string]
+}
+
+export const RUH_HALLERI: RuhHali[] = [
+  {
+    id: 'iyi',
+    emoji: '☺️',
+    ad: 'İyiyim',
+    cevap: 'Buna çok sevindim. Arda’ya da söyledim; şu an senin kadar gülümsüyor. ☺️',
+    ardaya: ['Eln bugün iyi ☺️', 'Böyle kalsın diye güzel bir şey yaz.'],
+  },
+  {
+    id: 'ozledim',
+    emoji: '🥺',
+    ad: 'Özledim',
+    mektup: 'ozledim',
+    cevap: 'Arda’ya haber verdim; o da seni özlüyor, emin ol. Bu arada sana önceden bir mektup yazmıştı.',
+    ardaya: ['Eln seni özlemiş 🥺', 'Şimdi yazmanın tam zamanı. Ya da ara; utanmak yasak.'],
+  },
+  {
+    id: 'bok',
+    emoji: '🌧️',
+    ad: 'Bok gibi',
+    mektup: 'kotu-gun',
+    cevap: 'Tamam, bugün bok gibi. Arda’ya söyledim, birazdan gelir. Şimdilik şu mektup sende.',
+    ardaya: ['Eln’in günü bok gibi geçiyor 🌧️', '“Kötü gün” mektubunu açtı. Gerisi sende: yaz, güldür, bir ☺️ gönder.'],
+  },
+  {
+    id: 'uykusuz',
+    emoji: '🌙',
+    ad: 'Uyuyamıyorum',
+    mektup: 'uyuyamadim',
+    cevap: 'Arda’ya haber verdim. Sen bu mektubu oku, beşe kadar say.',
+    ardaya: ['Eln uyuyamıyor 🌙', 'Bir “gecən xeyrə qalsın” bekliyor olabilir.'],
+  },
+  {
+    id: 'yalniz',
+    emoji: '🫂',
+    ad: 'Yalnızım',
+    mektup: 'yalniz',
+    cevap: 'Yalnız değilsin. Arda’ya söyledim; şu an seni düşünüyor. Bu da onun sana önceden bıraktığı.',
+    ardaya: ['Eln kendini yalnız hissediyor 🫂', 'Yanında olduğunu hatırlat. Şimdi.'],
+  },
+  {
+    id: 'gulmek',
+    emoji: '😂',
+    ad: 'Güldür beni',
+    mektup: 'gulmek',
+    cevap: 'Emir alındı. Arda’ya iletildi, en saçma şakası yolda. O gelene kadar şunu oku.',
+    ardaya: ['Eln gülmek istiyor 😂', 'En saçma şakanı gönder. Hemen.'],
+  },
+  {
+    id: 'kizgin',
+    emoji: '😤',
+    ad: 'Sana kızgınım',
+    mektup: 'kizgin',
+    cevap: 'Anlaşıldı. Arda’ya bildirdim, özrü yolda. (Haklı olsa bile. ☺️)',
+    ardaya: ['Eln sana kızgın 😤', 'Özür mektubunu okudu. Şimdi sıra sende.'],
+  },
+  {
+    id: 'karisik',
+    emoji: '🤍',
+    ad: 'Kafam karışık',
+    mektup: 'suphe',
+    cevap: 'Olur öyle. Arda’ya söyledim; sana “biz” diyecek. Önce bunu oku.',
+    ardaya: ['Eln’in kafası karışık 🤍', 'Ona “biz” de. Sesli söylersen daha iyi.'],
+  },
+]

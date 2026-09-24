@@ -165,8 +165,9 @@ export function ustKur(z: Anlik, lenis: Lenis | null) {
   const perde = $('.perde')
   const sirC = $('#sirlar-cekmece')
   const notC = $('#notlar-cekmece')
+  const genelC = $('#genel-cekmece')
   const kapatHepsi = () => {
-    for (const c of [sirC, notC]) c.classList.remove('acik')
+    for (const c of [sirC, notC, genelC]) c.classList.remove('acik')
     perde.classList.remove('acik')
     lenis?.start()
   }
@@ -176,6 +177,7 @@ export function ustKur(z: Anlik, lenis: Lenis | null) {
     c.classList.add('acik')
     perde.classList.add('acik')
     lenis?.stop()
+    return c
   }
   perde.addEventListener('click', kapatHepsi)
   window.addEventListener('keydown', (e) => {
@@ -195,7 +197,13 @@ export function ustKur(z: Anlik, lenis: Lenis | null) {
     if (yeni) bildir({ ust: 'Bir sır buldun', baslik: sir.ad, metin: sir.mesaj, tik: sirlarAc, sure: 11000 })
   })
 
-  return { notlarAc: () => cekmeceAc(notC, notlarCekmeceHTML()), sirlarAc, git }
+  return {
+    notlarAc: () => cekmeceAc(notC, notlarCekmeceHTML()),
+    sirlarAc,
+    git,
+    /** Herhangi bir bölüm kendi çekmecesini açabilsin (ör. cüzdan) */
+    cekmece: (html: string) => cekmeceAc(genelC, html),
+  }
 }
 
 function sirlarHTML() {
