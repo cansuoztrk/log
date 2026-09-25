@@ -133,6 +133,16 @@ class SesMotoru {
     this.dinleyiciler.forEach((f) => f(this.acik))
   }
 
+  /** Dışarıdan bir oynatıcı (YouTube) çalarken sitenin kendi sesi susar, bitince geri gelir */
+  sustur(sus: boolean) {
+    if (!this.ctx) return
+    const g = this.ana.gain
+    const t = this.ctx.currentTime
+    g.cancelScheduledValues(t)
+    g.setValueAtTime(g.value, t)
+    g.setTargetAtTime(sus ? 0 : this.acik ? 0.85 : 0, t, sus ? 0.3 : 1.2)
+  }
+
   /** Uyku ışığı için: bütün ses verilen sürede yavaşça kısılır */
   uyut(saniye: number) {
     if (!this.ctx) return

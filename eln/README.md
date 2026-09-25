@@ -60,7 +60,10 @@ Site, ikinizin hikâyesindeki **gerçek ve şaşırtıcı tesadüfler** üzerine
     “Hemen geçerli” olanlar (sesli arama, bir şarkı isteği, “bok gibi gün” iptali, ilk görüntülü aramamız…)
     “Kullan”a basılınca telefonuna düşer. “İlk buluşmada geçerli” olanlar (havalimanı sarılması, ilk çay,
     pembe zambaklar…) `ilkBulusma` tarihi gelince açılır
-17. **Şarkımız**: “Anılar”, plak ve pikap
+17. **Şarkımız**: “Anılar”, plak ve pikap. **Şarkı sitenin içinde çalar**: “Çal”a basınca YouTube’un resmî
+    gömülü oynatıcısı açılır, plak döner, sitenin kendi müziği susar; bitince geri gelir. Kayıtlar sırayla denenir
+    (`sarki.youtubeIdleri`); biri gömülmeye kapalıysa sıradakine geçilir, hiçbiri açılmazsa Spotify’daki şarkıya
+    yönlendirir. Menüdeki ve bölümdeki Spotify bağlantısı artık doğrudan şarkıyı açar
 18. **Mektup**: el yazısıyla mektup (+ isteğe bağlı sesli mesaj)
 19. **… Olduğunda Aç**: önce **“Bugün nasılsın?”** (İyiyim, Özledim, Bok gibi, Uyuyamıyorum…). Seçtiği ruh
     hâline uygun mektup açılır ve sana “Eln seni özlemiş 🥺, şimdi yaz” gibi bir bildirim gelir.
@@ -95,14 +98,15 @@ ekranda ayın o geceki gerçek evresi nefes alıp verir (4 saniye al, 6 saniye v
   basınca ikinizin ekranında “Şimdi pencereden aya bak” açılır
 - Kilitli mektuplar kendi günleri geldikçe açılır; o güne kadar kaç gün kaldığını söyler
 - Her yeni gün yeni bir **kupon** kazınır, yeni bir **soru** gelir
-- **32 sır** (sağ üstteki ✦). Bazıları dokunarak, bazıları sadece belli bir anda bulunur:
+- **33 sır** (sağ üstteki ✦). Bazıları dokunarak, bazıları sadece belli bir anda bulunur:
   aya 3 kez dokunmak, saat **21:05**’te bakmak, gece yarısından sonra gelmek, ayın 21’inde/6’sında gelmek,
   dolunayda gelmek, iki bardağı art arda çınlatmak, bardağına iki şeker atmak, rüzgâra boş mektup bırakmak,
   kayan yıldızı yakalamak, 10 farklı gün gelmek, üstteki iki harfe 5 kez dokunmak (☺️ yağmuru),
   rüzgâra “bizim kelimemizi” ya da sana taktığı bir adı yazmak, “öptüm” demek, ilk kuponu kazımak,
   sözlüğe kelime eklemek, sondaki kalbe ikiniz aynı anda dokunmak, “biz” olduğunuz gecenin gökyüzünde
   Venüs’ü bulmak, uyku ışığında beş nefes almak, “biz” olduğunuz anın gökyüzünde güneşi söndürmek,
-  18:32’de (Bakü’de 19:32) siteye bakmak, hikâyemizi sonuna kadar izlemek… (Eln’e söyleme 🙂)
+  18:32’de (Bakü’de 19:32) siteye bakmak, hikâyemizi sonuna kadar izlemek, şarkımızı sonuna kadar dinlemek…
+  (Eln’e söyleme 🙂)
 - Onun ekranında sen, onun sana taktığı adlarla görünürsün: “Posi şu an burada”, “Mosi: öptüm”…
 
 ---
@@ -158,8 +162,8 @@ Birkaç küçük içerik dosyası daha:
   `ilkBulusma` tarihini yazarsan “İlk buluşmamızdan önceki gece aç” mektubu o geceye kilitlenir.
 - `fotograflar`: görüntülü aramalardan ekran görüntülerini `public/foto/` klasörüne koyup listeye eklersen
   “Ekran Görüntülerimiz” bölümü kendiliğinden belirir.
-- Şarkı dosyan varsa (mp3) `public/` klasörüne koy, `sarki.dosya`’ya adını yaz: plak sitede çalar.
-  Yoksa plak Spotify/YouTube’a yönlendirir.
+- Şarkı YouTube oynatıcısıyla sitenin içinde çalar (`sarki.youtubeIdleri`). Kendi mp3’ün olursa `public/`
+  klasörüne koyup `sarki.dosya`’ya adını yazarsan onun yerine o çalar.
 
 ### Rüzgâr Postası ve “Aynı Anda”: iki dakikalık kurulum
 

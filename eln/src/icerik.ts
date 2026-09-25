@@ -87,17 +87,20 @@ export const ICERIK = {
   anilar: [] as Ani[],
 
   /**
-   * Bizim şarkımız (isteğe bağlı).
-   * dosya: public/ klasörüne koyduğun mp3'ün adı, ör. 'sarkimiz.mp3'
-   *        (boşsa site kendi ürettiği sakin müziği çalar)
-   * spotify / youtube: dinleme bağlantıları ("Şarkımız" bölümünde ve menüde görünür)
+   * Bizim şarkımız.
+   * youtubeIdleri: şarkı sitenin içinde YouTube'un resmî gömülü oynatıcısıyla çalar (tamamı, ücretsiz).
+   *        Sırayla denenir: ilki gömülmeye kapalıysa ya da kaldırılmışsa bir sonrakine geçilir.
+   *        (Bir YouTube linkindeki v= sonrasındaki 11 karakter: youtube.com/watch?v=HBRjG94whmM)
+   * dosya: kendi mp3'ün varsa public/ klasörüne koyup adını yaz; o zaman YouTube yerine o çalar.
+   * spotify / youtube: dışarıda dinleme bağlantıları (menüde ve yedek olarak)
    */
   sarki: {
     baslik: 'Anılar',
     sanatci: 'Onur Can Özcan',
     dosya: '',
-    spotify: 'https://open.spotify.com/search/Onur%20Can%20%C3%96zcan%20An%C4%B1lar',
-    youtube: 'https://www.youtube.com/results?search_query=Onur+Can+%C3%96zcan+An%C4%B1lar',
+    youtubeIdleri: ['HBRjG94whmM', 'bpMRUwYpNkM', 'Zqajhs7-eYI'] as string[],
+    spotify: 'https://open.spotify.com/track/62oT4VA3q0kY41afX7mO0a',
+    youtube: 'https://www.youtube.com/watch?v=HBRjG94whmM',
   },
 
   /**

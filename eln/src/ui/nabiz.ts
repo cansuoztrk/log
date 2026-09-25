@@ -56,12 +56,34 @@ export function nabizKur(onKalp: () => void) {
     return fetch(`https://ntfy.sh/${encodeURIComponent(kanal)}`, { method: 'POST', body: JSON.stringify(m), keepalive: tip === 'gittim' }).catch(() => undefined)
   }
 
+  // Sayfanın altına başka bir şey (ör. barındırma sağlayıcısının rozeti) yerleşip kalbi örtüyorsa
+  // kutu kendiliğinden yukarı kayar; o şey kalkınca yerine döner.
+  const ortuluyorMu = () => {
+    if (!cevrimici) return
+    // yukarıdaysa, geçiş animasyonu olmadan bir anlığına aşağıda ölç (aynı karede; göz görmez)
+    const yukarida = el.classList.contains('yukari')
+    if (yukarida) {
+      el.style.transition = 'none'
+      el.classList.remove('yukari')
+    }
+    const r = kalpDugme.getBoundingClientRect()
+    const ustteki = document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2)
+    el.classList.toggle('yukari', !!ustteki && !el.contains(ustteki))
+    if (yukarida) {
+      void el.offsetWidth
+      el.style.transition = ''
+    }
+  }
+  window.setInterval(ortuluyorMu, 3000)
+  window.addEventListener('resize', ortuluyorMu)
+
   const durumYaz = () => {
     const simdi = Date.now()
     const acik = simdi - sonGorulme < 7 * 60_000
     if (acik !== cevrimici) {
       cevrimici = acik
       el.classList.toggle('acik', acik)
+      if (acik) window.setTimeout(ortuluyorMu, 900) // giriş animasyonu bitince bak
       if (acik) {
         ses.bildirim()
         bildir({ ust: 'Aynı anda', baslik: `${karsiAd} şu an burada`, metin: 'İkimiz aynı sayfadayız. Köşedeki kalbe dokunursan kalbin ona ulaşır.', simge: '●' })
