@@ -51,6 +51,7 @@ import { mesajlarHTML, mesajlarKur } from './bolumler/mesajlar'
 import { gozundenHTML, gozundenKur } from './bolumler/gozunden'
 import { yildizladiklarinHTML, yildizladiklarinKur } from './bolumler/yildizladiklarin'
 import { izlerHTML, izlerKur } from './bolumler/izler'
+import { tahtaHTML, tahtaKur } from './bolumler/tahta'
 import { $, $$, azHareket, gsap, ScrollTrigger } from './bolumler/yardimci'
 import { kapiAc } from './ui/kapi'
 import { ustKur } from './ui/ust'
@@ -90,6 +91,7 @@ $('#icerik').innerHTML = [
   cayHTML(),
   dillerHTML(),
   sozlukHTML(),
+  tahtaHTML(),
   narHTML(z),
   simdiHTML(),
   gokyuzuHTML(),
@@ -165,6 +167,7 @@ cayKur(al<Cay>('cay'))
 karelerKur()
 dillerKur()
 sozlukKur()
+tahtaKur()
 narKur(z)
 simdiKur()
 gokyuzuKur()

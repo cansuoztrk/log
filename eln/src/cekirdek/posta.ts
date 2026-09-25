@@ -32,6 +32,19 @@ export async function ardayaYaz(baslik: string, mesaj: string, etiketler: string
   }
 }
 
+/** Arda'nın telefonuna resimli bildirim (ntfy eki). Başlık/mesaj Türkçe karakterli olduğu için adreste gider. */
+export async function ardayaResim(resim: Blob, dosyaAdi: string, baslik: string, mesaj: string, etiketler: string[] = []) {
+  const konu = ICERIK.ruzgarPostasi.ntfyKonu
+  if (!konu || onizleme || kimim() !== 'eln') return false
+  const q = new URLSearchParams({ filename: dosyaAdi, title: baslik, message: mesaj, tags: etiketler.join(',') })
+  try {
+    const r = await fetch(`https://ntfy.sh/${konu}?${q}`, { method: 'PUT', body: resim })
+    return r.ok
+  } catch {
+    return false
+  }
+}
+
 /**
  * Bir mesajı ne pahasına olursa olsun Arda'ya ulaştırır:
  * ntfy → WhatsApp → paylaş menüsü → panoya kopyala.

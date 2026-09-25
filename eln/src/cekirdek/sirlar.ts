@@ -252,6 +252,12 @@ export const SIRLAR: Sir[] = [
     mesaj: 'Bu sırrı yılda bir kez bulabilirsin. Her yıl buradayım; sen de burada ol.',
   },
   {
+    id: 'cizim',
+    ad: 'User155’e bir çizim',
+    ipucu: 'Çizim tahtasında bir şey çiz ve gönder.',
+    mesaj: 'Çizimin geldi. Doğru tahmin edemezsem bana bir kupon borçlusun; edersem ben sana.',
+  },
+  {
     id: 'fener',
     ad: 'İlk fener',
     ipucu: 'Bir dilek tut ve feneri gökyüzüne bırak.',
