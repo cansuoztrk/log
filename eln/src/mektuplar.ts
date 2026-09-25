@@ -104,6 +104,23 @@ export const MEKTUPLAR: ZarfMektup[] = [
     ],
   },
   {
+    id: 'gelecek',
+    baslik: 'Geleceği merak ettiğinde aç',
+    muhur: '#9a7440',
+    metin: [
+      'Sevgili Elnos,',
+      'Bu mektubu 21 Mayıs 2036’dan yazıyorum. On yıl sonrasından. (Bilim bunu henüz yapamıyor; ben yaptım, çünkü sana söz vermiştim: senin için her şeyi yapacağım.)',
+      'Şu an saat 18:32. Her yıl bu dakikada elimdeki işi bırakıp sana bakıyorum. Bu yıl da baktım: balkonda, pembe zambakların yanında oturmuş, telefonla birine ☺️ atıyorsun. Kime attığını sormadım; biliyorum, bana. Aynı evdeyiz ama alışkanlık işte.',
+      'Saat farkımız yok artık. “Günaydın”ı yüz yüze söylüyoruz; bazen o kadar erken ki ikimizin de gözü açılmadan. Çay iki bardakta demleniyor: senin armudu stəkanın, benim ince bellim. Hâlâ karıştırıyoruz.',
+      'O utangaç sesli aramalarımızı hatırlıyor musun? Şimdi susmak bilmiyoruz. Ama odadan çıkarken hâlâ “öptüm” diyorum; sen de gülüp “öptüm” diyorsun. Bazı kelimeler emekliye ayrılmaz.',
+      'Nehir geçen hafta yemeğe geldi. Yine “ben olmasam siz…” dedi. Yine haklıydı.',
+      'Bu mektubu 2026’da okuyan sana şunu söylemek istiyorum: mesafe bitti. Bekledik, sabrettik, o havalimanı sahnesini yaşadık (evet, heyecandan ayağına bastım). Bütün o uzak günler şimdi sadece güzel bir hikâye; misafirlere anlatıyoruz, kimse inanmıyor.',
+      'Korkma. Hepsi olacak.',
+      'On yıl sonraki Arda.',
+      'Not: “Bokkuş”un anlamını hâlâ kimseye söylemedik.',
+    ],
+  },
+  {
     id: 'yil-tanisma',
     baslik: 'Tanışmamızın ilk yılında aç',
     tarih: '2026-12-06',

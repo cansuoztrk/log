@@ -44,6 +44,9 @@ import { zambakHTML, zambakKur } from './bolumler/zambak'
 import { cuzdanHTML, cuzdanKur } from './bolumler/cuzdan'
 import { sozlukHTML, sozlukKur } from './bolumler/sozluk'
 import { gokyuzuHTML, gokyuzuKur } from './bolumler/gokyuzu'
+import { sifirHTML, sifirKur } from './bolumler/sifir'
+import { ilklerHTML, ilklerKur } from './bolumler/ilkler'
+import { fenerHTML, fenerKur } from './bolumler/fener'
 import { $, $$, azHareket, gsap, ScrollTrigger } from './bolumler/yardimci'
 import { kapiAc } from './ui/kapi'
 import { ustKur } from './ui/ust'
@@ -73,6 +76,7 @@ $('#icerik').innerHTML = [
   nehirHTML(),
   gunlerHTML(z),
   zambakHTML(z),
+  ilklerHTML(z),
   karelerHTML(),
   kulelerHTML(z),
   cayHTML(),
@@ -82,11 +86,13 @@ $('#icerik').innerHTML = [
   simdiHTML(),
   gokyuzuHTML(),
   ruzgarHTML(z, not),
+  sifirHTML(),
   ucusHTML(z),
   cuzdanHTML(z),
   sarkiHTML(),
   mektupHTML(z),
   zarflarHTML(z),
+  fenerHTML(),
   finalHTML(ziyaret),
 ].join('')
 
@@ -141,6 +147,7 @@ acilisKur(kure, ziyaret.gunler.length)
 nehirKur()
 gunlerKur(z)
 zambakKur(z)
+ilklerKur(z)
 kulelerKur(al<Kuleler>('kule'))
 cayKur(al<Cay>('cay'))
 karelerKur()
@@ -150,11 +157,13 @@ narKur(z)
 simdiKur()
 gokyuzuKur()
 ruzgarKur(z, not, ust.notlarAc)
+sifirKur()
 ucusKur()
 cuzdanKur(z, ust.cekmece)
 sarkiKur()
 mektupKur()
 zarflarKur(z.bugun)
+fenerKur()
 finalKur(al<Yildizlar>('final'), z)
 
 // Bölüm görünür oldukça: doğru 3D sahne + doğru ses dokusu
