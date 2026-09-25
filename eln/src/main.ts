@@ -47,6 +47,10 @@ import { gokyuzuHTML, gokyuzuKur } from './bolumler/gokyuzu'
 import { sifirHTML, sifirKur } from './bolumler/sifir'
 import { ilklerHTML, ilklerKur } from './bolumler/ilkler'
 import { fenerHTML, fenerKur } from './bolumler/fener'
+import { mesajlarHTML, mesajlarKur } from './bolumler/mesajlar'
+import { gozundenHTML, gozundenKur } from './bolumler/gozunden'
+import { yildizladiklarinHTML, yildizladiklarinKur } from './bolumler/yildizladiklarin'
+import { izlerHTML, izlerKur } from './bolumler/izler'
 import { $, $$, azHareket, gsap, ScrollTrigger } from './bolumler/yardimci'
 import { kapiAc } from './ui/kapi'
 import { ustKur } from './ui/ust'
@@ -74,9 +78,11 @@ $('#icerik').innerHTML = [
   acilisHTML(z, dogum === 'sen'),
   cizgiHTML(z, ziyaret.gunler.length),
   nehirHTML(),
+  mesajlarHTML(),
   gunlerHTML(z),
   zambakHTML(z),
   ilklerHTML(z),
+  gozundenHTML(),
   karelerHTML(),
   kulelerHTML(z),
   cayHTML(),
@@ -86,11 +92,13 @@ $('#icerik').innerHTML = [
   simdiHTML(),
   gokyuzuHTML(),
   ruzgarHTML(z, not),
+  izlerHTML(),
   sifirHTML(),
   ucusHTML(z),
   cuzdanHTML(z),
   sarkiHTML(),
   mektupHTML(z),
+  yildizladiklarinHTML(),
   zarflarHTML(z),
   fenerHTML(),
   finalHTML(ziyaret),
@@ -145,9 +153,11 @@ imlecKur()
 // ─── Bölümler ───
 acilisKur(kure, ziyaret.gunler.length)
 nehirKur()
+mesajlarKur()
 gunlerKur(z)
 zambakKur(z)
 ilklerKur(z)
+gozundenKur()
 kulelerKur(al<Kuleler>('kule'))
 cayKur(al<Cay>('cay'))
 karelerKur()
@@ -157,11 +167,13 @@ narKur(z)
 simdiKur()
 gokyuzuKur()
 ruzgarKur(z, not, ust.notlarAc)
+izlerKur()
 sifirKur()
 ucusKur()
 cuzdanKur(z, ust.cekmece)
 sarkiKur()
 mektupKur()
+yildizladiklarinKur()
 zarflarKur(z.bugun)
 fenerKur()
 finalKur(al<Yildizlar>('final'), z)

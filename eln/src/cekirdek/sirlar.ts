@@ -216,6 +216,30 @@ export const SIRLAR: Sir[] = [
     mesaj: 'Ben unutmuştum, sen hatırladın. Bundan sonra bu defteri ikimiz tutuyoruz: sen geçmişi, ben geleceği yazacağım.',
   },
   {
+    id: 'album',
+    ad: 'İkimize özel',
+    ipucu: 'Kilitli sayfaları kelimemizle aç.',
+    mesaj: 'Kelimeyi bildin. Bundan sonra bu sayfalar sadece ikimizin; telefonun da hatırlıyor.',
+  },
+  {
+    id: 'sohbet',
+    ad: 'Hepsini yeniden yaşadın',
+    ipucu: 'Mesajlarımızdan’daki bütün konuşmaları sonuna kadar izle.',
+    mesaj: 'Hepsini baştan okudun. Ben de öyle yapıyorum bazen, gece yarısı, sesini açmadan gülümseyerek.',
+  },
+  {
+    id: 'takimyildiz',
+    ad: 'Bir takımyıldız',
+    ipucu: 'Yıldızladıkların’daki bütün yıldızlara dokun.',
+    mesaj: 'Gökyüzünde artık senin yaptığın bir kalp var. Bundan sonra her mesajımı yıldızladığında, oraya bir yıldız daha eklenmiş say.',
+  },
+  {
+    id: 'gozunden',
+    ad: 'Senin gözünden',
+    ipucu: 'Bütün fotoğraflarına tek tek büyüterek bak.',
+    mesaj: 'Hepsine baktın. Ben de her birine senden çok baktım, emin ol.',
+  },
+  {
     id: 'fener',
     ad: 'İlk fener',
     ipucu: 'Bir dilek tut ve feneri gökyüzüne bırak.',

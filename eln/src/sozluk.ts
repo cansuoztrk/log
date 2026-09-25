@@ -114,6 +114,33 @@ export const SOZLUK: Madde[] = [
     bkz: 'öptüm',
   },
   {
+    kelime: 'ürəyim',
+    okunus: 'ü·re·yim',
+    tur: 'Az. is., sevgi sözü',
+    anlamlar: [
+      'Kalbim. Arda’nın Azerbaycanca öğrendiği ilk güzel kelimelerden; yazımı hâlâ “üreyim”.',
+      'Söylenince karşı tarafı olduğu yerde eriten kelime.',
+    ],
+    ornek: 'Üreyim ❤️',
+    bkz: 'əzizim',
+  },
+  {
+    kelime: 'əzizim',
+    okunus: 'e·zi·zim',
+    tur: 'Az. is., sevgi sözü',
+    anlamlar: ['Canım, kıymetlim. Arda yazınca sonuna mutlaka bir 💕 eklenir.'],
+    bkz: 'ürəyim',
+  },
+  {
+    kelime: 'yıldızlamak',
+    okunus: 'yıl·dız·la·mak',
+    tur: 'f.',
+    anlamlar: [
+      'Bir mesajı saklamaya değer bulmak. Eln’in en sevdiği işlerden biri.',
+      'Yapılamadığında “keşke yıldızlayabilsem” diye hayıflanılan eylem.',
+    ],
+  },
+  {
     kelime: 'uzak mesafe',
     tur: 'is.',
     anlamlar: ['Geçici bir durum. Emekliye ayrılması planlanmaktadır.'],
