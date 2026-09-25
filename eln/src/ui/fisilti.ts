@@ -409,6 +409,11 @@ function mikYardim(neden: string) {
   } else if (neden === 'NotFoundError' || neden === 'DevicesNotFoundError' || neden === 'OverconstrainedError') {
     baslik = 'Mikrofon bulunamadı'
     metin = 'Bu cihazda kullanılabilir bir mikrofon görünmüyor. Kulaklık takılıysa çıkarıp tekrar dene.'
+  } else if (neden === 'InvalidStateError') {
+    baslik = 'Telefon mikrofonu bırakmadı'
+    metin = iphone()
+      ? 'Safari’yi tamamen kapat (alttan yukarı kaydırıp Safari’yi yukarı at), yeniden açıp siteye gir ve mikrofona tekrar bas. Arka planda müzik ya da video çalıyorsa önce onu durdur.'
+      : 'Sayfayı yenileyip tekrar dene. Arka planda müzik ya da video çalıyorsa önce onu durdur.'
   } else if (neden === 'desteksiz' || neden === 'kaydedici') {
     baslik = 'Bu tarayıcı ses kaydedemedi'
     metin = `Tarayıcını güncelleyip tekrar dene ya da siteyi ${iphone() ? 'Safari' : 'Chrome'}’da aç. O zamana kadar yazarak fısıldayabilirsin.`
@@ -449,6 +454,12 @@ function sesKur() {
     form.hidden = false
   }
 
+  /** mikrofonu kapat, iOS ses oturumunu eski hâline döndür */
+  const birak = () => {
+    akis?.getTracks().forEach((t) => t.stop())
+    akis = null
+    ses.kayitModu(false)
+  }
   let basliyor = false
   const baslat = async () => {
     if (!anahtar) return kilitGoster()
@@ -458,9 +469,18 @@ function sesKur() {
     if (typeof MediaRecorder === 'undefined' || !navigator.mediaDevices?.getUserMedia) return mikYardim(uygulamaIci() ? 'uygulama' : 'desteksiz')
     basliyor = true
     mik.classList.add('bekliyor')
+    const kisit = { audio: { echoCancellation: true, noiseSuppression: true } }
     try {
-      akis = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: true, noiseSuppression: true } })
+      ses.kayitModu(true)
+      try {
+        akis = await navigator.mediaDevices.getUserMedia(kisit)
+      } catch (e) {
+        // iOS ses oturumu hâlâ kayda kapalıysa bir kez de en sade oturumla dene
+        if ((e as DOMException)?.name !== 'InvalidStateError' || !ses.oturumSerbest()) throw e
+        akis = await navigator.mediaDevices.getUserMedia(kisit)
+      }
     } catch (e) {
+      ses.kayitModu(false)
       const ad = (e as DOMException)?.name || 'Error'
       // uygulama içi tarayıcıda izin hatası: asıl çözüm siteyi gerçek tarayıcıda açmak
       return mikYardim(uygulamaIci() && ['NotAllowedError', 'PermissionDeniedError', 'SecurityError'].includes(ad) ? 'uygulama' : ad)
@@ -470,7 +490,7 @@ function sesKur() {
     }
     const iz = akis.getAudioTracks()[0]
     if (!iz || iz.readyState === 'ended') {
-      akis.getTracks().forEach((t) => t.stop())
+      birak()
       return mikYardim('NotReadableError')
     }
     // her iki telefonda da çalınabilsin diye önce mp4 (AAC), yoksa webm (Opus)
@@ -491,13 +511,13 @@ function sesKur() {
       }
     }
     if (!kaydedici) {
-      akis.getTracks().forEach((t) => t.stop())
+      birak()
       return mikYardim('kaydedici')
     }
     parcalar = []
     kaydedici.ondataavailable = (e) => e.data.size && parcalar.push(e.data)
     kaydedici.onstop = async () => {
-      akis?.getTracks().forEach((t) => t.stop())
+      birak()
       ses.sustur(false)
       const sure = Math.min(EN_UZUN_SES, ((bitis || performance.now()) - bas) / 1000)
       if (!gonderilsin || sure < 0.6) return
@@ -528,7 +548,7 @@ function sesKur() {
       try {
         kaydedici.start()
       } catch {
-        akis.getTracks().forEach((t) => t.stop())
+        birak()
         return mikYardim('kaydedici')
       }
     }

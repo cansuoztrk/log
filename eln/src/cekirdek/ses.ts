@@ -133,6 +133,38 @@ class SesMotoru {
     this.dinleyiciler.forEach((f) => f(this.acik))
   }
 
+  /**
+   * iOS: sessiz modda da çalsın diye ses oturumu 'playback'e alınıyor; ama Safari bu moddayken
+   * mikrofonu açmıyor (InvalidStateError). Kayıt süresince 'play-and-record'a geçip sonra geri döner.
+   */
+  private oncekiOturum: string | null = null
+  kayitModu(acik: boolean) {
+    const o = (navigator as Navigator & { audioSession?: { type: string } }).audioSession
+    if (!o) return
+    try {
+      if (acik) {
+        this.oncekiOturum ??= o.type
+        o.type = 'play-and-record'
+      } else if (this.oncekiOturum !== null) {
+        o.type = this.oncekiOturum
+        this.oncekiOturum = null
+      }
+    } catch {
+      /* eski Safari */
+    }
+  }
+  /** Mikrofonu engellemeyen en sade oturum (kayıt modu da reddedilirse son çare) */
+  oturumSerbest() {
+    const o = (navigator as Navigator & { audioSession?: { type: string } }).audioSession
+    if (!o) return false
+    try {
+      o.type = 'auto'
+      return true
+    } catch {
+      return false
+    }
+  }
+
   /** Dışarıdan bir oynatıcı (YouTube) çalarken sitenin kendi sesi susar, bitince geri gelir */
   sustur(sus: boolean) {
     if (!this.ctx) return
