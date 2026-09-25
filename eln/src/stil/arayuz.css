@@ -1779,3 +1779,45 @@
 .fs-kilit-form .dugme {
   justify-content: center;
 }
+
+/* mikrofon açılamayınca: nedenine göre yol gösteren kutu */
+.fs-mik-yardim {
+  margin: 0 12px 4px;
+  padding: 12px 14px;
+  border-radius: 16px;
+  background: rgba(245, 159, 180, 0.1);
+  border: 1px solid rgba(245, 159, 180, 0.3);
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--krem-2);
+}
+.fs-mik-yardim p {
+  margin: 0 0 6px;
+}
+.fs-mik-yardim b {
+  color: var(--krem);
+  font-weight: 600;
+}
+.fs-my-bas {
+  font-weight: 600;
+  color: var(--gul-2);
+}
+.fs-my-alt {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+.fs-my-kod {
+  margin-right: auto;
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--cok-soluk);
+}
+.fs-my-alt .dugme {
+  padding: 7px 14px;
+  font-size: 12.5px;
+}
+.fs-mik.bekliyor {
+  animation: nefes 1s ease-in-out infinite;
+}
