@@ -2785,3 +2785,36 @@ body.modal-acik {
   font-size: 1.15rem !important;
   color: #8a6a4a;
 }
+
+/* Şarkımız: sitenin içinde çalan YouTube oynatıcısı (çalınca açılır) */
+.sarki-ekran {
+  max-width: 480px;
+  max-height: 0;
+  margin-top: 0;
+  overflow: hidden;
+  border-radius: 16px;
+  opacity: 0;
+  transition: max-height 0.8s var(--yavas), opacity 0.6s, margin-top 0.6s;
+}
+.sarki-ekran.acik {
+  max-height: 420px;
+  margin-top: 20px;
+  opacity: 1;
+  border: 1px solid rgba(245, 159, 180, 0.3);
+  box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.9);
+}
+.yt-kap,
+.sarki-ekran iframe {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  min-height: 200px;
+  border: 0;
+}
+.sarki-durum {
+  margin: 10px 0 0;
+  min-height: 1.4em;
+}
+.sarki-durum b {
+  color: var(--krem);
+}

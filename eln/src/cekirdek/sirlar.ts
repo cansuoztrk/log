@@ -192,6 +192,12 @@ export const SIRLAR: Sir[] = [
     mesaj: 'Yıldızlar gündüz de oradadır; sadece görünmezler. 21 Mayıs’ta 18:32’de de oradaydılar. Biz de öyleydik: her şey çoktan oradaydı, sadece adını koymamıştık.',
   },
   {
+    id: 'anilar',
+    ad: 'Anılar',
+    ipucu: 'Şarkımızı sonuna kadar dinle.',
+    mesaj: 'Sonuna kadar dinledin. Bir gün onu aynı odada, aynı anda dinleyeceğiz; o gün bitmesin diye başa saracağım.',
+  },
+  {
     id: 'hikaye',
     ad: 'Baştan sona',
     ipucu: 'Bizim hikâyemizi sonuna kadar izle.',
