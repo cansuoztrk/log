@@ -24,7 +24,7 @@ const bulusmaGeldi = (bugun: string) => !!ICERIK.ilkBulusma && bugun >= ICERIK.i
 const kullanilabilir = (k: Kupon, bugun: string) => k.ne === 'simdi' || bulusmaGeldi(bugun)
 
 /** Bugün gösterilecek kupon: bugün kazınan ya da sıradaki (hepsi toplandıysa null) */
-function bugununKuponu(bugun: string) {
+export function bugununKuponu(bugun: string) {
   const kayit = kayitlar()
   const bugunku = kayit.find((k) => k.tarih === bugun)
   if (bugunku) return { kupon: KUPONLAR.find((k) => k.id === bugunku.id)!, kazindi: true }

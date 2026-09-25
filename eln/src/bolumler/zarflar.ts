@@ -120,6 +120,12 @@ export function zarflarKur(bugun: string) {
     }
   }
 
+  // başka yerlerden (yıl dönümü, bugün kartı) bir mektubu doğrudan açmak için; kilitliyse açılmaz
+  window.addEventListener('zarf-ac', (e) => {
+    const m = mektuplar().find((x) => x.id === (e as CustomEvent<string>).detail)
+    if (m && (!m.tarih || m.tarih <= bugun)) mektupAc(m)
+  })
+
   for (const z of zarflar) {
     z.addEventListener('click', () => {
       const m = mektuplar().find((x) => x.id === z.dataset.id)!

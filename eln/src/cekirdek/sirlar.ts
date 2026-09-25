@@ -216,6 +216,48 @@ export const SIRLAR: Sir[] = [
     mesaj: 'Ben unutmuştum, sen hatırladın. Bundan sonra bu defteri ikimiz tutuyoruz: sen geçmişi, ben geleceği yazacağım.',
   },
   {
+    id: 'album',
+    ad: 'İkimize özel',
+    ipucu: 'Kilitli sayfaları kelimemizle aç.',
+    mesaj: 'Kelimeyi bildin. Bundan sonra bu sayfalar sadece ikimizin; telefonun da hatırlıyor.',
+  },
+  {
+    id: 'sohbet',
+    ad: 'Hepsini yeniden yaşadın',
+    ipucu: 'Mesajlarımızdan’daki bütün konuşmaları sonuna kadar izle.',
+    mesaj: 'Hepsini baştan okudun. Ben de öyle yapıyorum bazen, gece yarısı, sesini açmadan gülümseyerek.',
+  },
+  {
+    id: 'takimyildiz',
+    ad: 'Bir takımyıldız',
+    ipucu: 'Yıldızladıkların’daki bütün yıldızlara dokun.',
+    mesaj: 'Gökyüzünde artık senin yaptığın bir kalp var. Bundan sonra her mesajımı yıldızladığında, oraya bir yıldız daha eklenmiş say.',
+  },
+  {
+    id: 'gozunden',
+    ad: 'Senin gözünden',
+    ipucu: 'Bütün fotoğraflarına tek tek büyüterek bak.',
+    mesaj: 'Hepsine baktın. Ben de her birine senden çok baktım, emin ol.',
+  },
+  {
+    id: 'sesim',
+    ad: 'Sesim',
+    ipucu: 'Mektubun altındaki sesli mesajı sonuna kadar dinle.',
+    mesaj: 'Sonuna kadar dinledin. Artık sesim de telefonunda; ne zaman özlesen, bir dokunuş uzağındayım.',
+  },
+  {
+    id: 'yildonumu',
+    ad: 'Bir yıl daha',
+    ipucu: 'Bizim günümüzde (ya da tanıştığımız günde) gel, sonuna kadar izle.',
+    mesaj: 'Bu sırrı yılda bir kez bulabilirsin. Her yıl buradayım; sen de burada ol.',
+  },
+  {
+    id: 'cizim',
+    ad: 'User155’e bir çizim',
+    ipucu: 'Çizim tahtasında bir şey çiz ve gönder.',
+    mesaj: 'Çizimin geldi. Doğru tahmin edemezsem bana bir kupon borçlusun; edersem ben sana.',
+  },
+  {
     id: 'fener',
     ad: 'İlk fener',
     ipucu: 'Bir dilek tut ve feneri gökyüzüne bırak.',

@@ -47,6 +47,11 @@ import { gokyuzuHTML, gokyuzuKur } from './bolumler/gokyuzu'
 import { sifirHTML, sifirKur } from './bolumler/sifir'
 import { ilklerHTML, ilklerKur } from './bolumler/ilkler'
 import { fenerHTML, fenerKur } from './bolumler/fener'
+import { mesajlarHTML, mesajlarKur } from './bolumler/mesajlar'
+import { gozundenHTML, gozundenKur } from './bolumler/gozunden'
+import { yildizladiklarinHTML, yildizladiklarinKur } from './bolumler/yildizladiklarin'
+import { izlerHTML, izlerKur } from './bolumler/izler'
+import { tahtaHTML, tahtaKur } from './bolumler/tahta'
 import { $, $$, azHareket, gsap, ScrollTrigger } from './bolumler/yardimci'
 import { kapiAc } from './ui/kapi'
 import { ustKur } from './ui/ust'
@@ -58,6 +63,8 @@ import { nabizKur } from './ui/nabiz'
 import { uygulamaKur } from './ui/uygulama'
 import { gelenKutusuKur } from './ui/gelenkutusu'
 import { fisiltiKur } from './ui/fisilti'
+import { bugunKur } from './ui/bugun'
+import { yilDonumuKur } from './ui/yildonumu'
 
 if ('scrollRestoration' in history) history.scrollRestoration = 'manual'
 window.scrollTo(0, 0)
@@ -74,23 +81,28 @@ $('#icerik').innerHTML = [
   acilisHTML(z, dogum === 'sen'),
   cizgiHTML(z, ziyaret.gunler.length),
   nehirHTML(),
+  mesajlarHTML(),
   gunlerHTML(z),
   zambakHTML(z),
   ilklerHTML(z),
+  gozundenHTML(),
   karelerHTML(),
   kulelerHTML(z),
   cayHTML(),
   dillerHTML(),
   sozlukHTML(),
+  tahtaHTML(),
   narHTML(z),
   simdiHTML(),
   gokyuzuHTML(),
   ruzgarHTML(z, not),
+  izlerHTML(),
   sifirHTML(),
   ucusHTML(z),
   cuzdanHTML(z),
   sarkiHTML(),
   mektupHTML(z),
+  yildizladiklarinHTML(),
   zarflarHTML(z),
   fenerHTML(),
   finalHTML(ziyaret),
@@ -145,23 +157,28 @@ imlecKur()
 // ─── Bölümler ───
 acilisKur(kure, ziyaret.gunler.length)
 nehirKur()
+mesajlarKur()
 gunlerKur(z)
 zambakKur(z)
 ilklerKur(z)
+gozundenKur()
 kulelerKur(al<Kuleler>('kule'))
 cayKur(al<Cay>('cay'))
 karelerKur()
 dillerKur()
 sozlukKur()
+tahtaKur()
 narKur(z)
 simdiKur()
 gokyuzuKur()
 ruzgarKur(z, not, ust.notlarAc)
+izlerKur()
 sifirKur()
 ucusKur()
 cuzdanKur(z, ust.cekmece)
 sarkiKur()
 mektupKur()
+yildizladiklarinKur()
 zarflarKur(z.bugun)
 fenerKur()
 finalKur(al<Yildizlar>('final'), z)
@@ -195,14 +212,17 @@ const basla = () => {
   ScrollTrigger.refresh()
   sahne?.goster('kure')
   if (dogum === 'sen') pastaGoster(z, (n) => mevsim.kutla(n))
-  window.setTimeout(() => {
+  const devam = () => {
     karsila(z, not, ziyaret, () => mevsim.kutla(), () => ust.git('#ruzgar'), dogum)
     zamanSirlari(ziyaret)
     nabizKur(() => mevsim.kutla(26))
     fisiltiKur()
     uygulamaKur(ziyaret)
     gelenKutusuKur()
-  }, 1400)
+    bugunKur(z, not, ust)
+  }
+  // yıl dönümü sabahı: önce o ekran, kapanınca karşılama bildirimleri
+  if (!yilDonumuKur(z, (n) => mevsim.kutla(n), () => window.setTimeout(devam, 800))) window.setTimeout(devam, 1400)
 }
 if (parametre.get('kapi') === '0') {
   $('#kapi').remove()
