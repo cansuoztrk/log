@@ -120,6 +120,12 @@ kilitli mektubu açan düğme. Sana “yıl dönümü sürprizini açtı 🎉”
 **Sesli mesajın** şifreli albümde durur: kilit açılınca mektubun altında gerçek dalga formuyla belirir. Eln sonuna
 kadar dinlediğinde sana “sesini dinledi 🎧” bildirimi gelir.
 
+**🎬 Jenerik** (en alttaki “Jenerik” düğmesi): bir film biter gibi ekran kararır; üstte Naska’nın “neler gizli”
+şarkısının resmî klibi çalar (YouTube’dan; dosya barındırılmaz), altından isimler kayar: Başrolde Elnare, Yönetmen
+Arda, Fikir: Nehir’in bir tuşa basması, çekim yerleri, kostüm: pembe, özel efektler: ☺️… Kilit açıksa ikinize özel
+satırlar da girer. Sonunda “Bu film henüz bitmedi. Devamı: yüz yüze.” ve bekleyene **jenerik sonrası sahne**.
+Şarkı `jenerik` ayarında (`src/icerik.ts`).
+
 **Bizim Hikâyemiz:** Instagram hikâyesi gibi, tam ekran, kendiliğinden ilerleyen slaytlar: tanışalı kaç gün,
 “biz” olalı kaç saat (18:32’den beri), kaç dolunay, sitede kaç gün, kaç not/cevap, kaç kupon, kaç mektup, kaç sır,
 kaç “öptüm”… Sayılar Eln’in cihazında biriktikçe büyür. Sayfanın sonundaki düğmeden ve özel günlerde
@@ -145,7 +151,7 @@ ekranda ayın o geceki gerçek evresi nefes alıp verir (4 saniye al, 6 saniye v
   basınca ikinizin ekranında “Şimdi pencereden aya bak” açılır
 - Kilitli mektuplar kendi günleri geldikçe açılır; o güne kadar kaç gün kaldığını söyler
 - Her yeni gün yeni bir **kupon** kazınır, yeni bir **soru** gelir
-- **44 sır** (sağ üstteki ✦). Bazıları dokunarak, bazıları sadece belli bir anda bulunur:
+- **45 sır** (sağ üstteki ✦). Bazıları dokunarak, bazıları sadece belli bir anda bulunur:
   aya 3 kez dokunmak, saat **21:05**’te bakmak, gece yarısından sonra gelmek, ayın 21’inde/6’sında gelmek,
   dolunayda gelmek, iki bardağı art arda çınlatmak, bardağına iki şeker atmak, rüzgâra boş mektup bırakmak,
   kayan yıldızı yakalamak, 10 farklı gün gelmek, üstteki iki harfe 5 kez dokunmak (☺️ yağmuru),
@@ -155,7 +161,8 @@ ekranda ayın o geceki gerçek evresi nefes alıp verir (4 saniye al, 6 saniye v
   18:32’de (Bakü’de 19:32) siteye bakmak, hikâyemizi sonuna kadar izlemek, şarkımızı sonuna kadar dinlemek,
   ilk fısıltıyı göndermek, iki ışığı 0 km’ye getirmek, ilklerimiz defterine yazmak, ilk dilek fenerini
   uçurmak, albümü açmak, bütün konuşmaları izlemek, takımyıldızı tamamlamak, bütün fotoğraflara bakmak,
-  sesli mesajı sonuna kadar dinlemek, yıl dönümü ekranını sonuna kadar izlemek, ilk çizimi göndermek…
+  sesli mesajı sonuna kadar dinlemek, yıl dönümü ekranını sonuna kadar izlemek, ilk çizimi göndermek,
+  jeneriği sonuna kadar izlemek…
   (Eln’e söyleme 🙂)
 - Onun ekranında sen, onun sana taktığı adlarla görünürsün: “Posi şu an burada”, “Mosi: öptüm”…
 

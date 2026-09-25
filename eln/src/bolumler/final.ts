@@ -1,4 +1,6 @@
 import { ICERIK } from '../icerik'
+import { jenerikAc } from '../ui/jenerik'
+import { ytYukle } from '../cekirdek/youtube'
 import { ADIM_KM, type Ziyaret } from '../cekirdek/depo'
 import { ses } from '../cekirdek/ses'
 import { bulunanlar, SIRLAR, sirBul, sirDinle } from '../cekirdek/sirlar'
@@ -49,6 +51,7 @@ export function finalHTML(ziyaret: Ziyaret) {
         <div><b>${sayi(km)}</b><span>km yol aldım sana</span></div>
       </div>
       <button class="dugme hikaye-dugme" type="button"><span aria-hidden="true">✦</span><span>Bizim hikâyemiz, şimdiye kadar</span></button>
+      <button class="dugme hayalet jenerik-dugme" type="button"><span aria-hidden="true">🎬</span><span>Jenerik</span></button>
       ${optumHTML()}
       <div class="duvar">
         <button class="dugme hayalet duvar-dugme" type="button"><span>Kilit ekranın için bir duvar kâğıdı</span></button>
@@ -67,6 +70,14 @@ export function finalHTML(ziyaret: Ziyaret) {
 export function finalKur(yildiz: () => Yildizlar | null, z: Anlik) {
   optumKur()
   $('.hikaye-dugme').addEventListener('click', () => hikayeAc())
+  $('.jenerik-dugme').addEventListener('click', () => jenerikAc())
+  // YouTube betiği sayfanın sonuna yaklaşınca önceden yüklensin (dokununca beklemesin)
+  new IntersectionObserver((g, io) => {
+    if (g.some((x) => x.isIntersecting)) {
+      io.disconnect()
+      void ytYukle().catch(() => undefined)
+    }
+  }, { rootMargin: '1200px 0px' }).observe($('.jenerik-dugme'))
   const duvarD = $<HTMLButtonElement>('.duvar-dugme')
   duvarD.addEventListener('click', async () => {
     duvarD.disabled = true
