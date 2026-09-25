@@ -198,6 +198,30 @@ export const SIRLAR: Sir[] = [
     mesaj: 'Sonuna kadar dinledin. Bir gün onu aynı odada, aynı anda dinleyeceğiz; o gün bitmesin diye başa saracağım.',
   },
   {
+    id: 'fisilti',
+    ad: 'İlk fısıltı',
+    ipucu: 'İkimiz aynı anda buradayken bana fısılda.',
+    mesaj: 'İlk fısıltı. Rüzgâr bile duymadı; şifreli, sadece ikimizin telefonunda. Bundan sonra aynı anda buradaysak, burası bizim köşemiz.',
+  },
+  {
+    id: 'sifir',
+    ad: 'Sıfır kilometre',
+    ipucu: 'İki ışığı sonuna kadar birbirine yaklaştır.',
+    mesaj: '1.758 km parmaklarının arasında eridi. Bir gün aynısı gerçekten olacak; o gün bu sırrı sana ben hatırlatacağım.',
+  },
+  {
+    id: 'ilk',
+    ad: 'Defterin ilk satırı',
+    ipucu: 'İlklerimiz defterine bir şey yaz.',
+    mesaj: 'Ben unutmuştum, sen hatırladın. Bundan sonra bu defteri ikimiz tutuyoruz: sen geçmişi, ben geleceği yazacağım.',
+  },
+  {
+    id: 'fener',
+    ad: 'İlk fener',
+    ipucu: 'Bir dilek tut ve feneri gökyüzüne bırak.',
+    mesaj: 'Dileğini bilmiyorum, sormayacağım da. Ama İstanbul’dan bakınca Bakü tarafında bir yıldız fazla gibi. Hep dilek tut; ben de hep aynı şeyi dileyeceğim.',
+  },
+  {
     id: 'hikaye',
     ad: 'Baştan sona',
     ipucu: 'Bizim hikâyemizi sonuna kadar izle.',

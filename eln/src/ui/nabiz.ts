@@ -13,9 +13,31 @@ import { banaHitap } from '../bolumler/ruzgar'
  * ntfy.sh üzerinden çalışır (sunucu gerekmez). Kimlik: Arda siteyi bir kez ?ben=arda ile açar.
  */
 interface Mesaj {
-  tip: 'geldim' | 'buradayim' | 'gittim' | 'kalp' | 'ay' | 'opucuk' | 'tut' | 'birak' | 'not'
+  tip: 'geldim' | 'buradayim' | 'gittim' | 'kalp' | 'ay' | 'opucuk' | 'tut' | 'birak' | 'not' | 'fisilti' | 'ses' | 'okundu' | 'yaziyor'
   kim: Kim
   oturum: string
+  [ek: string]: unknown
+}
+
+/** ntfy'nin bir mesaja eklediği dosya bilgisi (sesli fısıltılar için) */
+export interface Ek {
+  url: string
+  type?: string
+  size?: number
+}
+
+/**
+ * Fısıltı (ui/fisilti.ts) bu bağlantıyı kullanır: ikimiz de sitedeyken mesaj, ses, okundu, yazıyor.
+ * nabizKur çalışınca doldurulur.
+ */
+export const baglanti = {
+  hazir: false,
+  karsiAd: '',
+  cevrimici: () => false,
+  /** Önbelleğe alınmadan (sunucuda saklanmadan) gönderir */
+  gonder: async (_veri: Record<string, unknown>) => false,
+  /** Dosyalı gönderim (ses): ntfy dosyayı ancak mesajı önbellekte tutarsa verir, o yüzden önbellekli */
+  dosyaGonder: async (_veri: Record<string, unknown>, _dosya: Blob) => false,
 }
 
 export function nabizKur(onKalp: () => void) {
@@ -37,6 +59,7 @@ export function nabizKur(onKalp: () => void) {
   el.innerHTML = /* html */ `
     <span class="nabiz-nokta" aria-hidden="true"></span>
     <span class="nabiz-yazi"><b>${karsiAd}</b> şu an burada</span>
+    <button class="nabiz-fisilti" type="button" aria-label="${karsiAd}’a fısılda"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" d="M4 5.5h16a1.5 1.5 0 0 1 1.5 1.5v9a1.5 1.5 0 0 1-1.5 1.5H10l-4.5 3.5V17.5H4A1.5 1.5 0 0 1 2.5 16V7A1.5 1.5 0 0 1 4 5.5z"/></svg><span class="rozet-sayi" hidden>0</span></button>
     <button class="nabiz-ay" type="button" aria-label="Aynı anda aya bakalım" hidden>☾</button>
     <button class="nabiz-kalp" type="button" aria-label="${karsiAd}’a kalp atışı gönder"><svg viewBox="0 0 24 24"><use href="#i-kalp"/></svg></button>`
   document.body.appendChild(el)
@@ -51,10 +74,32 @@ export function nabizKur(onKalp: () => void) {
   ayDugmesi()
   window.setInterval(ayDugmesi, 60_000)
 
+  // Nabız mesajları anlıktır: sunucuda saklanmasına gerek yok (cache=no)
+  const adres = `https://ntfy.sh/${encodeURIComponent(kanal)}`
   const gonder = (tip: Mesaj['tip']) => {
     const m: Mesaj = { tip, kim: ben, oturum }
-    return fetch(`https://ntfy.sh/${encodeURIComponent(kanal)}`, { method: 'POST', body: JSON.stringify(m), keepalive: tip === 'gittim' }).catch(() => undefined)
+    return fetch(`${adres}?cache=no`, { method: 'POST', body: JSON.stringify(m), keepalive: tip === 'gittim' }).catch(() => undefined)
   }
+  baglanti.karsiAd = karsiAd
+  baglanti.cevrimici = () => cevrimici
+  baglanti.gonder = async (veri) => {
+    try {
+      const r = await fetch(`${adres}?cache=no`, { method: 'POST', body: JSON.stringify({ ...veri, kim: ben, oturum }) })
+      return r.ok
+    } catch {
+      return false
+    }
+  }
+  baglanti.dosyaGonder = async (veri, dosya) => {
+    try {
+      const ust = encodeURIComponent(JSON.stringify({ ...veri, kim: ben, oturum }))
+      const r = await fetch(`${adres}?filename=f.bin&message=${ust}`, { method: 'PUT', body: dosya })
+      return r.ok
+    } catch {
+      return false
+    }
+  }
+  baglanti.hazir = true
 
   // Sayfanın altına başka bir şey (ör. barındırma sağlayıcısının rozeti) yerleşip kalbi örtüyorsa
   // kutu kendiliğinden yukarı kayar; o şey kalkınca yerine döner.
@@ -83,6 +128,7 @@ export function nabizKur(onKalp: () => void) {
     if (acik !== cevrimici) {
       cevrimici = acik
       el.classList.toggle('acik', acik)
+      window.dispatchEvent(new CustomEvent('nabiz-durum', { detail: acik }))
       if (acik) window.setTimeout(ortuluyorMu, 900) // giriş animasyonu bitince bak
       if (acik) {
         ses.bildirim()
@@ -94,13 +140,21 @@ export function nabizKur(onKalp: () => void) {
 
   // ─── dinle ───
   let kaynak: EventSource | null = null
+  let geldimBekliyor = false
   let hata = 0
   let yenidenZaman = 0
   const baglan = () => {
     kaynak?.close()
     window.clearTimeout(yenidenZaman)
     kaynak = new EventSource(`https://ntfy.sh/${encodeURIComponent(kanal)}/sse`)
-    kaynak.onopen = () => (hata = 0)
+    // "geldim" ancak dinlemeye başladıktan sonra gider; yoksa karşının "buradayım" cevabı kaçabilir
+    kaynak.onopen = () => {
+      hata = 0
+      if (geldimBekliyor) {
+        geldimBekliyor = false
+        void gonder('geldim')
+      }
+    }
     // bağlantı yoksa sonsuza dek denemesin: giderek seyrelen birkaç deneme
     kaynak.onerror = () => {
       kaynak?.close()
@@ -108,14 +162,23 @@ export function nabizKur(onKalp: () => void) {
     }
     kaynak.onmessage = (e) => {
       let m: Mesaj
+      let ek: Ek | undefined
       try {
         const zarf = JSON.parse(e.data)
         if (zarf.event && zarf.event !== 'message') return
         m = JSON.parse(zarf.message)
+        ek = zarf.attachment
       } catch {
         return
       }
       if (m.kim === ben || m.oturum === oturum) return
+      // fısıltılar ayrı modülde işlenir (ama karşı tarafın burada olduğunu da gösterirler)
+      if (m.tip === 'fisilti' || m.tip === 'ses' || m.tip === 'okundu' || m.tip === 'yaziyor') {
+        sonGorulme = Date.now()
+        durumYaz()
+        window.dispatchEvent(new CustomEvent('fisilti-gelen', { detail: { m, ek } }))
+        return
+      }
       if (m.tip === 'gittim') {
         sonGorulme = 0
         durumYaz()
@@ -229,8 +292,8 @@ export function nabizKur(onKalp: () => void) {
 
   // ─── yaşam döngüsü ───
   const basla = () => {
+    geldimBekliyor = true
     baglan()
-    void gonder('geldim')
   }
   basla()
   // 4 dakikada bir "hâlâ buradayım" (ntfy'yi yormadan)
