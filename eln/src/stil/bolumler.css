@@ -3977,3 +3977,17 @@ body.modal-acik {
     text-align: center;
   }
 }
+
+/* Arda'nın sesi kilitliyken */
+.sesli-kilit {
+  max-width: 520px;
+  margin: 22px auto 0;
+  padding: 14px 18px;
+  border-radius: 16px;
+  text-align: center;
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: var(--krem-2);
+  background: rgba(247, 237, 224, 0.05);
+  border: 1px dashed rgba(245, 159, 180, 0.35);
+}

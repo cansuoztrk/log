@@ -62,6 +62,8 @@ import { nabizKur } from './ui/nabiz'
 import { uygulamaKur } from './ui/uygulama'
 import { gelenKutusuKur } from './ui/gelenkutusu'
 import { fisiltiKur } from './ui/fisilti'
+import { bugunKur } from './ui/bugun'
+import { yilDonumuKur } from './ui/yildonumu'
 
 if ('scrollRestoration' in history) history.scrollRestoration = 'manual'
 window.scrollTo(0, 0)
@@ -207,14 +209,17 @@ const basla = () => {
   ScrollTrigger.refresh()
   sahne?.goster('kure')
   if (dogum === 'sen') pastaGoster(z, (n) => mevsim.kutla(n))
-  window.setTimeout(() => {
+  const devam = () => {
     karsila(z, not, ziyaret, () => mevsim.kutla(), () => ust.git('#ruzgar'), dogum)
     zamanSirlari(ziyaret)
     nabizKur(() => mevsim.kutla(26))
     fisiltiKur()
     uygulamaKur(ziyaret)
     gelenKutusuKur()
-  }, 1400)
+    bugunKur(z, not, ust)
+  }
+  // yıl dönümü sabahı: önce o ekran, kapanınca karşılama bildirimleri
+  if (!yilDonumuKur(z, (n) => mevsim.kutla(n), () => window.setTimeout(devam, 800))) window.setTimeout(devam, 1400)
 }
 if (parametre.get('kapi') === '0') {
   $('#kapi').remove()

@@ -45,6 +45,8 @@ export interface Album {
   yildizlar: Yildiz[]
   izler: Iz[]
   kucukler: Kucuk[]
+  /** Arda'nın sesli mesajı (mektubun altında çalar) */
+  ses?: { id: string; not?: string }
   dosyalar: Record<string, { dosya: string; tur: string; en?: number; boy?: number }>
 }
 

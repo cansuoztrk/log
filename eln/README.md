@@ -103,6 +103,20 @@ kendi telefonunuzda kalır. Karşı taraf sitede değilken yazılmaz; o zaman R�
 Not: ntfy.sh ücretsiz kullanımda kişi başı günde 250 mesaj sınırı koyar (sitenin diğer bildirimleri de dahil);
 uzun sohbetler için WhatsApp hâlâ daha uygun, burası özel bir köşe.
 
+**Bugün seni bekleyenler** (Eln’in telefonunda günde bir kez kendiliğinden, menüde ✦ Bugün): o gün onu neyin
+beklediğini sayar ve dokununca oraya götürür: okunmamış notun, kilidi açılan mektup, açılmamış zarf, günün sorusu,
+kazınmamış kupon, dinlenmemiş sesli mesaj, izlenmemiş konuşmalar, okunmamış yıldızlar, defterdeki boş satırlar,
+bir sır ipucu, sıradaki kilitli mektuba kalan gün. Üstte “tanışalı / biz olalı kaçıncı gün”; ayın 21’inde, 6’sında
+ve yüzüncü günlerde küçük bir not.
+
+**Yıl dönümü** (her 21 Mayıs ve 6 Aralık, gün içindeki ilk girişte): site tam ekran, hikâye gibi ilerleyen
+sayfalarla açılır: “Bir yıl.”, sayılan günler, o yıl Eln’in telefonunda biriken her şey (saatler, gelinen günler,
+“öptüm”ler, fısıltılar, fenerler…), albümden bir fotoğrafı, 21 Mayıs’ta akşam 18:32’ye geri sayım ve sonunda o güne
+kilitli mektubu açan düğme. Sana “yıl dönümü sürprizini açtı 🎉” bildirimi gelir. Önizleme: `?tarih=2027-05-21`
+
+**Sesli mesajın** şifreli albümde durur: kilit açılınca mektubun altında gerçek dalga formuyla belirir. Eln sonuna
+kadar dinlediğinde sana “sesini dinledi 🎧” bildirimi gelir.
+
 **Bizim Hikâyemiz:** Instagram hikâyesi gibi, tam ekran, kendiliğinden ilerleyen slaytlar: tanışalı kaç gün,
 “biz” olalı kaç saat (18:32’den beri), kaç dolunay, sitede kaç gün, kaç not/cevap, kaç kupon, kaç mektup, kaç sır,
 kaç “öptüm”… Sayılar Eln’in cihazında biriktikçe büyür. Sayfanın sonundaki düğmeden ve özel günlerde
@@ -128,7 +142,7 @@ ekranda ayın o geceki gerçek evresi nefes alıp verir (4 saniye al, 6 saniye v
   basınca ikinizin ekranında “Şimdi pencereden aya bak” açılır
 - Kilitli mektuplar kendi günleri geldikçe açılır; o güne kadar kaç gün kaldığını söyler
 - Her yeni gün yeni bir **kupon** kazınır, yeni bir **soru** gelir
-- **41 sır** (sağ üstteki ✦). Bazıları dokunarak, bazıları sadece belli bir anda bulunur:
+- **43 sır** (sağ üstteki ✦). Bazıları dokunarak, bazıları sadece belli bir anda bulunur:
   aya 3 kez dokunmak, saat **21:05**’te bakmak, gece yarısından sonra gelmek, ayın 21’inde/6’sında gelmek,
   dolunayda gelmek, iki bardağı art arda çınlatmak, bardağına iki şeker atmak, rüzgâra boş mektup bırakmak,
   kayan yıldızı yakalamak, 10 farklı gün gelmek, üstteki iki harfe 5 kez dokunmak (☺️ yağmuru),
@@ -137,7 +151,8 @@ ekranda ayın o geceki gerçek evresi nefes alıp verir (4 saniye al, 6 saniye v
   Venüs’ü bulmak, uyku ışığında beş nefes almak, “biz” olduğunuz anın gökyüzünde güneşi söndürmek,
   18:32’de (Bakü’de 19:32) siteye bakmak, hikâyemizi sonuna kadar izlemek, şarkımızı sonuna kadar dinlemek,
   ilk fısıltıyı göndermek, iki ışığı 0 km’ye getirmek, ilklerimiz defterine yazmak, ilk dilek fenerini
-  uçurmak, albümü açmak, bütün konuşmaları izlemek, takımyıldızı tamamlamak, bütün fotoğraflara bakmak…
+  uçurmak, albümü açmak, bütün konuşmaları izlemek, takımyıldızı tamamlamak, bütün fotoğraflara bakmak,
+  sesli mesajı sonuna kadar dinlemek, yıl dönümü ekranını sonuna kadar izlemek…
   (Eln’e söyleme 🙂)
 - Onun ekranında sen, onun sana taktığı adlarla görünürsün: “Posi şu an burada”, “Mosi: öptüm”…
 

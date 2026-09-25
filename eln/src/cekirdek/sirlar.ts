@@ -240,6 +240,18 @@ export const SIRLAR: Sir[] = [
     mesaj: 'Hepsine baktın. Ben de her birine senden çok baktım, emin ol.',
   },
   {
+    id: 'sesim',
+    ad: 'Sesim',
+    ipucu: 'Mektubun altındaki sesli mesajı sonuna kadar dinle.',
+    mesaj: 'Sonuna kadar dinledin. Artık sesim de telefonunda; ne zaman özlesen, bir dokunuş uzağındayım.',
+  },
+  {
+    id: 'yildonumu',
+    ad: 'Bir yıl daha',
+    ipucu: 'Bizim günümüzde (ya da tanıştığımız günde) gel, sonuna kadar izle.',
+    mesaj: 'Bu sırrı yılda bir kez bulabilirsin. Her yıl buradayım; sen de burada ol.',
+  },
+  {
     id: 'fener',
     ad: 'İlk fener',
     ipucu: 'Bir dilek tut ve feneri gökyüzüne bırak.',

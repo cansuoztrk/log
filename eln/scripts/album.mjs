@@ -42,8 +42,12 @@ async function anahtar(kelime) {
   ])
 }
 
+/**
+ * Başlangıç vektörü içerikten türetilir: aynı dosya her şifrelemede aynı çıkar (depo boşuna şişmez),
+ * farklı içerik farklı vektör alır (aynı anahtarla aynı vektör hiç tekrar etmez).
+ */
 async function sifrele(a, veri) {
-  const iv = webcrypto.getRandomValues(new Uint8Array(12))
+  const iv = new Uint8Array(createHash('sha256').update(`${TUZ}:iv`).update(veri).digest().subarray(0, 12))
   const ct = new Uint8Array(await subtle.encrypt({ name: 'AES-GCM', iv }, a, veri))
   const son = new Uint8Array(12 + ct.length)
   son.set(iv)

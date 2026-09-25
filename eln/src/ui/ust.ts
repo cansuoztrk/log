@@ -128,6 +128,7 @@ export function ustKur(z: Anlik, lenis: Lenis | null) {
     <div class="menu-alt">
       <span>Tanışmamızın <b>${sayi(z.gunNo)}.</b> günü · birlikte <b>${sayi(z.sevgiliGun)}</b> gün</span>
       <span class="menu-dugmeler">
+        <button class="dugme hayalet bugun-menu" type="button"><span aria-hidden="true">✦</span><span>Bugün</span></button>
         <button class="dugme hayalet uyku-ac" type="button"><span aria-hidden="true">☾</span><span>Uyku ışığı</span></button>
         <button class="dugme hayalet fisilti-menu" type="button"><span aria-hidden="true">💬</span><span>Fısıltılar</span></button>
         ${sarki.spotify || sarki.youtube ? `<a class="dugme hayalet" href="${sarki.spotify || sarki.youtube}" target="_blank" rel="noopener">${ikon('muzik')}<span>${sarki.baslik || 'Şarkımız'}${sarki.sanatci ? ` · ${sarki.sanatci}` : ''}</span></a>` : ''}
@@ -142,6 +143,10 @@ export function ustKur(z: Anlik, lenis: Lenis | null) {
     else lenis?.start()
   }
   menuD.addEventListener('click', () => menuAc(!menu.classList.contains('acik')))
+  $('.bugun-menu', menu).addEventListener('click', () => {
+    menuAc(false)
+    window.dispatchEvent(new Event('bugun-ac'))
+  })
   $('.uyku-ac', menu).addEventListener('click', () => {
     menuAc(false)
     uykuIsigi()
