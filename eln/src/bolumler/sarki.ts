@@ -34,7 +34,7 @@ export function sarkiHTML() {
           ${sarki.spotify ? `<a class="dugme ${sarki.dosya || youtubeIle ? 'hayalet' : ''} sarki-bag" href="${sarki.spotify}" target="_blank" rel="noopener">${ikon('muzik')}<span>Spotify’da dinle</span></a>` : ''}
           ${sarki.youtube && !youtubeIle ? `<a class="dugme hayalet sarki-bag" href="${sarki.youtube}" target="_blank" rel="noopener"><span>YouTube</span></a>` : ''}
         </div>
-        ${youtubeIle ? `<div class="sarki-ekran" data-dom><div class="yt-kap"></div></div><p class="dipnot sarki-durum" aria-live="polite"></p>` : ''}
+        ${youtubeIle ? `<div class="sarki-ekran" data-dom><p class="sarki-ekran-bas"><span class="canli" aria-hidden="true"></span>Şu an çalıyor · ${sarki.baslik} · ${sarki.sanatci}</p><div class="yt-kap"></div></div><p class="dipnot sarki-durum" aria-live="polite"></p>` : ''}
       </div>
     </div>
   </section>`
@@ -132,11 +132,11 @@ function youtubeKur(bolum: HTMLElement, dugme: HTMLButtonElement, cal: (acik: bo
             if (oynatici && sira < idler.length) {
               // az önce dokunulduysa sıradaki kayıt hemen çalmayı dener; tarayıcı izin vermezse ekrandaki ▶ kalır
               if (Date.now() - sonDokunus < 4000) {
-                oynatici.loadVideoById(idler[sira])
                 durum.textContent = 'Başka bir kayıt açılıyor… Başlamazsa ekrandaki ▶’e dokun.'
+                oynatici.loadVideoById(idler[sira])
               } else {
-                oynatici.cueVideoById(idler[sira])
                 durum.textContent = 'Başka bir kayıt hazırlandı; bir kez daha dokun.'
+                oynatici.cueVideoById(idler[sira])
               }
             } else {
               durum.innerHTML = `Şarkı burada açılmadı. <b>Spotify’da dinle</b> düğmesinden dinleyebilirsin.`
