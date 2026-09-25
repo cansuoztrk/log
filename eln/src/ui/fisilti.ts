@@ -158,6 +158,7 @@ function hazirla() {
     <div class="fs-hizli">
       ${['☺️', '🥺', 'Öptüm 💋', 'Səni sevirəm', 'bokkuş'].map((h) => `<button type="button" data-hizli="${h}">${h}</button>`).join('')}
     </div>
+    <div class="fs-mik-yardim" role="alert" hidden></div>
     <form class="fs-yaz" autocomplete="off">
       <button class="fs-mik" type="button" aria-label="Sesli fısıltı kaydet"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3" fill="currentColor"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></button>
       <label class="gorunmez" for="fs-alan">Fısıltın</label>
@@ -374,6 +375,58 @@ async function tekrarGonder(f: Fisilti) {
 }
 
 /* ─── sesli fısıltı ─────────────────────────────────────────────────────── */
+const ua = navigator.userAgent
+/** Instagram, Facebook, TikTok… içindeki tarayıcılar sitelere mikrofon vermez */
+const uygulamaIci = () => /Instagram|FBAN|FBAV|FB_IAB|FBIOS|Line\/|TikTok|musical_ly|Snapchat|Twitter/i.test(ua) || /; wv\)/.test(ua)
+const iphone = () => /iPhone|iPad|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)
+const anaEkranda = () => matchMedia('(display-mode: standalone)').matches || (navigator as { standalone?: boolean }).standalone === true
+
+/** Mikrofon açılamayınca nedenine göre ne yapılacağını panelin içinde anlatır */
+function mikYardim(neden: string) {
+  const kutu = panel.querySelector<HTMLElement>('.fs-mik-yardim')!
+  const izin = ['NotAllowedError', 'PermissionDeniedError', 'SecurityError'].includes(neden)
+  const mesgul = ['NotReadableError', 'TrackStartError', 'AbortError'].includes(neden)
+  let baslik: string
+  let metin: string
+  if (neden === 'uygulama') {
+    baslik = 'Bu pencere mikrofonu vermiyor'
+    metin = `Siteyi Instagram’ın (ya da başka bir uygulamanın) içinden açmışsın; bu uygulamalar sitelere mikrofon izni vermiyor. Sağ üstteki <b>•••</b> menüsünden <b>${iphone() ? 'Safari’de aç' : 'Tarayıcıda aç'}</b>’a bas; orada sesli fısıltı çalışır.`
+  } else if (izin && iphone()) {
+    baslik = 'Mikrofon izni kapalı'
+    metin = /CriOS/.test(ua)
+      ? 'iPhone’da <b>Ayarlar → Chrome → Mikrofon</b>’u aç, sonra sayfayı yenileyip tekrar bas.'
+      : anaEkranda()
+        ? 'Ana ekrandaki uygulamada iPhone her seferinde sorar: mikrofona basınca çıkan soruya <b>İzin Ver</b> de. Hiç sormuyorsa <b>Ayarlar → Safari → Mikrofon → Sor</b> yap.'
+        : 'Safari’de adres çubuğundaki <b>aA</b> → <b>Web Sitesi Ayarları</b> → <b>Mikrofon</b> → <b>İzin Ver</b>. Orada yoksa <b>Ayarlar → Safari → Mikrofon → İzin Ver</b>. Sonra sayfayı yenileyip tekrar bas.'
+  } else if (izin) {
+    baslik = 'Mikrofon izni kapalı'
+    metin =
+      'Adres çubuğunun solundaki <b>ayar (ya da kilit) simgesi</b> → <b>İzinler</b> → <b>Mikrofon</b> → <b>İzin ver</b>. Orada açıksa telefonun <b>Ayarlar → Uygulamalar → Chrome → İzinler → Mikrofon</b>’u da aç. Sonra sayfayı yenileyip tekrar bas.'
+  } else if (mesgul) {
+    baslik = 'Mikrofon şu an başka yerde'
+    metin =
+      'Telefonla, WhatsApp’ta ya da Instagram’da aramadaysanız mikrofon o aramada; telefon onu aynı anda siteye vermiyor. Aramayı kapatınca tekrar dene (arama sürerken yazarak fısıldayabilirsin).'
+  } else if (neden === 'NotFoundError' || neden === 'DevicesNotFoundError' || neden === 'OverconstrainedError') {
+    baslik = 'Mikrofon bulunamadı'
+    metin = 'Bu cihazda kullanılabilir bir mikrofon görünmüyor. Kulaklık takılıysa çıkarıp tekrar dene.'
+  } else if (neden === 'desteksiz' || neden === 'kaydedici') {
+    baslik = 'Bu tarayıcı ses kaydedemedi'
+    metin = `Tarayıcını güncelleyip tekrar dene ya da siteyi ${iphone() ? 'Safari' : 'Chrome'}’da aç. O zamana kadar yazarak fısıldayabilirsin.`
+  } else {
+    baslik = 'Mikrofon açılamadı'
+    metin = 'Sayfayı yenileyip tekrar dene. Olmazsa aşağıdaki kodu Arda’ya gönder.'
+  }
+  kutu.innerHTML = `<p class="fs-my-bas">🎙️ ${baslik}</p><p>${metin}</p>
+    <div class="fs-my-alt"><small class="fs-my-kod">${kacir(neden)}</small><button type="button" class="dugme hayalet" data-yardim="kapat"><span>Tamam</span></button>${neden === 'uygulama' || neden === 'desteksiz' ? '' : '<button type="button" class="dugme" data-yardim="tekrar"><span>Tekrar dene</span></button>'}</div>`
+  kutu.hidden = false
+  gsap.fromTo(kutu, { autoAlpha: 0, y: 8 }, { autoAlpha: 1, y: 0, duration: 0.35 })
+  titret([20, 40, 20])
+}
+function yardimGizle() {
+  const kutu = panel.querySelector<HTMLElement>('.fs-mik-yardim')
+  if (kutu) kutu.hidden = true
+}
+
 function sesKur() {
   const mik = panel.querySelector<HTMLButtonElement>('.fs-mik')!
   const kayitKutu = panel.querySelector<HTMLElement>('.fs-kayit')!
@@ -396,27 +449,51 @@ function sesKur() {
     form.hidden = false
   }
 
-  mik.addEventListener('click', async () => {
+  let basliyor = false
+  const baslat = async () => {
     if (!anahtar) return kilitGoster()
     if (!baglanti.cevrimici()) return durumGuncelle()
-    if (typeof MediaRecorder === 'undefined' || !navigator.mediaDevices?.getUserMedia) {
-      bildir({ ust: 'Fısıltı', baslik: 'Bu tarayıcı ses kaydetmiyor', metin: 'Yazarak fısıldayabilirsin.', simge: '🎙️' })
-      return
-    }
+    if (basliyor || kaydedici?.state === 'recording') return
+    yardimGizle()
+    if (typeof MediaRecorder === 'undefined' || !navigator.mediaDevices?.getUserMedia) return mikYardim(uygulamaIci() ? 'uygulama' : 'desteksiz')
+    basliyor = true
+    mik.classList.add('bekliyor')
     try {
       akis = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: true, noiseSuppression: true } })
-    } catch {
-      bildir({
-        ust: 'Fısıltı',
-        baslik: 'Mikrofona izin gerekiyor',
-        metin: 'Tarayıcının sorduğu izne “izin ver” dersen sesli fısıldayabilirsin.',
-        simge: '🎙️',
-      })
-      return
+    } catch (e) {
+      const ad = (e as DOMException)?.name || 'Error'
+      // uygulama içi tarayıcıda izin hatası: asıl çözüm siteyi gerçek tarayıcıda açmak
+      return mikYardim(uygulamaIci() && ['NotAllowedError', 'PermissionDeniedError', 'SecurityError'].includes(ad) ? 'uygulama' : ad)
+    } finally {
+      basliyor = false
+      mik.classList.remove('bekliyor')
+    }
+    const iz = akis.getAudioTracks()[0]
+    if (!iz || iz.readyState === 'ended') {
+      akis.getTracks().forEach((t) => t.stop())
+      return mikYardim('NotReadableError')
     }
     // her iki telefonda da çalınabilsin diye önce mp4 (AAC), yoksa webm (Opus)
     const tur = ['audio/mp4;codecs=mp4a.40.2', 'audio/mp4', 'audio/webm;codecs=opus', 'audio/webm'].find((t) => MediaRecorder.isTypeSupported?.(t))
-    kaydedici = new MediaRecorder(akis, { ...(tur ? { mimeType: tur } : {}), audioBitsPerSecond: 48_000 })
+    // bazı telefonlar "destekliyorum" deyip o ayarla kaydedici kuramıyor: sırayla daha sade ayarları dene
+    const secenekler: MediaRecorderOptions[] = [
+      ...(tur ? [{ mimeType: tur, audioBitsPerSecond: 48_000 }, { mimeType: tur }] : []),
+      { audioBitsPerSecond: 48_000 },
+      {},
+    ]
+    kaydedici = null
+    for (const o of secenekler) {
+      try {
+        kaydedici = new MediaRecorder(akis, o)
+        break
+      } catch {
+        /* sıradaki */
+      }
+    }
+    if (!kaydedici) {
+      akis.getTracks().forEach((t) => t.stop())
+      return mikYardim('kaydedici')
+    }
     parcalar = []
     kaydedici.ondataavailable = (e) => e.data.size && parcalar.push(e.data)
     kaydedici.onstop = async () => {
@@ -441,8 +518,21 @@ function sesKur() {
       guncelle(f)
       if (tamam) sirBul('fisilti')
     }
+    kaydedici.onerror = () => {
+      bitir(false)
+      mikYardim('kaydedici')
+    }
+    try {
+      kaydedici.start(250)
+    } catch {
+      try {
+        kaydedici.start()
+      } catch {
+        akis.getTracks().forEach((t) => t.stop())
+        return mikYardim('kaydedici')
+      }
+    }
     ses.sustur(true)
-    kaydedici.start(250)
     bas = performance.now()
     form.hidden = true
     kayitKutu.hidden = false
@@ -453,6 +543,13 @@ function sesKur() {
       sureEl.textContent = sureYaz(s)
       if (s >= EN_UZUN_SES) bitir(true)
     }, 200)
+  }
+  mik.addEventListener('click', () => void baslat())
+  panel.querySelector('.fs-mik-yardim')!.addEventListener('click', (e) => {
+    const b = (e.target as Element).closest<HTMLButtonElement>('[data-yardim]')
+    if (!b) return
+    yardimGizle()
+    if (b.dataset.yardim === 'tekrar') void baslat()
   })
   panel.querySelector('.fs-bitir')!.addEventListener('click', () => bitir(true))
   panel.querySelector('.fs-iptal')!.addEventListener('click', () => bitir(false))
