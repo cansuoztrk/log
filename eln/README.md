@@ -73,6 +73,15 @@ Site, ikinizin hikâyesindeki **gerçek ve şaşırtıcı tesadüfler** üzerine
     En sonda **“Bizim hikâyemiz”** (aşağıya bak), **“Öptüm”** düğmesi (senin telefonuna bildirim olarak düşer)
     ve **kilit ekranı duvar kâğıdı**
 
+**Fısıltı** (ikiniz aynı anda sitedeyken “şu an burada” kutusundaki 💬, ya da menüden): sitenin içinde yazışma köşesi.
+Yazıyor…, okundu ✓✓, sesli fısıltı (15 saniyeye kadar), hızlı cevaplar (☺️, 🥺, Öptüm 💋, Səni sevirəm, bokkuş) ve
+başlıkta İstanbul’dan Bakü’ye uçan bir ışık. Mesajlar **ikinizin bildiği bir kelimeyle uçtan uca şifrelenir**
+(ilk açılışta ikiniz de aynı kelimeyi yazarsınız; kelime telefondan çıkmaz). Yazılı fısıltılar sunucuda hiç
+saklanmaz, sadece o an bağlı olana ulaşır; sesliler şifreli dosya olarak ntfy’de 3 saat durur. Geçmiş yalnızca
+kendi telefonunuzda kalır. Karşı taraf sitede değilken yazılmaz; o zaman Rüzgâr Postası var.
+Not: ntfy.sh ücretsiz kullanımda kişi başı günde 250 mesaj sınırı koyar (sitenin diğer bildirimleri de dahil);
+uzun sohbetler için WhatsApp hâlâ daha uygun, burası özel bir köşe.
+
 **Bizim Hikâyemiz:** Instagram hikâyesi gibi, tam ekran, kendiliğinden ilerleyen slaytlar: tanışalı kaç gün,
 “biz” olalı kaç saat (18:32’den beri), kaç dolunay, sitede kaç gün, kaç not/cevap, kaç kupon, kaç mektup, kaç sır,
 kaç “öptüm”… Sayılar Eln’in cihazında biriktikçe büyür. Sayfanın sonundaki düğmeden ve özel günlerde
@@ -98,14 +107,15 @@ ekranda ayın o geceki gerçek evresi nefes alıp verir (4 saniye al, 6 saniye v
   basınca ikinizin ekranında “Şimdi pencereden aya bak” açılır
 - Kilitli mektuplar kendi günleri geldikçe açılır; o güne kadar kaç gün kaldığını söyler
 - Her yeni gün yeni bir **kupon** kazınır, yeni bir **soru** gelir
-- **33 sır** (sağ üstteki ✦). Bazıları dokunarak, bazıları sadece belli bir anda bulunur:
+- **34 sır** (sağ üstteki ✦). Bazıları dokunarak, bazıları sadece belli bir anda bulunur:
   aya 3 kez dokunmak, saat **21:05**’te bakmak, gece yarısından sonra gelmek, ayın 21’inde/6’sında gelmek,
   dolunayda gelmek, iki bardağı art arda çınlatmak, bardağına iki şeker atmak, rüzgâra boş mektup bırakmak,
   kayan yıldızı yakalamak, 10 farklı gün gelmek, üstteki iki harfe 5 kez dokunmak (☺️ yağmuru),
   rüzgâra “bizim kelimemizi” ya da sana taktığı bir adı yazmak, “öptüm” demek, ilk kuponu kazımak,
   sözlüğe kelime eklemek, sondaki kalbe ikiniz aynı anda dokunmak, “biz” olduğunuz gecenin gökyüzünde
   Venüs’ü bulmak, uyku ışığında beş nefes almak, “biz” olduğunuz anın gökyüzünde güneşi söndürmek,
-  18:32’de (Bakü’de 19:32) siteye bakmak, hikâyemizi sonuna kadar izlemek, şarkımızı sonuna kadar dinlemek…
+  18:32’de (Bakü’de 19:32) siteye bakmak, hikâyemizi sonuna kadar izlemek, şarkımızı sonuna kadar dinlemek,
+  ilk fısıltıyı göndermek…
   (Eln’e söyleme 🙂)
 - Onun ekranında sen, onun sana taktığı adlarla görünürsün: “Posi şu an burada”, “Mosi: öptüm”…
 

@@ -198,6 +198,12 @@ export const SIRLAR: Sir[] = [
     mesaj: 'Sonuna kadar dinledin. Bir gün onu aynı odada, aynı anda dinleyeceğiz; o gün bitmesin diye başa saracağım.',
   },
   {
+    id: 'fisilti',
+    ad: 'İlk fısıltı',
+    ipucu: 'İkimiz aynı anda buradayken bana fısılda.',
+    mesaj: 'İlk fısıltı. Rüzgâr bile duymadı; şifreli, sadece ikimizin telefonunda. Bundan sonra aynı anda buradaysak, burası bizim köşemiz.',
+  },
+  {
     id: 'hikaye',
     ad: 'Baştan sona',
     ipucu: 'Bizim hikâyemizi sonuna kadar izle.',

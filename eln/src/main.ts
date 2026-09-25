@@ -54,6 +54,7 @@ import { dogumGunuMu, pastaGoster } from './ui/dogumgunu'
 import { nabizKur } from './ui/nabiz'
 import { uygulamaKur } from './ui/uygulama'
 import { gelenKutusuKur } from './ui/gelenkutusu'
+import { fisiltiKur } from './ui/fisilti'
 
 if ('scrollRestoration' in history) history.scrollRestoration = 'manual'
 window.scrollTo(0, 0)
@@ -189,6 +190,7 @@ const basla = () => {
     karsila(z, not, ziyaret, () => mevsim.kutla(), () => ust.git('#ruzgar'), dogum)
     zamanSirlari(ziyaret)
     nabizKur(() => mevsim.kutla(26))
+    fisiltiKur()
     uygulamaKur(ziyaret)
     gelenKutusuKur()
   }, 1400)

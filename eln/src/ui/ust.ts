@@ -5,6 +5,7 @@ import { bulunanlar, SIRLAR, sirBul, sirDinle } from '../cekirdek/sirlar'
 import { type Anlik, saatYazi, sayi, simdi } from '../cekirdek/zaman'
 import { notlarCekmeceHTML } from '../bolumler/ruzgar'
 import { uykuIsigi } from './uyku'
+import { fisiltiAc } from './fisilti'
 import { $, $$, gsap, ikon, ScrollTrigger } from '../bolumler/yardimci'
 
 const { ben, sen, sarki } = ICERIK
@@ -128,6 +129,7 @@ export function ustKur(z: Anlik, lenis: Lenis | null) {
       <span>Tanışmamızın <b>${sayi(z.gunNo)}.</b> günü · birlikte <b>${sayi(z.sevgiliGun)}</b> gün</span>
       <span class="menu-dugmeler">
         <button class="dugme hayalet uyku-ac" type="button"><span aria-hidden="true">☾</span><span>Uyku ışığı</span></button>
+        <button class="dugme hayalet fisilti-menu" type="button"><span aria-hidden="true">💬</span><span>Fısıltılar</span></button>
         ${sarki.spotify || sarki.youtube ? `<a class="dugme hayalet" href="${sarki.spotify || sarki.youtube}" target="_blank" rel="noopener">${ikon('muzik')}<span>${sarki.baslik || 'Şarkımız'}${sarki.sanatci ? ` · ${sarki.sanatci}` : ''}</span></a>` : ''}
       </span>
     </div>`
@@ -143,6 +145,10 @@ export function ustKur(z: Anlik, lenis: Lenis | null) {
   $('.uyku-ac', menu).addEventListener('click', () => {
     menuAc(false)
     uykuIsigi()
+  })
+  $('.fisilti-menu', menu).addEventListener('click', () => {
+    menuAc(false)
+    fisiltiAc()
   })
   for (const a of $$<HTMLAnchorElement>('a[href^="#"]', menu)) {
     a.addEventListener('click', (e) => {
