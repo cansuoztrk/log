@@ -258,6 +258,12 @@ export const SIRLAR: Sir[] = [
     mesaj: 'Çizimin geldi. Doğru tahmin edemezsem bana bir kupon borçlusun; edersem ben sana.',
   },
   {
+    id: 'jenerik',
+    ad: 'Jenerik sonrası sahne',
+    ipucu: 'Filmin jeneriğini sonuna kadar izle; gerçek seyirciler salondan erken çıkmaz.',
+    mesaj: 'Sonuna kadar kaldın. O sahneyi bir gün gerçekten çekeceğiz; ben zambakları getiririm.',
+  },
+  {
     id: 'fener',
     ad: 'İlk fener',
     ipucu: 'Bir dilek tut ve feneri gökyüzüne bırak.',

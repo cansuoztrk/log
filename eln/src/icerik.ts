@@ -103,6 +103,14 @@ export const ICERIK = {
     youtube: 'https://www.youtube.com/watch?v=HBRjG94whmM',
   },
 
+  /** Sitenin en sonundaki jenerikte çalan şarkı (resmî YouTube kaydından çalar; dosya barındırılmaz) */
+  jenerik: {
+    baslik: 'neler gizli',
+    sanatci: 'Naska',
+    youtubeIdleri: ['QShhIALbBDs'] as string[],
+    youtube: 'https://www.youtube.com/watch?v=QShhIALbBDs',
+  },
+
   /**
    * Ekran görüntülerimiz (isteğe bağlı): görüntülü aramalardan kareler.
    * Fotoğrafları public/foto/ klasörüne koy, buraya ekle:
