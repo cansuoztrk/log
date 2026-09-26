@@ -34,6 +34,7 @@ import { dillerHTML, dillerKur } from './bolumler/diller'
 import { simdiHTML, simdiKur } from './bolumler/simdi'
 import { gununNotu, ruzgarHTML, ruzgarKur } from './bolumler/ruzgar'
 import { ucusHTML, ucusKur } from './bolumler/ucus'
+import { geziHTML, geziKur } from './bolumler/gezi'
 import { mektupHTML, mektupKur } from './bolumler/mektup'
 import { finalHTML, finalKur } from './bolumler/final'
 import { narHTML, narKur } from './bolumler/nar'
@@ -112,6 +113,7 @@ $('#icerik').innerHTML = [
   parmakHTML(),
   kavanozHTML(z),
   ucusHTML(z),
+  geziHTML(),
   cuzdanHTML(z),
   evimizHTML(),
   sarkiHTML(),
@@ -198,6 +200,7 @@ izlerKur()
 sifirKur()
 parmakKur()
 ucusKur()
+geziKur()
 kavanozKur(z)
 cuzdanKur(z, ust.cekmece)
 evimizKur()

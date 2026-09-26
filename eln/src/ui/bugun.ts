@@ -14,6 +14,7 @@ import { gelenAc, gelenler } from './gelenkutusu'
 import { fisiltiAc } from './fisilti'
 import { hangimizBekleyen } from '../bolumler/hangimiz'
 import { yildizBugun } from '../bolumler/yildizimiz'
+import { geziBekliyor } from '../bolumler/gezi'
 import { bekleyenSebep } from '../bolumler/sebepler'
 
 /**
@@ -121,6 +122,7 @@ function satirlar(z: Anlik, not: GununNotu, u: Arayuz): Satir[] {
   const h = hangimizBekleyen()
   if (h.onunki) s.push({ simge: '🤔', baslik: `${eln ? ICERIK.ben.ad : ICERIK.sen.ad} ${h.onunki} soruyu cevapladı`, alt: 'Sen de cevapla, cevaplar açılsın.', onem: 6.5, git: '#hangimiz' })
   else if (h.soru) s.push({ simge: '🤔', baslik: `“İkimizden hangisi?” ${h.soru} soru bekliyor`, alt: 'Kopya çekmek yok.', onem: 4, git: '#hangimiz' })
+  if (geziBekliyor()) s.push({ simge: '🗺️', baslik: 'Bana Bakü’yü gezdir', alt: 'Bakü hattına ilk durağı sen ekle.', onem: 3.8, git: '#gezi' })
   const y = yildizBugun()
   if (y) s.push({ simge: '✨', ...y, git: '#yildizimiz' })
 

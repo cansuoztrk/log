@@ -49,6 +49,8 @@ export interface Album {
   sebepler?: string[]
   /** jenerikte yalnızca kilit açıkken görünen satırlar: [görev, isim] */
   jenerik?: [string, string][]
+  /** Şehrimi Gezdireyim: Bakü hattının son durağı (yalnızca kilit açılınca görünür) */
+  gezi?: { son: { ad: string; alt: string; not: string; yakin: [string, string][] } }
   /** Arda'nın sesli mesajı (mektubun altında çalar) */
   ses?: { id: string; not?: string }
   dosyalar: Record<string, { dosya: string; tur: string; en?: number; boy?: number }>

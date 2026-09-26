@@ -7,7 +7,7 @@ import { ayCiz } from '../cekirdek/ay-ciz'
 import { gsap, titret } from '../bolumler/yardimci'
 import { bildir } from './ust'
 import { banaHitap } from '../bolumler/ruzgar'
-import { ortakBirlestir, ortakHepsi } from '../cekirdek/ortak'
+import { ortakBirlestir, ortakHepsi, ortakParcala } from '../cekirdek/ortak'
 
 /**
  * Aynı anda — ikiniz de sitedeyken birbirinizi görür, birbirinize kalp atışı gönderirsiniz.
@@ -211,7 +211,7 @@ export function nabizKur(onKalp: () => void) {
       if (m.tip === 'geldim' && yeniGeldi) {
         void gonder('buradayim')
         // yeni geldiyse ortak durumumuzu hemen alsın
-        if (Object.keys(ortakHepsi()).length) void baglanti.gonder({ tip: 'ortak', d: ortakHepsi() })
+        for (const d of ortakParcala(ortakHepsi())) void baglanti.gonder({ tip: 'ortak', d })
       }
       if (m.tip === 'kalp') kalpGeldi()
       if (m.tip === 'ay') ayRandevusu(true)
@@ -231,7 +231,7 @@ export function nabizKur(onKalp: () => void) {
 
   // Ortak durum değişince (yıldız seçildi, soru cevaplandı…) karşı taraf buradaysa hemen alsın
   window.addEventListener('ortak-yayin', (e) => {
-    if (cevrimici) void baglanti.gonder({ tip: 'ortak', d: (e as CustomEvent<unknown>).detail })
+    if (cevrimici) for (const d of ortakParcala((e as CustomEvent<Parameters<typeof ortakParcala>[0]>).detail)) void baglanti.gonder({ tip: 'ortak', d })
   })
 
   // Arda rüzgâra not bıraktıysa ve Eln şu an sitedeyse, onun sayfası notu hemen alsın

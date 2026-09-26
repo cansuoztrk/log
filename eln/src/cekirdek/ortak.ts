@@ -45,6 +45,28 @@ export function ortakBirlestir(gelen: unknown) {
   window.dispatchEvent(new CustomEvent('ortak-degisti', { detail: degisen }))
 }
 
+/**
+ * ntfy bir mesajda en fazla 4 KB kabul eder (fazlası dosyaya dönüşür). Durum büyürse
+ * anahtarları birkaç mesaja bölerek gönderiyoruz; alan taraf her birini ayrı birleştirir.
+ */
+export function ortakParcala(d: Durum, sinir = 3300): Durum[] {
+  const parcalar: Durum[] = []
+  let p: Durum = {}
+  let boy = 0
+  for (const [a, k] of Object.entries(d)) {
+    const b = new TextEncoder().encode(JSON.stringify({ [a]: k })).length
+    if (boy && boy + b > sinir) {
+      parcalar.push(p)
+      p = {}
+      boy = 0
+    }
+    p[a] = k
+    boy += b
+  }
+  if (boy) parcalar.push(p)
+  return parcalar
+}
+
 let yayinZaman = 0
 /** Kendi durumunu yayınlar (arka arkaya değişiklikler tek mesajda) */
 function yayinla(gecikme = 1500) {
@@ -55,7 +77,7 @@ function yayinla(gecikme = 1500) {
     window.dispatchEvent(new CustomEvent('ortak-yayin', { detail: d }))
     if (!ICERIK.ruzgarPostasi.ntfyKonu || onizleme) return
     try {
-      await fetch(`https://ntfy.sh/${encodeURIComponent(kanal())}`, { method: 'POST', body: JSON.stringify({ kim: kimim(), d }) })
+      for (const p of ortakParcala(d)) await fetch(`https://ntfy.sh/${encodeURIComponent(kanal())}`, { method: 'POST', body: JSON.stringify({ kim: kimim(), d: p }) })
       yaz('ortakYayin', Date.now())
     } catch {
       /* bir dahaki açılışta yine denenir */

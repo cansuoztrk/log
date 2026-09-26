@@ -25,4 +25,4 @@ export const PERDELER: Perde[] = [
  * Bu sürümle gelen bölümler: Eln daha önce siteye geldiyse menüde "yeni" diye işaretlenir,
  * görünce işaret kalkar. Yeni bölüm eklerken id'sini buraya yaz.
  */
-export const YENI_BOLUMLER = ['sebepler', 'kavanoz', 'parmak', 'evimiz', 'yildizimiz', 'hangimiz']
+export const YENI_BOLUMLER = ['sebepler', 'kavanoz', 'parmak', 'evimiz', 'yildizimiz', 'hangimiz', 'gezi']
