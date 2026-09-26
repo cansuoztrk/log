@@ -7,13 +7,33 @@ import { ayCiz } from '../cekirdek/ay-ciz'
 import { gsap, titret } from '../bolumler/yardimci'
 import { bildir } from './ust'
 import { banaHitap } from '../bolumler/ruzgar'
+import { ortakBirlestir, ortakHepsi } from '../cekirdek/ortak'
 
 /**
  * Aynı anda — ikiniz de sitedeyken birbirinizi görür, birbirinize kalp atışı gönderirsiniz.
  * ntfy.sh üzerinden çalışır (sunucu gerekmez). Kimlik: Arda siteyi bir kez ?ben=arda ile açar.
  */
 interface Mesaj {
-  tip: 'geldim' | 'buradayim' | 'gittim' | 'kalp' | 'ay' | 'opucuk' | 'tut' | 'birak' | 'not' | 'fisilti' | 'ses' | 'okundu' | 'yaziyor' | 'dokun'
+  tip:
+    | 'geldim'
+    | 'buradayim'
+    | 'gittim'
+    | 'kalp'
+    | 'ay'
+    | 'opucuk'
+    | 'tut'
+    | 'birak'
+    | 'not'
+    | 'fisilti'
+    | 'ses'
+    | 'okundu'
+    | 'yaziyor'
+    | 'dokun'
+    | 'ortak'
+    | 'dinle'
+    | 'dinle-an'
+    | 'dinle-dur'
+    | 'yildiz-bak'
   kim: Kim
   oturum: string
   [ek: string]: unknown
@@ -188,7 +208,11 @@ export function nabizKur(onKalp: () => void) {
       const yeniGeldi = Date.now() - sonGorulme > 7 * 60_000
       sonGorulme = Date.now()
       durumYaz()
-      if (m.tip === 'geldim' && yeniGeldi) void gonder('buradayim')
+      if (m.tip === 'geldim' && yeniGeldi) {
+        void gonder('buradayim')
+        // yeni geldiyse ortak durumumuzu hemen alsın
+        if (Object.keys(ortakHepsi()).length) void baglanti.gonder({ tip: 'ortak', d: ortakHepsi() })
+      }
       if (m.tip === 'kalp') kalpGeldi()
       if (m.tip === 'ay') ayRandevusu(true)
       if (m.tip === 'opucuk') opucukGeldi()
@@ -197,8 +221,18 @@ export function nabizKur(onKalp: () => void) {
       if (m.tip === 'birak') karsiKalp(false)
       // Parmak Uçları: karşının dokunduğu yer
       if (m.tip === 'dokun') window.dispatchEvent(new CustomEvent('dokunus-gelen', { detail: { x: m.x, y: m.y } }))
+      // İki cihazın ortak durumu (yıldızımız, "İkimizden hangisi?" cevapları)
+      if (m.tip === 'ortak') ortakBirlestir(m.d)
+      // Aynı saniyede: şarkı daveti / anlık konum / durdurma; yıldızımıza bakıyor
+      if (m.tip === 'dinle' || m.tip === 'dinle-an' || m.tip === 'dinle-dur') window.dispatchEvent(new CustomEvent('dinle-gelen', { detail: m }))
+      if (m.tip === 'yildiz-bak') window.dispatchEvent(new CustomEvent('yildiz-bak-gelen', { detail: m }))
     }
   }
+
+  // Ortak durum değişince (yıldız seçildi, soru cevaplandı…) karşı taraf buradaysa hemen alsın
+  window.addEventListener('ortak-yayin', (e) => {
+    if (cevrimici) void baglanti.gonder({ tip: 'ortak', d: (e as CustomEvent<unknown>).detail })
+  })
 
   // Arda rüzgâra not bıraktıysa ve Eln şu an sitedeyse, onun sayfası notu hemen alsın
   window.addEventListener('not-gonderildi', () => {

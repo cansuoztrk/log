@@ -12,6 +12,8 @@ import { gununSorusu, type GununNotu } from '../bolumler/ruzgar'
 import { $, gsap, ikon, kacir } from '../bolumler/yardimci'
 import { gelenAc, gelenler } from './gelenkutusu'
 import { fisiltiAc } from './fisilti'
+import { hangimizBekleyen } from '../bolumler/hangimiz'
+import { yildizBugun } from '../bolumler/yildizimiz'
 import { bekleyenSebep } from '../bolumler/sebepler'
 
 /**
@@ -114,6 +116,13 @@ function satirlar(z: Anlik, not: GununNotu, u: Arayuz): Satir[] {
     s.push({ simge: '❓', baslik: 'Günün sorusu', alt: gununSorusu(z), onem: 6, git: '#ruzgar' })
   const k = bugununKuponu(z.bugun)
   if (k && !k.kazindi) s.push({ simge: '🎟️', baslik: 'Bugünün kuponu kazınmayı bekliyor', alt: 'Buluşma cüzdanında.', onem: 6, git: '#cuzdan' })
+
+  // İkimizden hangisi? · yıldızımız
+  const h = hangimizBekleyen()
+  if (h.onunki) s.push({ simge: '🤔', baslik: `${eln ? ICERIK.ben.ad : ICERIK.sen.ad} ${h.onunki} soruyu cevapladı`, alt: 'Sen de cevapla, cevaplar açılsın.', onem: 6.5, git: '#hangimiz' })
+  else if (h.soru) s.push({ simge: '🤔', baslik: `“İkimizden hangisi?” ${h.soru} soru bekliyor`, alt: 'Kopya çekmek yok.', onem: 4, git: '#hangimiz' })
+  const y = yildizBugun()
+  if (y) s.push({ simge: '✨', ...y, git: '#yildizimiz' })
 
   // defter, dilek, sır
   const yazilan = oku<Record<string, unknown>>('ilkler', {})

@@ -198,6 +198,12 @@ export const SIRLAR: Sir[] = [
     mesaj: 'Sonuna kadar dinledin. Bir gün onu aynı odada, aynı anda dinleyeceğiz; o gün bitmesin diye başa saracağım.',
   },
   {
+    id: 'aynisaniye',
+    ad: 'Aynı saniye',
+    ipucu: 'İkimiz de sitedeyken şarkımızı birlikte dinle.',
+    mesaj: 'Aynı nota, aynı saniyede iki şehirde çaldı. Kulaklıkların arasında 1.758 km vardı; şarkı umursamadı.',
+  },
+  {
     id: 'byuzu',
     ad: 'B yüzü',
     ipucu: 'Şarkımızın plağını çevir.',
@@ -292,6 +298,18 @@ export const SIRLAR: Sir[] = [
     ad: 'Anahtar',
     ipucu: 'Bir gün bizim olacak evin her köşesini seç.',
     mesaj: 'Ev hazır. Kapının anahtarını ben getireceğim; sen sadece gel, çay demlenmiş olacak.',
+  },
+  {
+    id: 'yildizimiz',
+    ad: 'Aynı ışık',
+    ipucu: 'Yıldızımıza ikimiz aynı anda bakalım.',
+    mesaj: 'İki pencere, bir yıldız. O ışık yıllarca yol aldı; bizim aramızdaki yolu bir göz kırpmasında geçer. Uzak dediğimiz şey bu kadar işte.',
+  },
+  {
+    id: 'hangimiz',
+    ad: 'Oy birliği',
+    ipucu: '“İkimizden hangisi?” sorusunda aynı cevabı verin.',
+    mesaj: 'Birbirimizi görmeden aynı cevabı vermişiz. Birbirimizi bu kadar iyi tanıyorsak, gerisi kolay.',
   },
   {
     id: 'fener',
