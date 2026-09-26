@@ -2500,3 +2500,108 @@
   color: #2a1420;
   background: var(--safak);
 }
+
+/* İkimizin Yıldızı: "bakıyor" kartı (ay randevusunun kardeşi) */
+.iy-randevu-yildiz {
+  margin: 0 0 8px;
+  font-size: 64px;
+  line-height: 1;
+  color: #fff;
+  text-shadow: 0 0 24px rgba(205, 220, 255, 0.9), 0 0 80px rgba(205, 220, 255, 0.5);
+}
+.iy-randevu .satir {
+  max-width: 340px;
+}
+
+/* Birlikte dinle daveti: dönen küçük bir plak */
+.dinle-davet-plak {
+  position: relative;
+  width: min(170px, 44vw);
+  aspect-ratio: 1;
+  margin-bottom: 10px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle, transparent 0 31%, rgba(255, 255, 255, 0.05) 31.5% 32%, transparent 32.5%),
+    repeating-radial-gradient(circle, #0c0c0f 0 1.2px, #17171c 1.6px 2.6px),
+    #111;
+  box-shadow: 0 0 60px rgba(245, 159, 180, 0.35);
+  animation: plak 1.8s linear infinite;
+}
+.dinle-davet-plak i {
+  position: absolute;
+  inset: 34%;
+  border-radius: 50%;
+  background: radial-gradient(circle at 40% 35%, #f59fb4, #c9415c 70%);
+}
+.dinle-davet-plak.b i {
+  background: radial-gradient(circle at 40% 35%, #c3b2f5, #6b4fc4 70%);
+}
+.dinle-davet-dugmeler {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 6px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .dinle-davet-plak {
+    animation: none;
+  }
+}
+.dinle-davet,
+.iy-randevu {
+  background: radial-gradient(circle at 50% 38%, rgba(70, 45, 100, 0.72), rgba(3, 4, 10, 0.97) 68%);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+}
+
+/* ─── Kaldığın yerden devam ─── */
+.kaldigin {
+  position: fixed;
+  z-index: 140;
+  left: 50%;
+  bottom: calc(92px + env(safe-area-inset-bottom));
+  transform: translateX(-50%);
+  display: flex;
+  align-items: stretch;
+  max-width: calc(100vw - 32px);
+  border-radius: 999px;
+  background: rgba(18, 21, 44, 0.82);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(243, 196, 124, 0.35);
+  box-shadow: 0 20px 50px -20px rgba(0, 0, 0, 0.9), 0 0 30px -12px rgba(243, 196, 124, 0.5);
+}
+.kaldigin-git {
+  display: grid;
+  gap: 1px;
+  padding: 9px 8px 9px 20px;
+  text-align: left;
+  color: var(--krem);
+}
+.kaldigin-git small {
+  white-space: nowrap;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--altin);
+}
+.kaldigin-git b {
+  font-family: var(--serif);
+  font-size: 1.1rem;
+  font-weight: 400;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.kaldigin-git b::after {
+  content: '  ↓';
+  font-family: var(--sans);
+  font-size: 0.8em;
+  color: var(--altin);
+}
+.kaldigin-kapat {
+  padding: 0 16px 0 10px;
+  font-size: 20px;
+  color: var(--soluk);
+}

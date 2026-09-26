@@ -94,13 +94,18 @@ export const saatYazi = (an: Date, tz: string) => {
 }
 
 /** Türkçe ek: "İstanbul’a / İstanbul’da", "Bakü’ye / Bakü’de" */
-export function ek(s: string, tur: 'yonelme' | 'bulunma') {
+export function ek(s: string, tur: 'yonelme' | 'bulunma' | 'belirtme' | 'ilgi') {
   const unlu = 'aeıioöuü'
   const k = s.toLocaleLowerCase('tr-TR')
   const son = [...k].reverse().find((c) => unlu.includes(c)) ?? 'a'
   const kalin = 'aıou'.includes(son)
   const sonHarf = k.slice(-1)
-  if (tur === 'yonelme') return `${s}’${unlu.includes(sonHarf) ? 'y' : ''}${kalin ? 'a' : 'e'}`
+  const unluyle = unlu.includes(sonHarf)
+  if (tur === 'yonelme') return `${s}’${unluyle ? 'y' : ''}${kalin ? 'a' : 'e'}`
+  // "Arda’yı / Eln’i", "Arda’nın / Eln’in" (dar ünlü uyumu)
+  const dar = { a: 'ı', ı: 'ı', o: 'u', u: 'u', e: 'i', i: 'i', ö: 'ü', ü: 'ü' }[son] ?? 'ı'
+  if (tur === 'belirtme') return `${s}’${unluyle ? 'y' : ''}${dar}`
+  if (tur === 'ilgi') return `${s}’${unluyle ? 'n' : ''}${dar}n`
   return `${s}’${'çfhkpsşt'.includes(sonHarf) ? 't' : 'd'}${kalin ? 'a' : 'e'}`
 }
 

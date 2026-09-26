@@ -6,7 +6,9 @@ export interface YTOynatici {
   playVideo(): void
   pauseVideo(): void
   cueVideoById(id: string): void
-  loadVideoById(id: string): void
+  loadVideoById(id: string | { videoId: string; startSeconds?: number }): void
+  seekTo(saniye: number, ileriYukle: boolean): void
+  getCurrentTime(): number
   getPlayerState(): number
 }
 

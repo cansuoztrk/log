@@ -18,7 +18,7 @@ import './stil/bolumler.css'
 
 import Lenis from 'lenis'
 import { anlik } from './cekirdek/zaman'
-import { ziyaretKaydet } from './cekirdek/depo'
+import { oku, ziyaretKaydet } from './cekirdek/depo'
 import { ses, type Ruh } from './cekirdek/ses'
 import { Sahne, webglVarMi } from './gl/sahne'
 import { Kure } from './gl/kure'
@@ -56,6 +56,9 @@ import { sebeplerHTML, sebeplerKur } from './bolumler/sebepler'
 import { kavanozHTML, kavanozKur } from './bolumler/kavanoz'
 import { parmakHTML, parmakKur } from './bolumler/parmak'
 import { evimizHTML, evimizKur } from './bolumler/evimiz'
+import { yildizimizHTML, yildizimizKur } from './bolumler/yildizimiz'
+import { hangimizHTML, hangimizKur } from './bolumler/hangimiz'
+import { ortakKur } from './cekirdek/ortak'
 import { $, $$, azHareket, gsap, ScrollTrigger } from './bolumler/yardimci'
 import { kapiAc } from './ui/kapi'
 import { ustKur } from './ui/ust'
@@ -69,7 +72,7 @@ import { gelenKutusuKur } from './ui/gelenkutusu'
 import { fisiltiKur } from './ui/fisilti'
 import { bugunKur } from './ui/bugun'
 import { yilDonumuKur } from './ui/yildonumu'
-import { bolumGoruldu, perdeleriCanlandir, perdeleriYerlestir } from './ui/perde'
+import { bolumGoruldu, kaldiginYer, perdeleriCanlandir, perdeleriYerlestir } from './ui/perde'
 
 if ('scrollRestoration' in history) history.scrollRestoration = 'manual'
 window.scrollTo(0, 0)
@@ -91,6 +94,7 @@ $('#icerik').innerHTML = [
   sebeplerHTML(),
   zambakHTML(z),
   ilklerHTML(z),
+  hangimizHTML(),
   gozundenHTML(),
   karelerHTML(),
   kulelerHTML(z),
@@ -101,6 +105,7 @@ $('#icerik').innerHTML = [
   narHTML(z),
   simdiHTML(),
   gokyuzuHTML(),
+  yildizimizHTML(),
   ruzgarHTML(z, not),
   izlerHTML(),
   sifirHTML(),
@@ -119,6 +124,8 @@ $('#icerik').innerHTML = [
 
 // Film gibi perdeler: her perdenin ilk bölümünün önüne geçiş kartı
 perdeleriYerlestir()
+// en son nerede kalmıştı (bölüm tetikleyicileri bunu birazdan günceller)
+const kaldigi = ziyaret.toplam > 1 ? oku<string | null>('sonBolum', null) : null
 
 // Bölüm numaraları sırayla, otomatik (bir bölüm eklenip çıkınca kendiliğinden kayar)
 const ROMA: [number, string][] = [[10, 'X'], [9, 'IX'], [5, 'V'], [4, 'IV'], [1, 'I']]
@@ -174,6 +181,7 @@ gunlerKur(z)
 sebeplerKur(z)
 zambakKur(z)
 ilklerKur(z)
+hangimizKur()
 gozundenKur()
 kulelerKur(al<Kuleler>('kule'))
 cayKur(al<Cay>('cay'))
@@ -184,6 +192,7 @@ tahtaKur()
 narKur(z)
 simdiKur()
 gokyuzuKur()
+yildizimizKur()
 ruzgarKur(z, not, ust.notlarAc)
 izlerKur()
 sifirKur()
@@ -199,6 +208,8 @@ zarflarKur(z.bugun)
 fenerKur()
 finalKur(al<Yildizlar>('final'), z)
 perdeleriCanlandir()
+// iki telefonun ortak durumu (yıldızımız, İkimizden hangisi?): öbürünün son kaydını al
+void ortakKur()
 
 // Bölüm görünür oldukça: doğru 3D sahne + doğru ses dokusu
 // (perde kartları da: kart ekrandayken 3D sahne kapanır, arkada önceki bölüm kalmaz)
@@ -239,6 +250,7 @@ const basla = () => {
     uygulamaKur(ziyaret)
     gelenKutusuKur()
     bugunKur(z, not, ust)
+    kaldiginYer(kaldigi, ust.git)
   }
   // yıl dönümü sabahı: önce o ekran, kapanınca karşılama bildirimleri
   if (!yilDonumuKur(z, (n) => mevsim.kutla(n), () => window.setTimeout(devam, 800))) window.setTimeout(devam, 1400)
