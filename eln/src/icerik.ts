@@ -101,6 +101,14 @@ export const ICERIK = {
     youtubeIdleri: ['HBRjG94whmM', 'bpMRUwYpNkM', 'Zqajhs7-eYI'] as string[],
     spotify: 'https://open.spotify.com/track/62oT4VA3q0kY41afX7mO0a',
     youtube: 'https://www.youtube.com/watch?v=HBRjG94whmM',
+    /** Plağın B yüzü: "Plağı çevir" deyince bu çalar (resmî YouTube kaydından; dosya barındırılmaz) */
+    bYuzu: {
+      baslik: 'denedim senin tarifini',
+      sanatci: 'Naska',
+      youtubeIdleri: ['3gXPiTd6yro'] as string[],
+      youtube: 'https://www.youtube.com/watch?v=3gXPiTd6yro',
+      not: 'Her plağın bir B yüzü vardır: radyoda çalmaz, kimse ezbere bilmez; yalnızca plağı çevirmeyi akıl eden bulur. Bu şarkıyı ben çok sevdim. Sana yalnızca A yüzünü değil, en gizli sevdiğimi de vermek istedim.',
+    } as { baslik: string; sanatci: string; youtubeIdleri: string[]; youtube: string; not: string } | null,
   },
 
   /** Sitenin en sonundaki jenerikte çalan şarkı (resmî YouTube kaydından çalar; dosya barındırılmaz) */

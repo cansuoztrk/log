@@ -198,6 +198,12 @@ export const SIRLAR: Sir[] = [
     mesaj: 'Sonuna kadar dinledin. Bir gün onu aynı odada, aynı anda dinleyeceğiz; o gün bitmesin diye başa saracağım.',
   },
   {
+    id: 'byuzu',
+    ad: 'B yüzü',
+    ipucu: 'Şarkımızın plağını çevir.',
+    mesaj: 'Plağı çevirdin. Radyoda çalmayan, yalnızca merak edenin bulduğu şarkı. Senin de herkesin bilmediği bir yüzün var; ben en çok onu seviyorum.',
+  },
+  {
     id: 'fisilti',
     ad: 'İlk fısıltı',
     ipucu: 'İkimiz aynı anda buradayken bana fısılda.',
@@ -274,6 +280,18 @@ export const SIRLAR: Sir[] = [
     ad: 'Sabırsız',
     ipucu: 'Sarılma kavanozunu beş kez salla.',
     mesaj: 'Salladın, salladın… Sarılmalar yerinden oynamadı; hepsi bekliyor. Hiçbiri kaybolmayacak, söz.',
+  },
+  {
+    id: 'parmak',
+    ad: 'Değdi',
+    ipucu: 'İkimiz de buradayken Parmak Uçları’nda aynı yere aynı anda dokunun.',
+    mesaj: 'Bir an, aynı noktaya, aynı anda. Ekranın iki tarafında iki parmak. Bir gün aradaki cam da kalkacak.',
+  },
+  {
+    id: 'evimiz',
+    ad: 'Anahtar',
+    ipucu: 'Bir gün bizim olacak evin her köşesini seç.',
+    mesaj: 'Ev hazır. Kapının anahtarını ben getireceğim; sen sadece gel, çay demlenmiş olacak.',
   },
   {
     id: 'fener',

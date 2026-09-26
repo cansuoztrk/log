@@ -29,6 +29,12 @@ Site, ikinizin hikâyesindeki **gerçek ve şaşırtıcı tesadüfler** üzerine
 
 ## Bölümler
 
+**Altı perde:** site bir film gibi altı perdeye ayrılır: **I. Tanışma**, **II. Biz**, **III. İki Şehir**,
+**IV. Aradaki Yol**, **V. Bir Gün**, **VI. Kalp**. Her perde tam ekran bir geçiş kartıyla açılır (perdenin adı harf harf
+belirir, altında bir cümle ve kaç bölüm olduğu). Menü de perdelere göre dizilir: görülen bölümlerin yanında bir nokta,
+yeni gelenlerin yanında **“yeni”** yazar, üstte “X/Y gördün” sayacı durur. Perdeler `src/perdeler.ts` içinde; yeni bölüm
+eklerken id’sini `YENI_BOLUMLER`e yazmak yeter.
+
 1. **Önce Sana Doğar**: 3D dünya küresi, gerçek güneş konumuyla gün doğumu
 2. **Aynı Çizgi**: enlem kurdelesi, mesafe/ışık/saat farkı, “sana yürüyorum” (her ziyaret günü +21 km)
 3. **Bir Nehir**: 6 Aralık, grup bildirimi, Hazar’dan Boğaz’a ışık nehri
@@ -75,30 +81,40 @@ Site, ikinizin hikâyesindeki **gerçek ve şaşırtıcı tesadüfler** üzerine
     (ya da iki parmakla ikisini birden) öbürüne doğru çektikçe kilometre azalır, her 150 km’de telefon titrer.
     Erken bırakırsa ışık yerine döner (“Henüz değil. Ama her gün biraz daha.”); sonuna kadar getirirse
     iki ışık tek kalp olur: **0 km**
-22. **İlk Buluşma**: kalkış panosu, birlikte yapılacaklar listesi
+22. **Parmak Uçları**: karanlık bir cam. İkiniz de sitedeyken biriniz dokununca parmağı öbürünün ekranında **tam aynı
+    yerde** parlar (senin ışığın pembe, onunki altın, üstünde adıyla). Aynı yere aynı anda dokunursanız iki ekranda birden
+    bir kalp açılır: “Değdi. 1.758 km’den.” Kaç kez değdiğiniz altta sayılır. Yalnızca dokunuşlar gönderilir
+    (saniyede en fazla ~3, oturum başına 120), ntfy’nin günlük sınırı korunsun diye
 23. **Sarılma Kavanozu**: “biz” olduğunuzdan beri ayrı geçen her gün için bir kalp. Kalpler gerçek fizikle cam bir
     kavanozda birikir; bugünkü kalp bölüme ilk gelişte kapaktan düşer, dokununca kavanoz sallanır. `ilkBulusma` tarihi
     gelince borç “ödendi” olur
-24. **Buluşma Cüzdanı**: her yeni ziyaret gününde parmakla **kazınan bir kupon** (34 kupon).
+24. **İlk Buluşma**: kalkış panosu, birlikte yapılacaklar listesi
+25. **Buluşma Cüzdanı**: her yeni ziyaret gününde parmakla **kazınan bir kupon** (34 kupon).
     “Hemen geçerli” olanlar (sesli arama, bir şarkı isteği, “bok gibi gün” iptali, ilk görüntülü aramamız…)
     “Kullan”a basılınca telefonuna düşer. “İlk buluşmada geçerli” olanlar (havalimanı sarılması, ilk çay,
     pembe zambaklar…) `ilkBulusma` tarihi gelince açılır
-25. **Şarkımız**: “Anılar”, plak ve pikap. **Şarkı sitenin içinde çalar**: “Çal”a basınca YouTube’un resmî
+26. **Bir Gün Bizim Evimiz**: izometrik bir oda, kodla çizilmiş. Eln evi parça parça seçer: duvar rengi, pencereden
+    görünen (Boğaz, Hazar ya da yarısı bir yarısı öbürü), perde, balkondaki çiçek, masadaki çay bardakları (ince belli /
+    armudu), pikapta dönen plak, duvardaki çerçeve, evin dostu, ışık. Oda her seçimde değişir; her seçimin altında senden
+    bir not çıkar. Hepsi seçilince evin özeti sana bildirim olarak gelir; sonradan değiştirirse yine haber verir
+27. **Şarkımız**: “Anılar”, plak ve pikap. **Şarkı sitenin içinde çalar**: “Çal”a basınca YouTube’un resmî
     gömülü oynatıcısı açılır, plak döner, sitenin kendi müziği susar; bitince geri gelir. Kayıtlar sırayla denenir
     (`sarki.youtubeIdleri`); biri gömülmeye kapalıysa sıradakine geçilir, hiçbiri açılmazsa Spotify’daki şarkıya
-    yönlendirir. Menüdeki ve bölümdeki Spotify bağlantısı artık doğrudan şarkıyı açar
-26. **Mektup**: el yazısıyla mektup (+ isteğe bağlı sesli mesaj)
-27. 🔒 **Yıldızladıkların**: Eln’in yıldızladığı ve ekran görüntüsünü alıp sakladığı mesajlar, düzgünce yeniden
+    yönlendirir. Menüdeki ve bölümdeki Spotify bağlantısı artık doğrudan şarkıyı açar.
+    **Plağın B yüzü:** “Plağı çevir” deyince plak havada döner, etiketi mora çalar ve Naska’nın “denedim senin tarifini”
+    şarkısı hazırlanır (yine resmî YouTube kaydından); altında senden kısa bir not açılır
+28. **Mektup**: el yazısıyla mektup (+ isteğe bağlı sesli mesaj)
+29. 🔒 **Yıldızladıkların**: Eln’in yıldızladığı ve ekran görüntüsünü alıp sakladığı mesajlar, düzgünce yeniden
     yazılmış hâliyle. Gökyüzünde kalp biçiminde bir takımyıldız; her yıldız bir mesaj, okundukça çizgiler birleşir
-28. **… Olduğunda Aç**: önce **“Bugün nasılsın?”** (İyiyim, Özledim, Bok gibi, Uyuyamıyorum…). Seçtiği ruh
+30. **… Olduğunda Aç**: önce **“Bugün nasılsın?”** (İyiyim, Özledim, Bok gibi, Uyuyamıyorum…). Seçtiği ruh
     hâline uygun mektup açılır ve sana “Eln seni özlemiş 🥺, şimdi yaz” gibi bir bildirim gelir.
     Altında duygu mektupları, kendi gününü bekleyen kilitli mektuplar ve **“Geleceği merak ettiğinde aç”**:
     21 Mayıs 2036’dan, on yıl sonraki Arda’dan gelen bir mektup (balkondaki zambaklar, çay bardakları,
     havalimanında ayağına basman, “Korkma. Hepsi olacak.”)
-29. **Dilek Feneri**: Eln bir dilek yazıp kâğıt feneri bırakır; fener gece gökyüzünde yükselip bir yıldıza
+31. **Dilek Feneri**: Eln bir dilek yazıp kâğıt feneri bırakır; fener gece gökyüzünde yükselip bir yıldıza
     dönüşür ve orada kalır. Dilek **yalnızca onun telefonunda** saklanır; sana sadece “Eln bir dilek feneri
     uçurdu 🏮” bildirimi gelir. Yıldıza dokununca o gün ne dilediğini yeniden okur
-30. **Kalbim**: kalbe basılı tut; yıldızlar “Səni sevirəm” yazar, sonra kalp olur. İkiniz aynı anda sitedeyken
+32. **Kalbim**: kalbe basılı tut; yıldızlar “Səni sevirəm” yazar, sonra kalp olur. İkiniz aynı anda sitedeyken
     **ikiniz birden** dokunursanız kalp iki kat hızlı dolar (“İki kalp, aynı anda”).
     En sonda **“Bizim hikâyemiz”** (aşağıya bak), **“Öptüm”** düğmesi (senin telefonuna bildirim olarak düşer)
     ve **kilit ekranı duvar kâğıdı**
@@ -158,7 +174,7 @@ ekranda ayın o geceki gerçek evresi nefes alıp verir (4 saniye al, 6 saniye v
   basınca ikinizin ekranında “Şimdi pencereden aya bak” açılır
 - Kilitli mektuplar kendi günleri geldikçe açılır; o güne kadar kaç gün kaldığını söyler
 - Her yeni gün yeni bir **kupon** kazınır, yeni bir **soru** gelir
-- **47 sır** (sağ üstteki ✦). Bazıları dokunarak, bazıları sadece belli bir anda bulunur:
+- **50 sır** (sağ üstteki ✦). Bazıları dokunarak, bazıları sadece belli bir anda bulunur:
   aya 3 kez dokunmak, saat **21:05**’te bakmak, gece yarısından sonra gelmek, ayın 21’inde/6’sında gelmek,
   dolunayda gelmek, iki bardağı art arda çınlatmak, bardağına iki şeker atmak, rüzgâra boş mektup bırakmak,
   kayan yıldızı yakalamak, 10 farklı gün gelmek, üstteki iki harfe 5 kez dokunmak (☺️ yağmuru),
@@ -169,7 +185,8 @@ ekranda ayın o geceki gerçek evresi nefes alıp verir (4 saniye al, 6 saniye v
   ilk fısıltıyı göndermek, iki ışığı 0 km’ye getirmek, ilklerimiz defterine yazmak, ilk dilek fenerini
   uçurmak, albümü açmak, bütün konuşmaları izlemek, takımyıldızı tamamlamak, bütün fotoğraflara bakmak,
   sesli mesajı sonuna kadar dinlemek, yıl dönümü ekranını sonuna kadar izlemek, ilk çizimi göndermek,
-  jeneriği sonuna kadar izlemek, ilk sebebi okumak, sarılma kavanozunu sallamak…
+  jeneriği sonuna kadar izlemek, ilk sebebi okumak, sarılma kavanozunu sallamak, parmak uçlarınızın değmesi,
+  evin her köşesini seçmek, plağı çevirmek…
   (Eln’e söyleme 🙂)
 - Onun ekranında sen, onun sana taktığı adlarla görünürsün: “Posi şu an burada”, “Mosi: öptüm”…
 
