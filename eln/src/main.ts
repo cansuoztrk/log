@@ -52,6 +52,10 @@ import { gozundenHTML, gozundenKur } from './bolumler/gozunden'
 import { yildizladiklarinHTML, yildizladiklarinKur } from './bolumler/yildizladiklarin'
 import { izlerHTML, izlerKur } from './bolumler/izler'
 import { tahtaHTML, tahtaKur } from './bolumler/tahta'
+import { sebeplerHTML, sebeplerKur } from './bolumler/sebepler'
+import { kavanozHTML, kavanozKur } from './bolumler/kavanoz'
+import { parmakHTML, parmakKur } from './bolumler/parmak'
+import { evimizHTML, evimizKur } from './bolumler/evimiz'
 import { $, $$, azHareket, gsap, ScrollTrigger } from './bolumler/yardimci'
 import { kapiAc } from './ui/kapi'
 import { ustKur } from './ui/ust'
@@ -65,6 +69,7 @@ import { gelenKutusuKur } from './ui/gelenkutusu'
 import { fisiltiKur } from './ui/fisilti'
 import { bugunKur } from './ui/bugun'
 import { yilDonumuKur } from './ui/yildonumu'
+import { bolumGoruldu, perdeleriCanlandir, perdeleriYerlestir } from './ui/perde'
 
 if ('scrollRestoration' in history) history.scrollRestoration = 'manual'
 window.scrollTo(0, 0)
@@ -83,6 +88,7 @@ $('#icerik').innerHTML = [
   nehirHTML(),
   mesajlarHTML(),
   gunlerHTML(z),
+  sebeplerHTML(),
   zambakHTML(z),
   ilklerHTML(z),
   gozundenHTML(),
@@ -98,8 +104,11 @@ $('#icerik').innerHTML = [
   ruzgarHTML(z, not),
   izlerHTML(),
   sifirHTML(),
+  parmakHTML(),
+  kavanozHTML(z),
   ucusHTML(z),
   cuzdanHTML(z),
+  evimizHTML(),
   sarkiHTML(),
   mektupHTML(z),
   yildizladiklarinHTML(),
@@ -107,6 +116,9 @@ $('#icerik').innerHTML = [
   fenerHTML(),
   finalHTML(ziyaret),
 ].join('')
+
+// Film gibi perdeler: her perdenin ilk bölümünün önüne geçiş kartı
+perdeleriYerlestir()
 
 // Bölüm numaraları sırayla, otomatik (bir bölüm eklenip çıkınca kendiliğinden kayar)
 const ROMA: [number, string][] = [[10, 'X'], [9, 'IX'], [5, 'V'], [4, 'IV'], [1, 'I']]
@@ -159,6 +171,7 @@ acilisKur(kure, ziyaret.gunler.length)
 nehirKur()
 mesajlarKur()
 gunlerKur(z)
+sebeplerKur(z)
 zambakKur(z)
 ilklerKur(z)
 gozundenKur()
@@ -174,23 +187,29 @@ gokyuzuKur()
 ruzgarKur(z, not, ust.notlarAc)
 izlerKur()
 sifirKur()
+parmakKur()
 ucusKur()
+kavanozKur(z)
 cuzdanKur(z, ust.cekmece)
+evimizKur()
 sarkiKur()
 mektupKur()
 yildizladiklarinKur()
 zarflarKur(z.bugun)
 fenerKur()
 finalKur(al<Yildizlar>('final'), z)
+perdeleriCanlandir()
 
 // Bölüm görünür oldukça: doğru 3D sahne + doğru ses dokusu
-for (const b of $$('[data-bolum]')) {
+// (perde kartları da: kart ekrandayken 3D sahne kapanır, arkada önceki bölüm kalmaz)
+for (const b of $$('[data-bolum], .perde-kart')) {
   ScrollTrigger.create({
     trigger: b,
     start: 'top 55%',
     end: 'bottom 45%',
     onToggle: (s) => {
       if (!s.isActive) return
+      if (b.dataset.bolum !== undefined) bolumGoruldu(b.id)
       sahne?.goster(b.dataset.gl || null)
       ses.ruh((b.dataset.ruh as Ruh) || 'sakin')
       mevsim.silik(b.dataset.gl && b.dataset.gl !== 'kure' ? 0.35 : 1)

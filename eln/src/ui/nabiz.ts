@@ -13,7 +13,7 @@ import { banaHitap } from '../bolumler/ruzgar'
  * ntfy.sh üzerinden çalışır (sunucu gerekmez). Kimlik: Arda siteyi bir kez ?ben=arda ile açar.
  */
 interface Mesaj {
-  tip: 'geldim' | 'buradayim' | 'gittim' | 'kalp' | 'ay' | 'opucuk' | 'tut' | 'birak' | 'not' | 'fisilti' | 'ses' | 'okundu' | 'yaziyor'
+  tip: 'geldim' | 'buradayim' | 'gittim' | 'kalp' | 'ay' | 'opucuk' | 'tut' | 'birak' | 'not' | 'fisilti' | 'ses' | 'okundu' | 'yaziyor' | 'dokun'
   kim: Kim
   oturum: string
   [ek: string]: unknown
@@ -195,6 +195,8 @@ export function nabizKur(onKalp: () => void) {
       if (m.tip === 'tut') karsiKalp(true)
       if (m.tip === 'not') window.dispatchEvent(new Event('gelen-kontrol'))
       if (m.tip === 'birak') karsiKalp(false)
+      // Parmak Uçları: karşının dokunduğu yer
+      if (m.tip === 'dokun') window.dispatchEvent(new CustomEvent('dokunus-gelen', { detail: { x: m.x, y: m.y } }))
     }
   }
 

@@ -1,4 +1,6 @@
 import type Lenis from 'lenis'
+import { PERDELER, YENI_BOLUMLER } from '../perdeler'
+import { gorulenler, perdeHaritasi } from './perde'
 import { ICERIK } from '../icerik'
 import { ses } from '../cekirdek/ses'
 import { bulunanlar, SIRLAR, sirBul, sirDinle } from '../cekirdek/sirlar'
@@ -119,12 +121,26 @@ export function ustKur(z: Anlik, lenis: Lenis | null) {
   })
 
   // menü
-  const bolumler = $$('[data-bolum]')
+  // perdelere göre gruplanmış bölümler; görülenler ve bu sürümle gelenler işaretli
+  const gorulen = gorulenler()
+  const isaret = (id: string) =>
+    YENI_BOLUMLER.includes(id) && !gorulen.has(id) ? '<i class="mp-yeni">yeni</i>' : `<i class="mp-nokta${gorulen.has(id) ? ' goruldu' : ''}" aria-hidden="true"></i>`
+  let sira = 0
   menu.innerHTML = /* html */ `
-    <p class="etiket">Bölümler</p>
-    <ol class="menu-liste">
-      ${bolumler.map((b, i) => `<li style="transition-delay:${0.04 * i}s"><a href="#${b.id}"><span>${b.dataset.bolum}</span>${b.dataset.ad}</a></li>`).join('')}
-    </ol>
+    <p class="etiket">Bölümler <small class="mp-toplam"></small></p>
+    <div class="menu-perdeler">
+      ${perdeHaritasi()
+        .filter((g) => g.bolumler.length)
+        .map(
+          (g, i) => `<div class="menu-perde">
+            <a class="mp-bas" href="#${g.perde ? `perde-${PERDELER.indexOf(g.perde) + 1}` : 'acilis'}"><span>${g.perde ? `${g.perde.no}. Perde` : 'Açılış'}</span><b>${g.perde?.ad ?? 'Önce Sana Doğar'}</b><small data-grup="${i}"></small></a>
+            <ol class="menu-liste">${g.bolumler
+              .map((b) => `<li style="transition-delay:${0.025 * sira++}s"><a href="#${b.id}" data-id="${b.id}"><span>${b.dataset.bolum}</span>${b.dataset.ad}${isaret(b.id)}</a></li>`)
+              .join('')}</ol>
+          </div>`,
+        )
+        .join('')}
+    </div>
     <div class="menu-alt">
       <span>Tanışmamızın <b>${sayi(z.gunNo)}.</b> günü · birlikte <b>${sayi(z.sevgiliGun)}</b> gün</span>
       <span class="menu-dugmeler">
@@ -134,6 +150,23 @@ export function ustKur(z: Anlik, lenis: Lenis | null) {
         ${sarki.spotify || sarki.youtube ? `<a class="dugme hayalet" href="${sarki.spotify || sarki.youtube}" target="_blank" rel="noopener">${ikon('muzik')}<span>${sarki.baslik || 'Şarkımız'}${sarki.sanatci ? ` · ${sarki.sanatci}` : ''}</span></a>` : ''}
       </span>
     </div>`
+  const sayaclar = () => {
+    const g = gorulenler()
+    const gruplar = perdeHaritasi().filter((x) => x.bolumler.length)
+    gruplar.forEach((x, i) => {
+      const el = menu.querySelector(`[data-grup="${i}"]`)
+      if (el) el.textContent = `${x.bolumler.filter((b) => g.has(b.id)).length}/${x.bolumler.length}`
+    })
+    const hepsi = gruplar.flatMap((x) => x.bolumler)
+    $('.mp-toplam', menu).textContent = `· ${hepsi.filter((b) => g.has(b.id)).length}/${hepsi.length} gördün`
+  }
+  sayaclar()
+  window.addEventListener('bolum-goruldu', (e) => {
+    const id = (e as CustomEvent<string>).detail
+    const i = menu.querySelector(`a[data-id="${id}"] i`)
+    if (i) i.outerHTML = '<i class="mp-nokta goruldu" aria-hidden="true"></i>'
+    sayaclar()
+  })
   const menuD = $('.menu-dugme', ust)
   const menuAc = (ac: boolean) => {
     menu.classList.toggle('acik', ac)
