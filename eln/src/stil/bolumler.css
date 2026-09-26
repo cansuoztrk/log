@@ -4177,3 +4177,179 @@ body.modal-acik {
   border-radius: 8px;
   border: 3px solid #f4b400;
 }
+
+/* ═══ SENİ SEVMEMİN SEBEPLERİ ═════════════════════════════════════════════ */
+.sb {
+  display: grid;
+  justify-items: center;
+  gap: 16px;
+}
+.sb-sahne {
+  width: min(360px, 100%);
+  perspective: 1400px;
+}
+.sb-kart {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  cursor: pointer;
+  transform-style: preserve-3d;
+  transition: transform 1.1s var(--yavas);
+  outline: none;
+}
+.sb-kart.cevrildi {
+  transform: rotateY(180deg);
+  cursor: default;
+}
+.sb-kart.anlik {
+  transition: none;
+}
+.sb-yuz {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  border-radius: 22px;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  box-shadow: 0 40px 80px -36px rgba(0, 0, 0, 0.95);
+}
+.sb-on {
+  align-content: space-between;
+  justify-items: center;
+  padding: 28px 22px;
+  color: #ffe7ec;
+  text-align: center;
+  background:
+    radial-gradient(circle at 50% 42%, rgba(255, 255, 255, 0.16), transparent 45%),
+    repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.05) 0 12px, transparent 12px 24px),
+    linear-gradient(160deg, #b8325a, #7a1838 70%, #5a0f2a);
+  border: 1px solid rgba(255, 201, 213, 0.35);
+}
+.sb-kart:focus-visible .sb-on {
+  outline: 2px solid var(--altin);
+  outline-offset: 4px;
+}
+.sb-no {
+  font-family: var(--serif);
+  font-size: 4.2rem;
+  line-height: 1;
+  font-variant-numeric: lining-nums;
+}
+.sb-ne {
+  font-family: var(--kaligrafi);
+  font-size: 2rem;
+  line-height: 1.1;
+  color: #ffd6df;
+}
+.sb-dokun {
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255, 231, 236, 0.7);
+  animation: nefes 2.2s ease-in-out infinite;
+}
+.sb-arka {
+  align-content: center;
+  gap: 14px;
+  padding: 30px 26px;
+  transform: rotateY(180deg);
+  color: #2a1a14;
+  background:
+    repeating-linear-gradient(180deg, transparent 0 33px, rgba(80, 110, 170, 0.14) 33px 34px),
+    linear-gradient(175deg, #fbf6ea, #f0e6d2);
+}
+.sb-arka small {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: #9a4260;
+}
+.sb-arka p {
+  margin: 0;
+  font-size: 1.6rem;
+  line-height: 1.3;
+  color: #2c3f7a;
+}
+.sb-imza {
+  justify-self: end;
+  font-family: var(--el);
+  font-size: 1.15rem;
+  color: #9a4260;
+}
+.sb-durum {
+  min-height: 1.3em;
+  margin: 0;
+  max-width: 360px;
+  text-align: center;
+  font-size: 14px;
+  color: var(--krem-2);
+}
+.sb-gecmis {
+  width: min(560px, 100%);
+  padding: 12px 16px;
+  border-radius: 16px;
+  background: rgba(247, 237, 224, 0.04);
+  border: 1px solid var(--cizgi);
+}
+.sb-gecmis summary {
+  cursor: pointer;
+  font-size: 13px;
+  color: var(--krem-2);
+}
+.sb-gecmis summary b {
+  color: var(--gul-2);
+  font-weight: 500;
+}
+.sb-gecmis ol {
+  margin: 12px 0 0;
+  padding-left: 26px;
+  max-height: 50vh;
+  overflow-y: auto;
+}
+.sb-gecmis li {
+  margin: 0 0 10px;
+  color: var(--soluk);
+  font-variant-numeric: lining-nums;
+}
+.sb-gecmis li p {
+  margin: 0;
+  font-family: var(--el);
+  font-size: 1.25rem;
+  line-height: 1.25;
+  color: var(--krem);
+}
+
+/* ═══ SARILMA KAVANOZU ════════════════════════════════════════════════════ */
+.kavanoz {
+  display: grid;
+  justify-items: center;
+  gap: 6px;
+  margin-top: clamp(24px, 4vh, 40px);
+}
+.kavanoz-tuval {
+  display: block;
+  width: min(340px, 86vw);
+  aspect-ratio: 4 / 5;
+  cursor: pointer;
+  touch-action: manipulation;
+  filter: drop-shadow(0 30px 40px rgba(0, 0, 0, 0.55));
+}
+.kavanoz-sayi {
+  margin: 4px 0 0;
+  font-size: 15px;
+  color: var(--krem-2);
+  font-variant-numeric: lining-nums;
+}
+.kavanoz-sayi b {
+  font-family: var(--serif);
+  font-size: 2rem;
+  font-weight: 500;
+  color: var(--gul-2);
+}
+.kavanoz-alt {
+  margin: 0;
+  max-width: 360px;
+  text-align: center;
+  font-size: 1.35rem;
+  line-height: 1.2;
+  color: var(--gul-2);
+}

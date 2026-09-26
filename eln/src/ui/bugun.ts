@@ -6,11 +6,13 @@ import { ses } from '../cekirdek/ses'
 import { SIRLAR, bulunanlar } from '../cekirdek/sirlar'
 import { kimim } from '../cekirdek/posta'
 import { albumAcik, albumIcerik } from '../cekirdek/album'
-import { type Anlik, gunEkle, gunFarki, sayi, tarihYazi } from '../cekirdek/zaman'
+import { type Anlik, gunEkle, gunFarki, isoGun, sayi, tarihYazi, yerel } from '../cekirdek/zaman'
 import { bugununKuponu } from '../bolumler/cuzdan'
 import { gununSorusu, type GununNotu } from '../bolumler/ruzgar'
 import { $, gsap, ikon, kacir } from '../bolumler/yardimci'
 import { gelenAc, gelenler } from './gelenkutusu'
+import { fisiltiAc } from './fisilti'
+import { bekleyenSebep } from '../bolumler/sebepler'
 
 /**
  * BUGÜN SENİ BEKLEYENLER — site her gün biraz değişiyor; bu kart o gün neyin yeni olduğunu,
@@ -31,9 +33,53 @@ interface Arayuz {
   sirlarAc: () => void
 }
 
+/**
+ * GEÇMİŞTEN — site Eln'in kendi sözlerini hatırlar: bir dileği, bir cevabı, bir fısıltısı.
+ * "Bir ay önce bugün" / "tam üç hafta önce" olanlar öne çıkar; yoksa her gün başka biri.
+ */
+function gecmisten(z: Anlik): Satir | null {
+  interface Ani {
+    tarih: string
+    metin: string
+    git?: string
+    tik?: () => void
+  }
+  const kisalt = (m: string) => (m.length > 150 ? `${m.slice(0, 147)}…` : m)
+  const adaylar: Ani[] = []
+  for (const f of oku<{ t?: string; d?: string }[]>('fenerler', []))
+    if (f.t && f.d) adaylar.push({ tarih: f.t, metin: `“${kisalt(f.d)}” diye dilemiştin. Dileğin hâlâ gökyüzünde.`, git: '#fener' })
+  for (const c of oku<{ tarih: string; soru: string; cevap: string }[]>('cevaplar', []))
+    adaylar.push({ tarih: c.tarih, metin: `“${kisalt(c.soru)}” sorusuna şöyle cevap vermiştin: “${kisalt(c.cevap)}”`, git: '#ruzgar' })
+  for (const f of oku<{ kim: string; t?: string; zaman: number }[]>('fisiltilar', []))
+    if (f.kim === 'ben' && f.t && f.t.length >= 12)
+      adaylar.push({ tarih: isoGun(yerel(new Date(f.zaman), ICERIK.sen.saatDilimi)), metin: `“${kisalt(f.t)}” diye fısıldamıştın.`, tik: fisiltiAc })
+  const eski = adaylar.filter((a) => gunFarki(a.tarih, z.bugun) >= 7)
+  if (!eski.length) return null
+  const ayOnce = (t: string) => {
+    const [y, a, g] = t.split('-').map(Number)
+    const [by, ba, bg] = z.bugun.split('-').map(Number)
+    return g === bg ? (by - y) * 12 + (ba - a) : 0
+  }
+  const sec = eski.find((a) => ayOnce(a.tarih) > 0) ?? eski.find((a) => gunFarki(a.tarih, z.bugun) % 7 === 0) ?? eski[z.tanisalGun % eski.length]
+  const gun = gunFarki(sec.tarih, z.bugun)
+  const ay = ayOnce(sec.tarih)
+  const SAYI = ['', 'Bir', 'İki', 'Üç', 'Dört', 'Beş', 'Altı', 'Yedi', 'Sekiz', 'Dokuz', 'On', 'On bir']
+  const baslik =
+    ay >= 12 && ay % 12 === 0
+      ? `${ay === 12 ? 'Bir' : SAYI[ay / 12] ?? ay / 12} yıl önce bugün`
+      : ay > 0
+        ? `${SAYI[ay] ?? ay} ay önce bugün`
+        : gun % 7 === 0
+          ? `Tam ${(SAYI[gun / 7] ?? String(gun / 7)).toLocaleLowerCase('tr')} hafta önce`
+          : `${sayi(gun)} gün önce, ${tarihYazi(sec.tarih)}`
+  return { simge: '📜', baslik, alt: sec.metin, onem: 9.6, git: sec.git, tik: sec.tik }
+}
+
 function satirlar(z: Anlik, not: GununNotu, u: Arayuz): Satir[] {
   const s: Satir[] = []
   const eln = kimim() === 'eln'
+  const hatira = gecmisten(z)
+  if (hatira) s.push(hatira)
 
   // Arda'dan okunmamış not
   for (const g of gelenler().filter((x) => !x.okundu).slice(-2))
@@ -52,6 +98,7 @@ function satirlar(z: Anlik, not: GununNotu, u: Arayuz): Satir[] {
   const a = albumIcerik()
   if (!albumAcik()) s.push({ simge: '🔒', baslik: 'Kilitli sayfalar seni bekliyor', alt: 'Mesajlarımız, fotoğrafların, sesim. Kelimemizi yaz.', onem: 8, git: '#mesajlar' })
   else if (a) {
+    if (bekleyenSebep(a)) s.push({ simge: '💌', baslik: 'Bugünün sebebi seni bekliyor', alt: 'Seni sevmemin bir sebebi daha açıldı.', onem: 8.8, git: '#sebepler' })
     if (a.ses && !oku('sesDinlendi', false)) s.push({ simge: '🎧', baslik: 'Sesimi henüz dinlemedin', alt: 'Mektubun altında. Kulaklığını tak.', onem: 7.5, git: '#mektup' })
     const izlenen = new Set(oku<string[]>('izlenenSohbetler', []))
     const kalan = a.sohbetler.filter((x) => !izlenen.has(x.id)).length

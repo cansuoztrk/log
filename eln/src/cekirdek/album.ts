@@ -45,6 +45,8 @@ export interface Album {
   yildizlar: Yildiz[]
   izler: Iz[]
   kucukler: Kucuk[]
+  /** Seni sevmemin sebepleri: her yeni günde bir kart */
+  sebepler?: string[]
   /** jenerikte yalnızca kilit açıkken görünen satırlar: [görev, isim] */
   jenerik?: [string, string][]
   /** Arda'nın sesli mesajı (mektubun altında çalar) */

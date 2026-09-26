@@ -52,6 +52,8 @@ import { gozundenHTML, gozundenKur } from './bolumler/gozunden'
 import { yildizladiklarinHTML, yildizladiklarinKur } from './bolumler/yildizladiklarin'
 import { izlerHTML, izlerKur } from './bolumler/izler'
 import { tahtaHTML, tahtaKur } from './bolumler/tahta'
+import { sebeplerHTML, sebeplerKur } from './bolumler/sebepler'
+import { kavanozHTML, kavanozKur } from './bolumler/kavanoz'
 import { $, $$, azHareket, gsap, ScrollTrigger } from './bolumler/yardimci'
 import { kapiAc } from './ui/kapi'
 import { ustKur } from './ui/ust'
@@ -83,6 +85,7 @@ $('#icerik').innerHTML = [
   nehirHTML(),
   mesajlarHTML(),
   gunlerHTML(z),
+  sebeplerHTML(),
   zambakHTML(z),
   ilklerHTML(z),
   gozundenHTML(),
@@ -99,6 +102,7 @@ $('#icerik').innerHTML = [
   izlerHTML(),
   sifirHTML(),
   ucusHTML(z),
+  kavanozHTML(z),
   cuzdanHTML(z),
   sarkiHTML(),
   mektupHTML(z),
@@ -159,6 +163,7 @@ acilisKur(kure, ziyaret.gunler.length)
 nehirKur()
 mesajlarKur()
 gunlerKur(z)
+sebeplerKur(z)
 zambakKur(z)
 ilklerKur(z)
 gozundenKur()
@@ -175,6 +180,7 @@ ruzgarKur(z, not, ust.notlarAc)
 izlerKur()
 sifirKur()
 ucusKur()
+kavanozKur(z)
 cuzdanKur(z, ust.cekmece)
 sarkiKur()
 mektupKur()

@@ -264,6 +264,18 @@ export const SIRLAR: Sir[] = [
     mesaj: 'Sonuna kadar kaldın. O sahneyi bir gün gerçekten çekeceğiz; ben zambakları getiririm.',
   },
   {
+    id: 'sebep',
+    ad: 'İlk sebep',
+    ipucu: 'Seni sevmemin sebeplerinden ilk kartı çevir.',
+    mesaj: 'Bir tane okudun. Her gün bir tane daha gelecek; sayıyı sen tut, ben yazmaya devam edeceğim.',
+  },
+  {
+    id: 'kavanoz',
+    ad: 'Sabırsız',
+    ipucu: 'Sarılma kavanozunu beş kez salla.',
+    mesaj: 'Salladın, salladın… Sarılmalar yerinden oynamadı; hepsi bekliyor. Hiçbiri kaybolmayacak, söz.',
+  },
+  {
     id: 'fener',
     ad: 'İlk fener',
     ipucu: 'Bir dilek tut ve feneri gökyüzüne bırak.',
